@@ -1,1 +1,2 @@
-scp index.html grdw.nl@ssh.grdw.nl:/www/~
+#!/bin/sh
+cat deploy_commands.sh | ssh grdw.nl@ssh.grdw.nl
