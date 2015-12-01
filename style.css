@@ -23,6 +23,6 @@ span.bowtie{
     color: red;
 }
 
-strong{
+strong, i{
     display: block;
 }
