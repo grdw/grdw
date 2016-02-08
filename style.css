@@ -26,3 +26,7 @@ span.bowtie{
 strong, i{
     display: block;
 }
+
+img {
+    max-width: 100%;
+}
