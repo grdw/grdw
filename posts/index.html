@@ -1,0 +1,27 @@
+---
+layout: default
+title: 'Scribbles'
+---
+
+<h1>Scribbles</h1>
+
+{% for post in paginator.posts %}
+  <div>
+    <h2>{{ post.title }}</h2>
+    {{ post.excerpt }}
+    <a href="{{ post.url }}">Read more</a>
+  </div>
+{% endfor %}
+
+<hr/>
+<!-- Pagination links -->
+<div class="pg pagination">
+  {% if paginator.previous_page %}
+    <a href="{{ paginator.previous_page_path }}" class="previous">Previous</a>
+  {% endif %}
+  <span class="page_number ">Page: {{ paginator.page }} of {{ paginator.total_pages }}</span>
+  {% if paginator.next_page %}
+    <a href="{{ paginator.next_page_path }}" class="next">Next</a>
+  {% endif %}
+</div>
+<hr/>
