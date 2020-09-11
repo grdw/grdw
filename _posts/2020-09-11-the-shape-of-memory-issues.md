@@ -55,7 +55,7 @@ Like I mentioned earlier on in the article: two memory issues. Let's start from 
 
 **The problem:**
 
-To scroll back to the three memory shapes, the shape of this chart looks rather familiar, namely that this is classic memory bloat. Memory is being allocated and because of it's size, Ruby thinks that this particular piece of memory must be important, so it persists it for quite a while. After an hour it increases again, rinse and repeat.
+To scroll back to the three memory shapes, the shape of this chart looks rather familiar, namely that this is classic memory bloat. Memory is being allocated and because of its size, Ruby thinks that this particular piece of memory must be important, so it persists it for quite a while. After an hour it increases again, rinse and repeat.
 
 **The solution:**
 
@@ -88,7 +88,7 @@ Time   | RSS Size (pmap) | Total heap size (rbtrace)
  8:57  | 1.89GB          | +/- 38.12MB
  13:25 | 1.95GB          | +/- 38,12MB
 
-Simultaneously I was analyzing the rbtrace results and found them to be rather strange. When checking the memory usage of the actual puma server and comparing it with the actual size that Ruby is aware of, it turned out that Ruby forgets quite a big chunk of it. In fact I would say that Ruby has a case of Alzheimers disease.
+Simultaneously I was analysing the rbtrace results and found them to be rather strange. When checking the memory usage of the actual puma server and comparing it with the actual size that Ruby is aware of, it turned out that Ruby forgets quite a big chunk of it. In fact I would say that Ruby has a case of Alzheimers disease.
 
 All of this left me rather confused and a bit frustrated. I was walking around trying to make sense of it, while another coworker was overhearing me sighing rather loudly when I was going to the toilet. He asked what was going on and I explained this particular problem. He said that he once read an article about this memory discrepancy in Ruby and he would link it to me. I briefly [skimmed the article](https://www.joyfulbikeshedding.com/blog/2019-03-14-what-causes-ruby-memory-bloat.html) and there was a striking image in there:
 
@@ -98,7 +98,7 @@ See! Ruby has Alzheimer's disease.
 
 After figuring this out, I knew I couldn't really rely on the results of rbtrace, so instead I started to pry around in the actual memory itself to see if I could learn anything from it. To do this, you need to have some Linux knowledge and especially how to access memory or rather how to turn working memory into actual files on disk. There are a couple of helpful commands to search for namely: [pmap](https://linux.die.net/man/1/pmap) and [gdb](https://www.gnu.org/software/gdb/). After some more analysis I found that there were large blobs of memory retained for large periods of time. Upon checking what was stored inside these blobs, I found that they were mostly response bodies from requests to the puma server which were a little bit to beefy.
 
-This fidning changed the conclusion of the problem to memory bloat. Retaining memory over a long period of time, while not cleaning it up is classic memory bloat. However the chart now doesn't line up with the actual memory usage. I also continued with the leaking C-library theory, because that also had some merit. I deployed the 'Ruby with jemalloc'-solution to production to actually prove this theory, while having the benefit of real life production traffic. To my surprise it solved our memory issue:
+This finding changed the conclusion of the problem to memory bloat. Retaining memory over a long period of time, while not cleaning it up is classic memory bloat. However the chart now doesn't line up with the actual memory usage. I also continued with the leaking C-library theory, because that also had some merit. I deployed the 'Ruby with jemalloc'-solution to production to actually prove this theory, while having the benefit of real life production traffic. To my surprise it solved our memory issue:
 
 ![bloat](/img/1/12.png)
 
