@@ -96,18 +96,14 @@ All of this left me rather confused and a bit frustrated. I was walking around t
 
 See! Ruby has Alzheimer's disease.
 
-After figuring this out, I knew I couldn't really rely on the results of rbtrace, so instead I started to pry around in the actual memory itself to see if I could learn anything from it. To do this, you need to have some Linux knowledge and especially how to access memory or rather how to turn working memory into actual files on disk. There are a couple of helpful commands to search for namely: pmap and gdb. After some more analysis I found that there were large blobs of memory retained for large periods of time. When checking what was inside them, I found that they were mostly response bodies from requests to the puma server which were a little bit to beefy.
+After figuring this out, I knew I couldn't really rely on the results of rbtrace, so instead I started to pry around in the actual memory itself to see if I could learn anything from it. To do this, you need to have some Linux knowledge and especially how to access memory or rather how to turn working memory into actual files on disk. There are a couple of helpful commands to search for namely: [pmap](https://linux.die.net/man/1/pmap) and [gdb](https://www.gnu.org/software/gdb/). After some more analysis I found that there were large blobs of memory retained for large periods of time. Upon checking what was stored inside these blobs, I found that they were mostly response bodies from requests to the puma server which were a little bit to beefy.
 
-This changed the conclusion to: memory bloat. Retaining memory over a long period of time, while not cleaning it up is classic memory bloat. However the chart doesn't look like it's memory bloat.
-
-I continued on with the C-library theory, because that might also have some merit. I deployed the Ruby with jemalloc solution to production to test if no C-library was leaking memory while having the benefit of real life production traffic. To my surprise it solved our memory issue:
+This fidning changed the conclusion of the problem to memory bloat. Retaining memory over a long period of time, while not cleaning it up is classic memory bloat. However the chart now doesn't line up with the actual memory usage. I also continued with the leaking C-library theory, because that also had some merit. I deployed the 'Ruby with jemalloc'-solution to production to actually prove this theory, while having the benefit of real life production traffic. To my surprise it solved our memory issue:
 
 ![bloat](/img/1/12.png)
 
-**Why?!**
+**But why?!**
 
-I was happy that it was fixed, but I didn't understand why this solution worked. However with my limited knowledge I can say this: a side-effect of compiling Ruby with jemalloc, is that jemalloc starts to combat memory fragmentation. The puma workers were experiencing this particular memory issue. On top of this, my other conclusion of it being memory bloat was also correct.
-
-So what was happening here: if you combine both memory bloat and memory fragmentation into a single graph, it will start to look linear, giving you the false idea that it's a memory leak when looked at it from a short period of time.
+I was happy that it was fixed, but at the time I didn't understood why this solution even remotely worked. However, today, with my limited knowledge I can say this: a side-effect of compiling Ruby with jemalloc, is that jemalloc starts to combat memory fragmentation. The puma workers were experiencing this particular memory issue. On top of this, my other conclusion of it being memory bloat was also correct. Imagine if you were to combine both memory bloat and memory fragmentation into a single shape, it will start to look linear. This in turn will give you the false idea that it's a memory leak, when looked at it from a short period of time.
 
 All in all I would like to end with this: memory issues are unique cases, there's usually no standard solution to them; there's no standard default StackOverflow answer available. When you're dealing with a leak or fragmentation, measure over a longer period of time and be patient (I need to tattoo this one on my arm).
