@@ -41,3 +41,7 @@ th, td {
     border: 1px solid #555555;
     padding: 5px 10px;
 }
+
+div.footer, footer {
+    font-size: 0.7em;
+}
