@@ -3,26 +3,28 @@ layout: default
 title: 'Scribbles'
 ---
 
-<pre>
- <span class='accent'>    (
-      )
-     ()</span>
-    |--|
-    |  |
-  .-|  |-.
- :  |  |  :
- :  '--'  :
-  '-....-'
-</pre>
-<h1>Scribbles</h1>
+<div class="pg post">
+  <pre>
+   <span class='accent'>    (
+        )
+       ()</span>
+      |--|
+      |  |
+    .-|  |-.
+   :  |  |  :
+   :  '--'  :
+    '-....-'
+  </pre>
+  <h1>Scribbles</h1>
 
-{% for post in paginator.posts %}
-  <div>
-    <h2>{{ post.title }}</h2>
-    {{ post.excerpt }}
-    <a href="{{ post.url }}">Read more</a>
-  </div>
-{% endfor %}
+  {% for post in paginator.posts %}
+    <div>
+      <h2>{{ post.title }}</h2>
+      {{ post.excerpt }}
+      <a href="{{ post.url }}">Read more</a>
+    </div>
+  {% endfor %}
+<div>
 
 <hr/>
 <!-- Pagination links -->
