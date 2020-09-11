@@ -3,7 +3,7 @@ layout: post
 title: The shape of memory issues
 ---
 
-I would like to remind you that this story will not be about memory issues in brains or the inner workings of Alzheimers, dementia or similar diseases. In fact, it's a story about how I resolved two memory issues in a Ruby backend once. Hopefully it might provide some useful tooling and details in how to debug these kind of issues and what worked for me and what didn't work. I would also like to remind people that before all this, I didn't knew anything about memory, how it worked and especially how it worked in any Ruby environment. I'll also try to refrain from too much technical jargon because, while trying to find articles to help my research, articles who were cramped with them didn't help me one bit.
+This story will not be about memory issues in brains or the inner workings of Alzheimers, dementia or similar diseases. In fact, it's a story about how I resolved two memory issues in a Ruby backend once. Hopefully it might provide some useful tooling and details in how to debug these kind of issues. I would also like to start out with saying that before all this, I wasn't as knowledgeable about memory and especially how it worked in a Ruby environment.
 
 Before starting to describe the actual memory issues and some of the tooling I used, or the setup of this backend itself, I'd like to teach you what various shapes of memory issues there are when plotting memory consumption over time. There are three distinct shapes you should be frightened of and I'll list them from least worrying to most worrying:
 
@@ -88,7 +88,7 @@ Time   | RSS Size (pmap) | Total heap size (rbtrace)
  8:57  | 1.89GB          | +/- 38.12MB
  13:25 | 1.95GB          | +/- 38,12MB
 
-Simultaneously I was analysing the rbtrace results and found them to be rather strange. When checking the memory usage of the actual puma server and comparing it with the actual size that Ruby is aware of, it turned out that Ruby forgets quite a big chunk of it. In fact I would say that Ruby has a case of Alzheimers disease.
+Simultaneously I was analysing the rbtrace results and found them to be rather strange. When checking the memory usage of the actual puma server and comparing it with the actual size that Ruby is aware of, it turned out that Ruby forgets quite a big chunk of it. Ruby, in a way, suffers from Alzheimers disease.
 
 All of this left me rather confused and a bit frustrated. I was walking around trying to make sense of it, while another coworker was overhearing me sighing rather loudly when I was going to the toilet. He asked what was going on and I explained this particular problem. He said that he once read an article about this memory discrepancy in Ruby and he would link it to me. I briefly [skimmed the article](https://www.joyfulbikeshedding.com/blog/2019-03-14-what-causes-ruby-memory-bloat.html) and there was a striking image in there:
 
@@ -106,4 +106,4 @@ This finding changed the conclusion of the problem to memory bloat. Retaining me
 
 I was happy that it was fixed, but at the time I didn't understood why this solution even remotely worked. However, today, with my limited knowledge I can say this: a side-effect of compiling Ruby with jemalloc, is that jemalloc starts to combat memory fragmentation. The puma workers were experiencing this particular memory issue. On top of this, my other conclusion of it being memory bloat was also correct. Imagine if you were to combine both memory bloat and memory fragmentation into a single shape, it will start to look linear. This in turn will give you the false idea that it's a memory leak, when looked at it from a short period of time.
 
-All in all I would like to end with this: memory issues are unique cases, there's usually no standard solution to them; there's no standard default StackOverflow answer available. When you're dealing with a leak or fragmentation, measure over a longer period of time and be patient (I need to tattoo this one on my arm).
+All in all I would like to end with this: memory issues are unique cases, there's usually no standard solution to them; there's no standard default StackOverflow answer available. When you're dealing with a leak or fragmentation, measure memory usage over a longer period of time and be patient (I need to tattoo this one on my arm).
