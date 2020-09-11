@@ -1,14 +1,14 @@
 html{
     height: 100%;
     width: 100%;
-    background-color: #F7F7F7;
-    font-size: 1.3em;
+    background-color: #FFEADB;
+    font-size: 1.5em;
     line-height: 1.5;
 }
 
 body{
-    max-width: 500px;
-    font-family: monospace;
+    max-width: 700px;
+    font-family: Georgia, Halvetica, monospace;
 }
 
 p{
@@ -29,4 +29,15 @@ strong, i{
 
 img {
     max-width: 100%;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+  border: 2px solid #555555;
+}
+
+th, td {
+  border: 1px solid #555555;
+  padding: 5px 10px;
 }
