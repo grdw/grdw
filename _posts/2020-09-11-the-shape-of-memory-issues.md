@@ -49,7 +49,7 @@ and when filtering out the background workers:
 
 ![bloat](/img/1/7.png)
 
-Like I mentioned earlier on in the article: two memory issues. Let's start from least frightening to more frightening.
+Like I mentioned earlier on in the article: two memory issues. Let's go over them from least frightening to most frightening.
 
 ## Bloaty background workers
 
