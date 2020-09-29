@@ -3,9 +3,9 @@ layout: post
 title: The shape of memory issues
 ---
 
-This story will not be about memory issues in brains or the inner workings of Alzheimers, dementia or similar diseases. In fact, it's a story about how I resolved two memory issues in a Ruby backend once. Hopefully it might provide some useful tooling and details in how to debug these kind of issues. I would also like to start out with saying that before all this, I wasn't as knowledgeable about memory and especially how it worked in a Ruby environment.
+Computers have memories and like any type of memory, there can be some defects. This article will focus on some of these defects in Ruby environments and tries to give some handlebars for people experiencing any of these defects. I would like to start out with saying that before all this, I wasn't as knowledgeable about memory and especially how it worked in a Ruby environment.
 
-Before starting to describe the actual memory issues and some of the tooling I used, or the setup of this backend itself, I'd like to teach you what various shapes of memory issues there are when plotting memory consumption over time. There are three distinct shapes you should be frightened of and I'll list them from least worrying to most worrying:
+Before starting to describe my long tale of debugging and hair pulling I'd like to take a moment to describe the title of the article. There are three distinct shapes you should be frightened of and I'll list them from least worrying to most worrying:
 
 **Memory bloat:**
 
@@ -31,13 +31,15 @@ In theory these are the three core ‘memory issue shapes' I've learned about. H
 
 ## The backend and the patch
 
-To tell a little bit about this Ruby backend: it's written in Sinatra, it runs on a bunch of puma servers and has a bunch of background workers for longer running jobs. It's nothing too out of the ordinary, except that the puma servers ran out of memory on September 10th, 2018. It caused a partial outage, but nothing too bad. The next day an engineer was assigned to the problem and naturally he had a choice to make: investigate the problem for a couple of weeks and fix it or patch it. At the time it was rather busy, so we decided to patch it. We introduced [a gem](https://github.com/schneems/puma_worker_killer) that would restart our puma servers every hour to free up memory.
+*And now for the actual hair-pulling:*
+
+There once was a Ruby backend; it's written in Sinatra, it runs on a bunch of puma servers and has a bunch of background workers for longer running jobs. It's nothing too out of the ordinary, except that the puma servers ran out of memory on September 10th, 2018. It caused a partial outage, but nothing too bad. The next day an engineer was assigned to the problem and naturally he had a choice to make: investigate the problem for a couple of weeks and fix it, or patch it. At the time it was rather busy, so we decided to patch it. We introduced [a gem](https://github.com/schneems/puma_worker_killer) that would restart our puma servers every hour to free up memory.
 
 ![bloat](/img/1/5.png)
 
-We were however aware that we still needed to do some actual research in how this could've happened. On December the 14th of the same year a small investigation occurred in which we concluded that it wasn't leaking memory. The gem was working fine, so the incentive to further investigate this issue was not a thing and we closed the issue.
+We were however aware that we still needed to do some actual research in how this could've happened. On December the 14th of the same year a small investigation occurred in which we concluded that our little Ruby backend wasn't leaking memory. The gem was working fine, so the incentive to further investigate this issue was not a focus point any more and we closed the issue.
 
-Christmas 2018 happened, which was pretty good. New years eve came around and eventually it became 2019. Valentine's day and the Easter bunny came around as well and when the weather in the Netherlands finally started to look fine, a new version of puma was being released on June 25th 2019. Because of this newer version – and you guessed it – our restarting patch became incompatible so we had to remove it. After a deploy we figured that we still hadn't fixed the actual memory issue, so we reverted back to the older version including our patch. This is what that looked like from a memory point of view:
+Christmas 2018 happened, which was a pretty good Christmas if you asked me. New years eve came around and eventually it became 2019. Valentine's day and the Easter bunny came around and when, on June 25th 2019, the weather in the Netherlands finally started to look fine, a new version of puma was being released. Because of this newer version – and you guessed it – our restarting patch became incompatible, so we had to remove it. After a deploy we figured that we still hadn't fixed the actual memory issue, so we reverted back to the older version including our patch. This is what that looked like from a memory point of view:
 
 ![bloat](/img/1/6.png)
 
@@ -49,17 +51,17 @@ and when filtering out the background workers:
 
 ![bloat](/img/1/7.png)
 
-Like I mentioned earlier on in the article: two memory issues. Let's go over them from least frightening to most frightening.
+Not only did we have one memory issue, we had in fact two memory issues. Let's go over them from least frightening to most frightening.
 
 ## Bloaty background workers
 
 **The problem:**
 
-To scroll back to the three memory shapes, the shape of this chart looks rather familiar, namely that this is classic memory bloat. Memory is being allocated and because of its size, Ruby thinks that this particular piece of memory must be important, so it persists it for quite a while. After an hour it increases again, rinse and repeat.
+To scroll back to the three memory shapes, the shape of this chart looks rather familiar, namely that this is classic memory bloat. Memory is being allocated and because of its size, Ruby thinks that this particular piece of memory must be important, so it persists it for quite a while. After an hour it increases again; rinse and repeat.
 
 **The solution:**
 
-It turned out that there was a cronjob who's sole purpose was to read logs, compress them, store them elsewhere for safekeeping and delete them. Our backend grew and grew, so we naturally acquired more logs. The logs were persisted in a single array and then compressed, wherein lied the issue. This array became incredibly large and this naturally had to be done in batches. After fixing this, the problem went away our memory looked good and healthy again for the background workers:
+It turned out that there was a cronjob who's sole purpose was to read logs, compress them, store them elsewhere for safekeeping and delete them. Our backend grew and grew, so we naturally acquired more logs. The logs were persisted in a single array and then compressed, wherein lied the issue. This array became incredibly large and this compressing naturally had to be done in batches. After fixing this, the problem went away and our memory looked good and healthy again for the background workers:
 
 ![bloat](/img/1/9.png)
 
@@ -73,11 +75,9 @@ By simply looking at this graph, it looks like a leak, however back in December 
 
 I changed two things to find it: I installed a tool called [rbtrace](https://github.com/tmm1/rbtrace) on our production environment and naturally I had to drop our puma server restarting patch. I deployed these changes and started to measure away. Because memory leaks take a while to reveal their ugly face, I had to wait a bunch of hours between taking measurements and I had to remind myself to revert everything back to normal when the day was over, in case it would run out of memory at night.
 
-This is what the graph looked like at the time:
-
 ![bloat](/img/1/13.png)
 
-Now this graph depicts an entirely different memory problem. At the time when making this screenshot I was still convinced the puma server was leaking memory, knew nothing about memory fragmentation and naturally I couldn't find anything which even remotely looked like a leak.
+Looking at the memory issue I can now clearly see that this is not a leak. However at the time when I made this screenshot, I was still convinced the puma server was leaking memory, knew nothing about memory fragmentation and naturally I couldn't find anything which even remotely smelled like a leak.
 
 The logical next theory in finding this ninja leak would be that an underlying C-library was leaking in one of the Ruby dependencies. The way to measure this according to some articles I read, was to compile Ruby with [jemalloc](http://jemalloc.net/).
 
@@ -96,14 +96,14 @@ All of this left me rather confused and a bit frustrated. I was walking around t
 
 See! Ruby has Alzheimer's disease.
 
-After figuring this out, I knew I couldn't really rely on the results of rbtrace, so instead I started to pry around in the actual memory itself to see if I could learn anything from it. To do this, you need to have some Linux knowledge and especially how to access memory or rather how to turn working memory into actual files on disk. There are a couple of helpful commands to search for namely: [pmap](https://linux.die.net/man/1/pmap) and [gdb](https://www.gnu.org/software/gdb/). After some more analysis I found that there were large blobs of memory retained for large periods of time. Upon checking what was stored inside these blobs, I found that they were mostly response bodies from requests to the puma server which were a little bit to beefy.
+After learning about Ruby's forgetfulness, I knew I couldn't really rely on the results of rbtrace. Instead I started to pry around in the actual memory itself, to see if I could learn anything from it. To do this, you need to have some Linux knowledge and especially how to access memory; or rather how to turn working memory into actual files on disk. There are a couple of helpful commands to search for namely: [pmap](https://linux.die.net/man/1/pmap) and [gdb](https://www.gnu.org/software/gdb/). After acquiring that data and doing a bit of analysis, I found that there were large blobs of memory retained for large periods of time. Upon checking what was stored inside these larger blobs, I found that they were mostly response bodies from requests to the puma server which were a little bit to beefy.This finding changed the conclusion of the problem to memory bloat. Retaining memory over a long period of time, while not cleaning it up is classic memory bloat. However the chart doesn't line up with this conclusion. 
 
-This finding changed the conclusion of the problem to memory bloat. Retaining memory over a long period of time, while not cleaning it up is classic memory bloat. However the chart now doesn't line up with the actual memory usage. I also continued with the leaking C-library theory, because that also had some merit. I deployed the 'Ruby with jemalloc'-solution to production to actually prove this theory, while having the benefit of real life production traffic. To my surprise it solved our memory issue:
+I also continued with the leaking C-library theory because, to my mind, that also had some merit. I deployed the 'Ruby with jemalloc'-solution to production to actually prove this theory, while having the benefit of real life production traffic. To my surprise it solved our memory issue:
 
 ![bloat](/img/1/12.png)
 
 **But why?!**
 
-I was happy that it was fixed, but at the time I didn't understood why this solution even remotely worked. However, today, with my limited knowledge I can say this: a side-effect of compiling Ruby with jemalloc, is that jemalloc starts to combat memory fragmentation. The puma workers were experiencing this particular memory issue. On top of this, my other conclusion of it being memory bloat was also correct. Imagine if you were to combine both memory bloat and memory fragmentation into a single shape, it will start to look linear. This in turn will give you the false idea that it's a memory leak, when looked at it from a short period of time.
+I was happy that it was fixed, but at the time I didn't understood why this solution even remotely worked. However, today, with my limited knowledge I can say this: a side-effect of compiling Ruby with jemalloc, is that jemalloc starts to combat memory fragmentation. The puma workers were experiencing this particular memory issue. On top of this, my other conclusion of it being memory bloat was also correct. Imagine if you were to combine both memory bloat and memory fragmentation into a single shape, it will start to look linear. This in turn will give you the false idea that it's a memory leak, when looking at it for a short period of time. When you're dealing with a leak or fragmentation, measure memory usage over a longer period of time and be patient (I need to tattoo this one on my arm).
 
-All in all I would like to end with this: memory issues are unique cases, there's usually no standard solution to them; there's no standard default StackOverflow answer available. When you're dealing with a leak or fragmentation, measure memory usage over a longer period of time and be patient (I need to tattoo this one on my arm).
+Memory issues are unique cases and there's usually no standard solution to fix them. Each case is unique and I hope this article might help another (Ruby) engineer in need.
