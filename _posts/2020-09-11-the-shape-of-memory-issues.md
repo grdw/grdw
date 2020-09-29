@@ -3,7 +3,7 @@ layout: post
 title: The shape of memory issues
 ---
 
-Computers have memories and like any type of memory, there can be some defects. This article will focus on some of these defects in Ruby environments and tries to give some handlebars for people experiencing any of these defects. I would like to start out with saying that before all this, I wasn't as knowledgeable about memory and especially how it worked in a Ruby environment.
+Computers have memories and like any type of memory, there can be some defects. This article will focus on some of these defects in Ruby environments and tries to give some handlebars for people experiencing any of these defects. I would like to start out with saying that before all this, I wasn't as knowledgeable about memory and especially how it worked in a Ruby environment. I would also like to say that this article will try to refrain from too much technical jargon, because while trying to plow my way to a solution I found the more tech-heavy memory articles unhelpful to say the least.
 
 Before starting to describe my long tale of debugging and hair pulling I'd like to take a moment to describe the title of the article. There are three distinct shapes you should be frightened of and I'll list them from least worrying to most worrying:
 
@@ -37,9 +37,9 @@ There once was a Ruby backend; it's written in Sinatra, it runs on a bunch of pu
 
 ![bloat](/img/1/5.png)
 
-We were however aware that we still needed to do some actual research in how this could've happened. On December the 14th of the same year a small investigation occurred in which we concluded that our little Ruby backend wasn't leaking memory. The gem was working fine, so the incentive to further investigate this issue was not a focus point any more and we closed the issue.
+We were however aware that we still needed to do some actual research in how this could've happened. On December the 14th, of the same year, a small investigation occurred in which we concluded that our little Ruby backend wasn't leaking memory. The gem was working fine, so the incentive to further investigate this issue was not a focus point any more and we closed the issue.
 
-Christmas 2018 happened, which was a pretty good Christmas if you asked me. New years eve came around and eventually it became 2019. Valentine's day and the Easter bunny came around and when, on June 25th 2019, the weather in the Netherlands finally started to look fine, a new version of puma was being released. Because of this newer version – and you guessed it – our restarting patch became incompatible, so we had to remove it. After a deploy we figured that we still hadn't fixed the actual memory issue, so we reverted back to the older version including our patch. This is what that looked like from a memory point of view:
+Christmas 2018 happened, which was a pretty good Christmas if you asked me. New years eve came around and eventually it became 2019. Valentine's day and the Easter bunny came around and when, on June 25th 2019, the weather in the Netherlands finally started to look fine, a new version of puma was being released. Because of this newer version – and you guessed it – our restarting patch became incompatible, so we had to remove it. After a deploy we figured that we still hadn't fixed the original memory issue, so we reverted back to the older version including our patch. The interesting bit here, was to figure out what the memory looked during the deploy with the newer version of puma:
 
 ![bloat](/img/1/6.png)
 
@@ -47,7 +47,7 @@ When filtering out the puma servers:
 
 ![bloat](/img/1/8.png)
 
-and when filtering out the background workers:
+... and when filtering out the background workers:
 
 ![bloat](/img/1/7.png)
 
@@ -55,29 +55,23 @@ Not only did we have one memory issue, we had in fact two memory issues. Let's g
 
 ## Bloaty background workers
 
-**The problem:**
+To scroll back up to the three memory shapes; the shape of the background memory usage chart, as shown above, looks rather familiar. Memory is being allocated and because of its size, Ruby thinks that this particular piece of memory must be important, so it persists it for quite a while. After an hour it increases again; rinse and repeat. It's classic memory bloat.
 
-To scroll back to the three memory shapes, the shape of this chart looks rather familiar, namely that this is classic memory bloat. Memory is being allocated and because of its size, Ruby thinks that this particular piece of memory must be important, so it persists it for quite a while. After an hour it increases again; rinse and repeat.
-
-**The solution:**
-
-It turned out that there was a cronjob who's sole purpose was to read logs, compress them, store them elsewhere for safekeeping and delete them. Our backend grew and grew, so we naturally acquired more logs. The logs were persisted in a single array and then compressed, wherein lied the issue. This array became incredibly large and this compressing naturally had to be done in batches. After fixing this, the problem went away and our memory looked good and healthy again for the background workers:
+It turned out that there was a cronjob whose sole purpose was to read logs, compress them, store them elsewhere for safekeeping and delete them. Our backend grew and grew, so we naturally acquired more logs. The logs were persisted in a single array and then compressed, wherein lied the issue. This array became incredibly large and this compressing naturally had to be done in batches. After fixing it, the problem went away and our memory looked good and healthy again for the background workers:
 
 ![bloat](/img/1/9.png)
 
 ## One down, one to go!
 
-Now onward to the frightening memory issue: the one in the puma servers; the one that started it all.
-
 ![bloat](/img/1/4.png)
 
-By simply looking at this graph, it looks like a leak, however back in December 2018 we concluded it wasn't leak. Considering all possibilities, my first hypothesis was that the investigation back in December was incorrect and it must be a leak.
+By simply looking at this graph, it looks like a leak. The shape is lineair, what more information do I need? However back in December 2018 we concluded it wasn't a leak. Considering all possibilities, my first hypothesis was that the investigation back in December was incorrect and the shape of the graph indicated that it must be a leak.
 
-I changed two things to find it: I installed a tool called [rbtrace](https://github.com/tmm1/rbtrace) on our production environment and naturally I had to drop our puma server restarting patch. I deployed these changes and started to measure away. Because memory leaks take a while to reveal their ugly face, I had to wait a bunch of hours between taking measurements and I had to remind myself to revert everything back to normal when the day was over, in case it would run out of memory at night.
+I had to find this leak and changed two things in our backend to find it: I installed a tool called [rbtrace](https://github.com/tmm1/rbtrace) on our production environment and naturally I had to drop our puma server restarting patch. I deployed these changes and started to measure away. Because memory leaks take a while to reveal their ugly face, I had to wait a bunch of hours between taking measurements. I also had to remind myself to revert everything back to normal when the day was over, in case it would run out of memory at night.
 
 ![bloat](/img/1/13.png)
 
-Looking at the memory issue I can now clearly see that this is not a leak. However at the time when I made this screenshot, I was still convinced the puma server was leaking memory, knew nothing about memory fragmentation and naturally I couldn't find anything which even remotely smelled like a leak.
+After keeping our backend running for a long time without the restart patch, it produced this image. Looking at it today, I can now clearly see that this is not a leak. However at the time when I made this screenshot, I was still convinced the puma server was leaking memory, knew nothing about memory fragmentation and naturally I couldn't find anything which even remotely smelled like a leak.
 
 The logical next theory in finding this ninja leak would be that an underlying C-library was leaking in one of the Ruby dependencies. The way to measure this according to some articles I read, was to compile Ruby with [jemalloc](http://jemalloc.net/).
 
