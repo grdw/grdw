@@ -3,9 +3,13 @@ layout: post
 title: The shape of memory issues
 ---
 
-Computers have memories and like any type of memory, there can be some defects. This article will focus on some of these defects in Ruby environments and tries to give some handlebars for people experiencing any of these defects. I would like to start out with saying that before all this, I wasn't as knowledgeable about memory and especially how it worked in a Ruby environment. I would also like to say that this article will try to refrain from too much technical jargon, because while trying to plow my way to a solution I found the more tech-heavy memory articles unhelpful to say the least.
+Memory issues can be hard to deal with. Forgetting where you keys are or a memory leak in software, both can be annoying in various degrees. This article will focus on the latter and specifically in Ruby environments. I do feel this article can be applied to any garabage collected programming language, so if you're reading this with a Java background I hope this will be equally useful.
 
-Before starting to describe my long tale of debugging and hair pulling I'd like to take a moment to describe the title of the article. There are three distinct shapes you should be frightened of and I'll list them from least worrying to most worrying:
+Hopefully this article will give some handlebars and things to look out for while debugging. This article will try to refrain from too much technical jargon, because while trying to make my way to a solution, I found the more tech-heavy memory articles unhelpful to say the least. It starts out by describing the title of the article, followed by a case study and ending in a conclusion.
+
+## The shape of memory issues
+
+There are three distinct shapes you should be frightened of and I'll list them from least worrying to most worrying:
 
 **Memory bloat:**
 
@@ -29,7 +33,7 @@ In theory these are the three core ‘memory issue shapes' I've learned about. H
 
 ![bloat](/img/1/4.png)
 
-## The backend and the patch
+## A backend and a patch; a case study
 
 *And now for the actual hair-pulling:*
 
@@ -53,7 +57,7 @@ When filtering out the puma servers:
 
 Not only did we have one memory issue, we had in fact two memory issues. Let's go over them from least frightening to most frightening.
 
-## Bloaty background workers
+### Bloaty background workers
 
 To scroll back up to the three memory shapes; the shape of the background memory usage chart, as shown above, looks rather familiar. Memory is being allocated and because of its size, Ruby thinks that this particular piece of memory must be important, so it persists it for quite a while. After an hour it increases again; rinse and repeat. It's classic memory bloat.
 
@@ -61,7 +65,7 @@ It turned out that there was a cronjob whose sole purpose was to read logs, comp
 
 ![bloat](/img/1/9.png)
 
-## One down, one to go!
+### One down, one to go!
 
 ![bloat](/img/1/4.png)
 
@@ -90,14 +94,14 @@ All of this left me rather confused and a bit frustrated. I was walking around t
 
 See! Ruby has Alzheimer's disease.
 
-After learning about Ruby's forgetfulness, I knew I couldn't really rely on the results of rbtrace. Instead I started to pry around in the actual memory itself, to see if I could learn anything from it. To do this, you need to have some Linux knowledge and especially how to access memory; or rather how to turn working memory into actual files on disk. There are a couple of helpful commands to search for namely: [pmap](https://linux.die.net/man/1/pmap) and [gdb](https://www.gnu.org/software/gdb/). After acquiring that data and doing a bit of analysis, I found that there were large blobs of memory retained for large periods of time. Upon checking what was stored inside these larger blobs, I found that they were mostly response bodies from requests to the puma server which were a little bit to beefy.This finding changed the conclusion of the problem to memory bloat. Retaining memory over a long period of time, while not cleaning it up is classic memory bloat. However the chart doesn't line up with this conclusion. 
+After learning about Ruby's forgetfulness, I knew I couldn't really rely on the results of rbtrace. Instead I started to pry around in the actual memory itself, to see if I could learn anything from it. To do this, you need to have some Linux knowledge and especially how to access memory; or rather how to turn working memory into actual files on disk. There are a couple of helpful commands to search for namely: [pmap](https://linux.die.net/man/1/pmap) and [gdb](https://www.gnu.org/software/gdb/). After acquiring that data and doing a bit of analysis, I found that there were large blobs of memory retained for large periods of time. Upon checking what was stored inside these larger blobs, I found that they were mostly response bodies from requests to the puma server which were a little bit to beefy. This finding changed the conclusion of the problem to memory bloat. Retaining memory over a long period of time, while not cleaning it up is classic memory bloat. However the chart doesn't line up with this conclusion.
 
 I also continued with the leaking C-library theory because, to my mind, that also had some merit. I deployed the 'Ruby with jemalloc'-solution to production to actually prove this theory, while having the benefit of real life production traffic. To my surprise it solved our memory issue:
 
 ![bloat](/img/1/12.png)
 
-**But why?!**
+## In conclusion
 
-I was happy that it was fixed, but at the time I didn't understood why this solution even remotely worked. However, today, with my limited knowledge I can say this: a side-effect of compiling Ruby with jemalloc, is that jemalloc starts to combat memory fragmentation. The puma workers were experiencing this particular memory issue. On top of this, my other conclusion of it being memory bloat was also correct. Imagine if you were to combine both memory bloat and memory fragmentation into a single shape, it will start to look linear. This in turn will give you the false idea that it's a memory leak, when looking at it for a short period of time. When you're dealing with a leak or fragmentation, measure memory usage over a longer period of time and be patient (I need to tattoo this one on my arm).
+I was happy that it was fixed, but at the time I didn't understand why this solution even remotely worked. However, today, with my knowledge I can say this: a side-effect of compiling Ruby with jemalloc, is that jemalloc starts to combat memory fragmentation. The puma workers were experiencing this particular memory issue. On top of this, my other conclusion of it being memory bloat was also correct. Imagine if you were to combine both memory bloat and memory fragmentation into a single shape, it will start to look linear. This in turn will give you the false idea that it's a memory leak, when looking at it for a short period of time. When you're dealing with a leak or fragmentation, measure memory usage over a longer period of time and be patient (I need to tattoo this one on my arm).
 
 Memory issues are unique cases and there's usually no standard solution to fix them. Each case is unique and I hope this article might help another (Ruby) engineer in need.
