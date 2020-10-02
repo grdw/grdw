@@ -29,7 +29,7 @@ The shape of memory fragmentation is logarithmically. This means the total memor
 
 The shape of a memory leak is linear. The total memory use will go up and up in a linear fashion and eventually it will run out. Much like fragmentation, these issues are slow moving.
 
-In theory these are the three core ‘memory issue shapes' I've learned about. However this doesn't take away that you can actually combine either one of these. So with this knowledge, what does this look like to you:
+In theory these are the three core 'memory issue shapes' relevant to the upcoming case study. It is also possible to combine either one of these shapes to form an entire new shape. With this knowledge, what does this look like to you:
 
 ![bloat](/img/1/4.png)
 
@@ -100,7 +100,7 @@ I also continued with the leaking C-library theory because, to my mind, that als
 
 ![bloat](/img/1/12.png)
 
-I was happy that it was fixed, but at the time I didn't understand why this solution even remotely worked. However, what I can safely say is this: a side-effect of compiling Ruby with jemalloc, is that jemalloc starts to combat memory fragmentation. The puma workers were experiencing this particular memory issue. On top of this, my other conclusion of it being memory bloat was also correct. Imagine if you were to combine both memory bloat and memory fragmentation into a single shape, it will start to look linear. This in turn will give you the false idea that it's a memory leak, when looking at it for a short period of time. 
+I was happy that it was fixed, but at the time I didn't understand why this solution even remotely worked. However, what I can safely say is this: a side-effect of compiling Ruby with jemalloc, is that jemalloc starts to combat memory fragmentation. The puma workers were experiencing this particular memory issue. On top of this, my other conclusion of it being memory bloat was also correct. Imagine if you were to combine both memory bloat and memory fragmentation into a single shape, it will start to look linear. This in turn will give you the false idea that it's a memory leak, when looking at it for a short period of time.
 
 ## In conclusion
 
