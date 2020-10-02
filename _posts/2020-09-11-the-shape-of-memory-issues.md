@@ -3,9 +3,9 @@ layout: post
 title: The shape of memory issues
 ---
 
-Memory issues can be hard to deal with. Forgetting where you keys are or a memory leak in software, both can be annoying in various degrees. This article will focus on the latter and specifically in Ruby environments. I do feel this article can be applied to any garabage collected programming language, so if you're reading this with a Java background I hope this will be equally useful.
+Memory issues can be hard to deal with. Forgetting where you keys are or a memory leak in software, both can be annoying in various degrees. This article will focus mostly on the latter and specifically for Ruby environments. The generic knowledge can be applied to any garabage collected programming language, so if you're reading this with a Java background I hope this will be equally as useful.
 
-Hopefully this article will give some handlebars and things to look out for while debugging. This article will try to refrain from too much technical jargon, because while trying to make my way to a solution, I found the more tech-heavy memory articles unhelpful to say the least. It starts out by describing the title of the article, followed by a case study and ending in a conclusion.
+Throughout the case study I will give some handlebars and things to look out for while debugging, however I will try to refrain from too much technical jargon, because while trying to make my way to a solution, I found the more tech-heavy memory articles unhelpful to say the least. It starts out by explaining the title of the article, followed by a case study and ending in a conclusion.
 
 ## The shape of memory issues
 
@@ -100,8 +100,9 @@ I also continued with the leaking C-library theory because, to my mind, that als
 
 ![bloat](/img/1/12.png)
 
+I was happy that it was fixed, but at the time I didn't understand why this solution even remotely worked. However, what I can safely say is this: a side-effect of compiling Ruby with jemalloc, is that jemalloc starts to combat memory fragmentation. The puma workers were experiencing this particular memory issue. On top of this, my other conclusion of it being memory bloat was also correct. Imagine if you were to combine both memory bloat and memory fragmentation into a single shape, it will start to look linear. This in turn will give you the false idea that it's a memory leak, when looking at it for a short period of time. 
+
 ## In conclusion
 
-I was happy that it was fixed, but at the time I didn't understand why this solution even remotely worked. However, today, with my knowledge I can say this: a side-effect of compiling Ruby with jemalloc, is that jemalloc starts to combat memory fragmentation. The puma workers were experiencing this particular memory issue. On top of this, my other conclusion of it being memory bloat was also correct. Imagine if you were to combine both memory bloat and memory fragmentation into a single shape, it will start to look linear. This in turn will give you the false idea that it's a memory leak, when looking at it for a short period of time. When you're dealing with a leak or fragmentation, measure memory usage over a longer period of time and be patient (I need to tattoo this one on my arm).
+Memory issues within software are always unique cases and there's usually no standard solution to fix them; StackOverflow or the likes will not have the answer. Having said that there are generic shapes that emerge, while measuring memory usage, that can point you to a potential solution and the right tooling. To repeat the three distinct shapes: big increases in relative short periods of time (memory bloat), logarithmical increase (memory fragmentation) and lineair increase (memory leak). When you're dealing with a leak or fragmentation, measure memory usage over a longer period of time. Use the right tool to measure memory usage and try to use out of the box memory tooling that is available within the provided infrastructure, for example: if you're using a Linux environment, use pmap. To finish with some wise words: remain patient and don't rush towards a solution in any of these cases. Measure, measure, measure and .. I just remembered where I left my keys.
 
-Memory issues are unique cases and there's usually no standard solution to fix them. Each case is unique and I hope this article might help another (Ruby) engineer in need.
