@@ -3,7 +3,7 @@ layout: post
 title: The shape of memory issues
 ---
 
-Memory issues can be hard to deal with. Forgetting where you keys are or a memory leak in software, both can be annoying in various degrees. This article will focus mostly on the latter and specifically for Ruby environments. The generic knowledge can be applied to any garabage collected programming language, so if you're reading this with a Java background I hope this will be equally as useful.
+Memory issues can be hard to deal with. Forgetting where your keys are or a memory leak in software, both can be annoying in various degrees. This article will focus mostly on the latter and specifically for Ruby environments. The generic knowledge can be applied to any garabage collected programming language, so if you're reading this with a Java background I hope this will be equally as useful.
 
 Throughout the case study I will give some handlebars and things to look out for while debugging, however I will try to refrain from too much technical jargon, because while trying to make my way to a solution, I found the more tech-heavy memory articles unhelpful to say the least. It starts out by explaining the title of the article, followed by a case study and ending in a conclusion.
 
@@ -21,7 +21,7 @@ The memory jumps up significantly. Some memory will be freed along the way, but 
 
 ![bloat](/img/1/2.png)
 
-The shape of memory fragmentation is logarithmically. This means the total memory used will grow and grow and will try to reach a point it can never reach. Usually these issues are slow moving.
+The shape of memory fragmentation is logarithmic. This means the total memory used will grow and grow and will try to reach a point it can never reach. Usually these issues are slow moving.
 
 **Memory leak:**
 
@@ -104,5 +104,5 @@ I was happy that it was fixed, but at the time I didn't understand why this solu
 
 ## In conclusion
 
-Memory issues within software are always unique cases and there's usually no standard solution to fix them; StackOverflow or the likes will not have the answer. Having said that there are generic shapes that emerge, while measuring memory usage, that can point you to a potential solution and the right tooling. To repeat the three distinct shapes: big increases in relative short periods of time (memory bloat), logarithmical increase (memory fragmentation) and lineair increase (memory leak). When you're dealing with a leak or fragmentation, measure memory usage over a longer period of time. Use the right tool to measure memory usage and try to use out of the box memory tooling that is available within the provided infrastructure, for example: if you're using a Linux environment, use pmap. To finish with some wise words: remain patient and don't rush towards a solution in any of these cases. Measure, measure, measure and .. I just remembered where I left my keys.
+Memory issues within software are always unique cases and there's usually no standard solution to fix them; StackOverflow or the likes will not have the answer. Having said that, there are generic shapes that emerge, while measuring memory usage, that can point you to a potential solution and the right tooling. To repeat the three distinct shapes: big increases in relative short periods of time (memory bloat), logarithmic growth (memory fragmentation) and linear increase (memory leak). When you're dealing with a leak or fragmentation, measure memory usage over a longer period of time. Use the right tool to measure memory usage and try to use out of the box memory tooling that is available within the provided infrastructure. For example: if you're using a Linux environment, use pmap. To finish with some wise words: remain patient and don't rush towards a solution in any of these cases. Measure, measure, measure and .. I just remembered where I left my keys.
 
