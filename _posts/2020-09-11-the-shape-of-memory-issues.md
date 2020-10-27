@@ -3,7 +3,7 @@ layout: post
 title: The shape of memory issues
 ---
 
-Memory issues can be hard to deal with. Forgetting where your keys are or a memory leak in software, both can be annoying in various degrees. This article will focus mostly on the latter and specifically for Ruby environments. The generic knowledge can be applied to any garabage collected programming language, so if you're reading this with a Java background I hope this will be equally as useful.
+Memory issues are hard to deal with. Forgetting where your keys are or a memory leak in software, both can be annoying in various degrees. This article will focus mostly on the latter and specifically for Ruby environments. The generic knowledge can be applied to any garbage collected programming language, so if you're reading this with a Java background I hope this is as useful.
 
 Throughout the case study I will give some handlebars and things to look out for while debugging, however I will try to refrain from too much technical jargon, because while trying to make my way to a solution, I found the more tech-heavy memory articles unhelpful to say the least. It starts out by explaining the title of the article, followed by a case study and ending in a conclusion.
 
@@ -15,19 +15,19 @@ There are three distinct shapes you should be frightened of and I'll list them f
 
 ![bloat](/img/1/1.png)
 
-The memory jumps up significantly. Some memory will be freed along the way, but overall the total memory will grow in large quantities in small amounts of time. The total accumulated memory keeps persisting and eventually it will cause the memory to overflow.
+The memory jumps up significantly. Some memory is freed along the way, but overall the total memory will grow in large quantities in small amounts of time. The total accumulated memory keeps persisting and eventually it will cause the memory to overflow.
 
 **Memory fragmentation:**
 
 ![bloat](/img/1/2.png)
 
-The shape of memory fragmentation is logarithmic. This means the total memory used will grow and grow and will try to reach a point it can never reach. Usually these issues are slow moving.
+The shape of memory fragmentation is logarithmic. This means the total memory used will grow and grow and will try to reach a point it can never reach. Usually these issues are slow-moving.
 
 **Memory leak:**
 
 ![bloat](/img/1/3.png)
 
-The shape of a memory leak is linear. The total memory use will go up and up in a linear fashion and eventually it will run out. Much like fragmentation, these issues are slow moving.
+The shape of a memory leak is linear. The total memory use will go up and up in a linear fashion and eventually it will run out. Much like fragmentation, these issues are slow-moving.
 
 In theory these are the three core 'memory issue shapes' relevant to the upcoming case study. It is also possible to combine either one of these shapes to form an entire new shape. With this knowledge, what does this look like to you:
 
@@ -41,9 +41,9 @@ There once was a Ruby backend; it's written in Sinatra, it runs on a bunch of pu
 
 ![bloat](/img/1/5.png)
 
-We were however aware that we still needed to do some actual research in how this could've happened. On December the 14th, of the same year, a small investigation occurred in which we concluded that our little Ruby backend wasn't leaking memory. The gem was working fine, so the incentive to further investigate this issue was not a focus point any more and we closed the issue.
+We were however aware that we still needed to do some actual research in how this could have happened. On December the 14th, of the same year, a small investigation occurred in which we concluded that our little Ruby backend wasn't leaking memory. The gem was working fine, so the incentive to further investigate this issue was not a focus point any more and we closed the issue.
 
-Christmas 2018 happened, which was a pretty good Christmas if you asked me. New years eve came around and eventually it became 2019. Valentine's day and the Easter bunny came around and when, on June 25th 2019, the weather in the Netherlands finally started to look fine, a new version of puma was being released. Because of this newer version – and you guessed it – our restarting patch became incompatible, so we had to remove it. After a deploy we figured that we still hadn't fixed the original memory issue, so we reverted back to the older version including our patch. The interesting bit here, was to figure out what the memory looked during the deploy with the newer version of puma:
+Christmas 2018 happened, which was a pretty good Christmas if you asked me. New years eve came around and eventually it became 2019. Valentine's day and the Easter bunny came around and when, on June 25th 2019, the weather in the Netherlands finally started to look fine, a new version of puma was released. Because of this newer version – and you guessed it – our restarting patch became incompatible, so we had to remove it. After a deploy we figured that we still hadn't fixed the original memory issue, so we reverted back to the older version including our patch. The interesting bit here, was to figure out what the memory looked during the deploy with the newer version of puma:
 
 ![bloat](/img/1/6.png)
 
@@ -69,7 +69,7 @@ It turned out that there was a cronjob whose sole purpose was to read logs, comp
 
 ![bloat](/img/1/4.png)
 
-By simply looking at this graph, it looks like a leak. The shape is lineair, what more information do I need? However back in December 2018 we concluded it wasn't a leak. Considering all possibilities, my first hypothesis was that the investigation back in December was incorrect and the shape of the graph indicated that it must be a leak.
+By simply looking at this graph, it looks like a leak. The shape is linear, what more information do I need? However back in December 2018 we concluded it wasn't a leak. Considering all possibilities, my first hypothesis was that the investigation back in December was incorrect and the shape of the graph indicated that it must be a leak.
 
 I had to find this leak and changed two things in our backend to find it: I installed a tool called [rbtrace](https://github.com/tmm1/rbtrace) on our production environment and naturally I had to drop our puma server restarting patch. I deployed these changes and started to measure away. Because memory leaks take a while to reveal their ugly face, I had to wait a bunch of hours between taking measurements. I also had to remind myself to revert everything back to normal when the day was over, in case it would run out of memory at night.
 
@@ -86,7 +86,7 @@ Time   | RSS Size (pmap) | Total heap size (rbtrace)
  8:57  | 1.89GB          | +/- 38.12MB
  13:25 | 1.95GB          | +/- 38,12MB
 
-Simultaneously I was analysing the rbtrace results and found them to be rather strange. When checking the memory usage of the actual puma server and comparing it with the actual size that Ruby is aware of, it turned out that Ruby forgets quite a big chunk of it. Ruby, in a way, suffers from Alzheimers disease.
+Simultaneously I was analysing the rbtrace results and found them to be rather strange. When checking the memory usage of the actual puma server and comparing it with the actual size that Ruby is aware of, it turned out that Ruby forgets quite a big chunk of it. Ruby, in a way, suffers from Alzheimer's disease.
 
 All of this left me rather confused and a bit frustrated. I was walking around trying to make sense of it, while another coworker was overhearing me sighing rather loudly when I was going to the toilet. He asked what was going on and I explained this particular problem. He said that he once read an article about this memory discrepancy in Ruby and he would link it to me. I briefly [skimmed the article](https://www.joyfulbikeshedding.com/blog/2019-03-14-what-causes-ruby-memory-bloat.html) and there was a striking image in there:
 
