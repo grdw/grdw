@@ -45,3 +45,9 @@ th, td {
 div.footer, footer {
     font-size: 0.7em;
 }
+
+@media only screen and (max-width: 575px) {
+  html {
+    font-size: 1.2em;
+  }
+}
