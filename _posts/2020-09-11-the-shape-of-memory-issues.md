@@ -41,9 +41,9 @@ There once was a Ruby backend; it's written in Sinatra, it runs on a bunch of pu
 
 ![bloat](/img/1/5.png)
 
-We were however aware that we still needed to do some actual research in how this could have happened. On December the 14th, of the same year, a small investigation occurred in which we concluded that our little Ruby backend wasn't leaking memory. The gem was working fine, so the incentive to further investigate this issue was not a focus point any more and we closed the issue.
+We were however aware that we still needed to do some actual research in how this could have happened. On December the 14th, of the same year, a small investigation occurred in which we concluded that our little Ruby backend wasn't leaking memory. The gem was working fine, so the incentive to further investigate this issue was not a focus point any more, and we closed the issue.
 
-Christmas 2018 happened, which was a pretty good Christmas if you asked me. New years eve came around and eventually it became 2019. Valentine's day and the Easter bunny came around and when, on June 25th 2019, the weather in the Netherlands finally started to look fine, a new version of puma was released. Because of this newer version – and you guessed it – our restarting patch became incompatible, so we had to remove it. After a deploy we figured that we still hadn't fixed the original memory issue, so we reverted back to the older version including our patch. The interesting bit here, was to figure out what the memory looked during the deploy with the newer version of puma:
+Christmas 2018 happened, which was a pretty good Christmas if you asked me. New Years Eve came around and eventually it became 2019. Valentine's Day and the Easter bunny came around and when, on June 25th 2019, the weather in the Netherlands finally started to look fine, a new version of puma was released. Because of this newer version – and you guessed it – our restarting patch became incompatible, so we had to remove it. After a deploy we figured that we still hadn't fixed the original memory issue, so we reverted to the older version including our patch. The interesting bit here, was to figure out what the memory looked during the deploy with the newer version of puma:
 
 ![bloat](/img/1/6.png)
 
@@ -69,13 +69,13 @@ It turned out that there was a cronjob whose sole purpose was to read logs, comp
 
 ![bloat](/img/1/4.png)
 
-By simply looking at this graph, it looks like a leak. The shape is linear, what more information do I need? However back in December 2018 we concluded it wasn't a leak. Considering all possibilities, my first hypothesis was that the investigation back in December was incorrect and the shape of the graph indicated that it must be a leak.
+By simply looking at this graph, it looks like a leak. The shape is linear, what more information do I need? However, back in December 2018 we concluded it wasn't a leak. Considering all possibilities, my first hypothesis was that the investigation back in December was incorrect and the shape of the graph indicated that it must be a leak.
 
 I had to find this leak and changed two things in our backend to find it: I installed a tool called [rbtrace](https://github.com/tmm1/rbtrace) on our production environment and naturally I had to drop our puma server restarting patch. I deployed these changes and started to measure away. Because memory leaks take a while to reveal their ugly face, I had to wait a bunch of hours between taking measurements. I also had to remind myself to revert everything back to normal when the day was over, in case it would run out of memory at night.
 
 ![bloat](/img/1/13.png)
 
-After keeping our backend running for a long time without the restart patch, it produced this image. Looking at it today, I can now clearly see that this is not a leak. However at the time when I made this screenshot, I was still convinced the puma server was leaking memory, knew nothing about memory fragmentation and naturally I couldn't find anything which even remotely smelled like a leak.
+After keeping our backend running for a long time without the restart patch, it produced this image. Looking at it today, I can now clearly see that this is not a leak. However, at the time when I made this screenshot, I was still convinced the puma server was leaking memory, knew nothing about memory fragmentation and naturally I couldn't find anything which even remotely smelled like a leak.
 
 The logical next theory in finding this ninja leak would be that an underlying C-library was leaking in one of the Ruby dependencies. The way to measure this according to some articles I read, was to compile Ruby with [jemalloc](http://jemalloc.net/).
 
@@ -88,13 +88,13 @@ Time   | RSS Size (pmap) | Total heap size (rbtrace)
 
 Simultaneously I was analysing the rbtrace results and found them to be rather strange. When checking the memory usage of the actual puma server and comparing it with the actual size that Ruby is aware of, it turned out that Ruby forgets quite a big chunk of it. Ruby, in a way, suffers from Alzheimer's disease.
 
-All of this left me rather confused and a bit frustrated. I was walking around trying to make sense of it, while another coworker was overhearing me sighing rather loudly when I was going to the toilet. He asked what was going on and I explained this particular problem. He said that he once read an article about this memory discrepancy in Ruby and he would link it to me. I briefly [skimmed the article](https://www.joyfulbikeshedding.com/blog/2019-03-14-what-causes-ruby-memory-bloat.html) and there was a striking image in there:
+All of this left me rather confused and a bit frustrated. I was walking around trying to make sense of it, while another coworker was overhearing me sighing rather loudly when I was going to the toilet. He asked what was going on and I explained this particular problem. He said that he once read an article about this memory discrepancy in Ruby, and he would link it to me. I briefly [skimmed the article](https://www.joyfulbikeshedding.com/blog/2019-03-14-what-causes-ruby-memory-bloat.html) and there was a striking image in there:
 
 ![bloat](/img/1/11.png)
 
 See! Ruby has Alzheimer's disease.
 
-After learning about Ruby's forgetfulness, I knew I couldn't really rely on the results of rbtrace. Instead I started to pry around in the actual memory itself, to see if I could learn anything from it. To do this, you need to have some Linux knowledge and especially how to access memory; or rather how to turn working memory into actual files on disk. There are a couple of helpful commands to search for namely: [pmap](https://linux.die.net/man/1/pmap) and [gdb](https://www.gnu.org/software/gdb/). After acquiring that data and doing a bit of analysis, I found that there were large blobs of memory retained for large periods of time. Upon checking what was stored inside these larger blobs, I found that they were mostly response bodies from requests to the puma server which were a little bit to beefy. This finding changed the conclusion of the problem to memory bloat. Retaining memory over a long period of time, while not cleaning it up is classic memory bloat. However the chart doesn't line up with this conclusion.
+After learning about Ruby's forgetfulness, I knew I couldn't really rely on the results of rbtrace. Instead, I started to pry around in the actual memory itself, to see if I could learn anything from it. To do this, you need to have some Linux knowledge and especially how to access memory; or rather how to turn working memory into actual files on disk. There are a couple of helpful commands to search for namely: [pmap](https://linux.die.net/man/1/pmap) and [gdb](https://www.gnu.org/software/gdb/). After acquiring that data and doing a bit of analysis, I found that there were large blobs of memory retained for large periods of time. Upon checking what was stored inside these larger blobs, I found that they were mostly response bodies from requests to the puma server which were a little to beefy. This finding changed the conclusion of the problem to memory bloat. Retaining memory over a long period of time, while not cleaning it up is classic memory bloat. However, the chart doesn't line up with this conclusion.
 
 I also continued with the leaking C-library theory because, to my mind, that also had some merit. I deployed the 'Ruby with jemalloc'-solution to production to actually prove this theory, while having the benefit of real life production traffic. To my surprise it solved our memory issue:
 
