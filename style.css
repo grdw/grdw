@@ -1,53 +1,57 @@
 html{
-    height: 100%;
-    width: 100%;
-    background-color: #FFEADB;
-    font-size: 1.5em;
-    line-height: 1.5;
+  height: 100%;
+  width: 100%;
+  background-color: #FFEADB;
+  font-size: 1.5em;
+  line-height: 1.5;
 }
 
 body{
-    max-width: 700px;
-    font-family: Georgia, Halvetica, serif;
+  font-family: Georgia, Halvetica, serif;
+}
+
+.pg {
+  max-width: 800px;
+  margin: 0 auto;
 }
 
 p{
-    text-align: justify;
+  text-align: justify;
 }
 
 pre{
-    color: #777;
+  color: #777;
 }
 
 span.accent{
-    color: #E1AD01;
+  color: #E1AD01;
 }
 
 strong, i{
-    display: block;
+  display: block;
 }
 
 img {
-    max-width: 100%;
+  max-width: 100%;
 }
 
 table {
-    border-collapse: collapse;
-    border-spacing: 0;
-    border: 2px solid #555555;
+  border-collapse: collapse;
+  border-spacing: 0;
+  border: 2px solid #555555;
 }
 
 th, td {
-    border: 1px solid #555555;
-    padding: 5px 10px;
+  border: 1px solid #555555;
+  padding: 5px 10px;
 }
 
 div.footer, footer {
-    font-size: 0.7em;
+  font-size: 0.7em;
 }
 
 @media only screen and (max-width: 575px) {
   html {
-    font-size: 1.2em;
+  font-size: 1.2em;
   }
 }
