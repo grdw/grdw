@@ -6,7 +6,7 @@ title: Boats, lighthouses and beaches
 Other pictures I took in Hoorn and surrounding areas.
 
 ![boat](/img/3/1.jpg)
-I lied, this photo is in color but I like it because it was an accident. I used the wrong lighting and it ended up with this ominous blue hue.
+This photo is in color but I like it because it was an accident. I used the wrong lighting and it ended up with this ominous blue hue.
 
 ![boat2](/img/3/2.jpg)
 ![sticks](/img/3/3.jpg)
