@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Pictures of Hoorn
+title: Nature in black and white
 ---
 
 Nature pictures I took in Hoorn and surrounding areas.
