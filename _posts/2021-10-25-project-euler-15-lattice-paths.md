@@ -219,7 +219,7 @@ Right now, I feel like I have to actually read up on Lattice paths to get an ide
 n! / r!(n - r)!
 ```
 
-For a Lattice path, according to the Wikipedia article you calculate it by taking a coordinate (x, y) over (x). Because we're looking to move from the top-left corner to the bottom-right corner, our y coordinate equals to x * 2. So implementing this it will look like:
+For a Lattice path, according to the Wikipedia article you calculate it by taking a coordinate (x, y) over (x). Because we're looking to move from the top-left corner to the bottom-right corner, our y coordinate equals to x * 2. Implementing this, the code is going to look like this:
 
 ```rust
 fn fact(mut n: u64) -> u64 {
