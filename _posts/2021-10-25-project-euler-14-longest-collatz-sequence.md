@@ -59,7 +59,7 @@ fn test_chain_length() {
     assert_eq!(chain_length(13), 10)
 }
 ```
-It's not the most elegant looking code in the world, but the only other solutions I can come up with is using either recursion or using an infinite loop which all come with their own complexities. As far as I see, this is the simplest approach.
+It's not the most elegant looking code in the world, but the only other solutions I can come up with is using either recursion or using an infinite loop, which all come with their own complexities. As far as I see, this is the simplest approach.
 
 **The answer**
  Let's actually check all the numbers from 2 up to 1.000.000. The reason I'm saying 2 is because that's the first positive number that will make the while-loop even trigger in the first place.
@@ -128,7 +128,7 @@ fn test_chain_length() {
 ```
 
 **Improvements on the answer**
-The first question I always have when writing any first version of code is: can this be done more elegantly? Because I use TDD I can actually refactor some of this code and make it look a lot nicer. The only area of improvement I see is the `problem_14` method. My first idea here is to make use of some iterator methods that Rust gives us, which made me come up with this:
+The first question I always have when writing any first version of code is: can this be done more elegantly? Because I use TDD, I can actually refactor some of this code and make it look a lot nicer. The only area of improvement I see is the `problem_14` method. My first idea here is to make use of some iterator methods that Rust gives us, which made me come up with this:
 
 ```rust
 fn problem_14() -> u64 {
@@ -139,4 +139,4 @@ fn problem_14() -> u64 {
 }
 ```
 
-It's a little bit more elegant, where elegant here just means shorter, but I'm still not a big fan of those `.1` and `.0` accessors that are required from mapping to a tuple. However considering that the question is _which number produces the highest chain_ and not how high is _the highest chain_ I need to persist the number. As far as I see here, there is no way around the tuple.
+It's a bit more elegant, where elegant here just means shorter, but I'm still not a big fan of those `.1` and `.0` accessors that are required from mapping to a tuple. However, considering that the question is _which number produces the highest chain_ and not how high is _the highest chain_ I need to persist the number. As far as I see here, there is no way around the tuple.
