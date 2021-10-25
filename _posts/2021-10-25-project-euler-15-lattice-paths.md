@@ -133,23 +133,24 @@ Size:  | Routes | Amount of grid lines
 20     | ?      | ?
 ```
 
-So if I divide the amount of grid lines by the size of the grid this is what I get:
+If I divide the amount of grid lines, by the size of the grid, this is what I get:
 
 ```
 4 / 1 = 4   2*2
-12 / 2 = 6  2*2*2
-24 / 3 = 8  2*2*2*2
+12 / 2 = 6  2*3
+24 / 3 = 8  2*4
 ```
 
-This is a pretty clear pattern namely `((size + 1) * 2) * size` gives me the amount of gridlines to a grid. Written down a little differently: `2 * size + 2 * size^2`.  So for 20 that's:
+There's a pretty clear pattern here, namely `((size + 1) * 2) * size` gives me the amount of gridlines to a grid. Simplified, this becomes: `2 * size + 2 * size^2`. If we give an example for the number 20, that's:
 
 ```
-2 * 20 + 2 * 20^2 =
-40 + 2 * 400 =
-40 + 800 = 840
+2 * 20 + 2 * 20^2
+40 + 2 * 400
+40 + 800
+840
 ```
 
-Now another pattern that emerges here is that the previous amount of gridlines + (`2*2*2*2`) happens to result in 20. So is it really that easy? Let's find out.
+Now, another pattern that emerges here is that the previous amount of gridlines + (`2*4`) happens to result in 20. Is it really that easy? Let's find out.
 
 **Rabbit hole number #1**
 I start with a while loop that counts back from the given grid size `n` to a minimum of 2. Using the TDD approach my code looks like this:
@@ -193,10 +194,10 @@ fn test_problem_15() {
 }
 ```
 
-The answer is there, it's 870 possible routes for a 20x20 matrix. Now to validate if that's correct I'll check the answer and it seems that this is incorrect. I'm off by quite a lot actually. The actual correct answer seems to be 137846528820.
+After executing the code, the answer is right there. There are 870 possible routes for a 20x20 matrix. To validate if that's correct I'll check the answer with the sheet and it seems that this is super incorrect. I'm off by quite a lot actually. The actual correct answer seems to be 137846528820.
 
 **Rabbit hole number #2**
-Judging by the number I'm assuming factorials come into play one way or the other but I can't really see it yet. I can at least update my test:
+Judging by the number I'm assuming factorials come into play one way or the other but I can't really see it yet. Knowing the answer to the problem, I can at least update my test:
 
 ```rust
 fn problem_15(mut n: u64) -> u64 {
@@ -213,13 +214,13 @@ fn test_problem_15() {
 }
 ```
 
-Right now, I feel like I have to actually read up on Lattice paths to get an idea of what they are [1]. The Wikipedia article pretty much just gives the answer to us: use the binomial coefficient. I wasn't that far off with my factorials. I'm not much of a mathematician, so I have to look up what the binomial coefficient is exactly. For the math noobs among us, me included, the method looks like this:
+To get a proper understand of the problem, I feel like I have to actually read up on Lattice paths to get an idea of what they are [1]. Reading through the Wikipedia article, it pretty much just gives us the answer to our problem: use the binomial coefficient. Turns out I wasn't that far off with my factorials. I'm not much of a mathematician, so I have to look up what the binomial coefficient is exactly. For the math noobs among us, me included, the method looks like this:
 
 ```
 n! / r!(n - r)!
 ```
 
-For a Lattice path, according to the Wikipedia article you calculate it by taking a coordinate (x, y) over (x). Because we're looking to move from the top-left corner to the bottom-right corner, our y coordinate equals to x * 2. Implementing this, the code is going to look like this:
+For a Lattice path, according to the Wikipedia article, you calculate it by taking a coordinate (x + y) over (x). To be clear about it: `n = (x + y)` and `r = x`. Because we're on a square grid and we'll always be moving from the top-left corner to the bottom-right corner, our y coordinate equals to x * 2. The code now looks like this:
 
 ```rust
 fn fact(mut n: u64) -> u64 {
