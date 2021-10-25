@@ -7,7 +7,7 @@ euler: 14
 {% include euler.html %}
 
 **Introduction**
-The puzzle is called "Longest Collatz sequence" which starts off by stating that it's a sequence for positive integers. To build up such a sequence we take any number. If it's an even number, we divide the number by 2. If the number is an uneven number we multiply by 3 and add 1. The result of that we loop back into the sequence until we are left with the final number, which is always 1. It also gives me an example to create such a sequence for the number 13.
+The puzzle is called "Longest Collatz sequence" which starts off by stating that it's a sequence of positive integers. To build up such a sequence, we take any number. If it's an even number, we divide the number by 2. If the number is an uneven number we multiply by 3 and add 1. The result of that we loop back into the sequence until we are left with the final number, which is always 1. It also gives me an example to create such a sequence for the number 13.
 
 13 is an odd number so following the rules it will give us this sequence:
 
@@ -25,7 +25,7 @@ etc.
 This produces a chain of 10 numbers. The idea is to write a program that tests which number, up to 1.000.000, produces the longest chain.
 
 **How to determine the length of a chain?**
-The first step in this problem is to determine the length of a chain. I'm using a very TDD approach so the first thing I write is this:
+The first step in this problem is to determine the length of a chain. I'm using a TDD approach, so the first thing I write is this:
 
 ```rust
 fn chain_length(n: i32) -> i32 {
