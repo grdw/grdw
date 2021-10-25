@@ -220,7 +220,7 @@ To get a proper understand of the problem, I feel like I have to actually read u
 n! / r!(n - r)!
 ```
 
-For a Lattice path, according to the Wikipedia article, you calculate it by taking a coordinate (x + y) over (x). To be clear about it: `n = (x + y)` and `r = x`. Because we're on a square grid and we'll always be moving from the top-left corner to the bottom-right corner, our `n` equals to `x * 2`. The code now looks like this.
+For a Lattice path, according to the Wikipedia article, you calculate it by taking a coordinate (x + y) over (x). To be clear about it: `n = (x + y)` and `r = x`. Because we're on a square grid and we'll always be moving from the top-left corner to the bottom-right corner, our `n` equals to `x * 2`. The code now looks like this:
 
 ```rust
 fn fact(mut n: u64) -> u64 {
