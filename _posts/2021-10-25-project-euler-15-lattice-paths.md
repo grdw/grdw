@@ -263,7 +263,7 @@ fn problem_15(k: u64) -> u64 {
 }
 ```
 
-So with my minor math skills I can see that "(something * 2) - something" is the same as "one of something" so:
+With my minor math skills I can see that "(something * 2) - something" is the same as "one of something" so:
 
 
 ```rust
@@ -272,10 +272,10 @@ fn problem_15(k: u64) -> u64 {
 }
 ```
 
-Now I'm a bit stuck because I don't know how to simplify factorials. After some searching I found a link on how to simplify factorials [2] however it is not quite what I'm looking for. I need something a bit simpler, so according to the dummies article [3] I can do the following:
+After applying this I'm a bit stuck because I don't know how to simplify factorials. After some searching I found a link on how to simplify factorials [2] however it is not quite what I'm looking for. I need something a bit simpler, so according to the dummies article [3] I can do the following:
 
 ```
-Let's write problem_15 down like this:
+Let's write the function problem_15 down like this:
 
 (n * 2)!
 ---------
@@ -295,18 +295,17 @@ That becomes:
 
 Writing that out it becomes:
 
-
 6 * 5 * 4 * 3 * 2 * 1
 ---------------------
 3 * 2 * 1 * 3 * 2 * 1
 
-So simplified:
+Simplified:
 
 6 * 5 * 4
 ---------
 3 * 2 * 1
 
-So I can drop one n! if I only calculate the factorial of 6
+I can drop one n! if I only calculate the factorial of 6
 up till three numbers.
 ```
 
