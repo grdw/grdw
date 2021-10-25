@@ -367,6 +367,58 @@ fn test_problem_15() {
 **Conclusion**
 I really started off the wrong foot, and I should've just started by reading the Wikipedia article about Lattice paths. That would've probably saved me a lot of time on actually trying to figure this out in my head. I did learn some new things though, and I'm glad that rust actually does have a 128-bit integer which will probably become useful in future Euler exercises or any other coding challenges.
 
+---
+
+**Small improvement on my answer**
+
+For a grid where size equals 3, the way to calculate the number of routes is done like this:
+
+```
+6 * 5 * 4
+---------
+3 * 2 * 1
+```
+
+I just noticed that it's the same as this:
+
+
+```
+5 * 4
+----- * 2
+2 * 1
+```
+
+All I noticed is that the first fracture will always result in 2 no matter which number.
+
+This way I can improve my answer a tiny bit saving a single loop cycle:
+
+```rust
+fn problem_15(mut k: u128) -> u128 {
+    let mut n = (k * 2) - 1;
+    let mut o = 1;
+    let mut p = 1;
+
+    while k > 0 {
+        o *= n;
+        p *= k;
+        n -= 1;
+        k -= 1
+    }
+
+    (o / p) * 2
+}
+
+
+#[test]
+fn test_problem_15() {
+    assert_eq!(problem_15(2), 6);
+    assert_eq!(problem_15(3), 20);
+    assert_eq!(problem_15(20), 137846528820)
+}
+```
+
+It still won't fit on a 64-bit integer, but it's a tiny bit faster.
+
 **Sources**
 \[1\] [https://en.wikipedia.org/wiki/Lattice_path](https://en.wikipedia.orgi/wiki/Lattice_path)
 
