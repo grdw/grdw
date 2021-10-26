@@ -214,7 +214,7 @@ fn test_problem_15() {
 }
 ```
 
-To get a proper understand of the problem, I feel like I have to actually read up on Lattice paths to get an idea of what they are [1]. Reading through the Wikipedia article, it pretty much just gives us the answer to our problem: use the binomial coefficient. Turns out I wasn't that far off with my factorials. I'm not much of a mathematician, so I have to look up what the binomial coefficient is exactly. For the math noobs among us, me included, the method looks like this:
+To get a proper understanding of the problem, I feel like I have to actually read up on Lattice paths to get an idea of what they are [1]. Reading through the Wikipedia article, it pretty much just gives us the answer to our problem: use the binomial coefficient. Turns out I wasn't that far off with my factorials. I'm not much of a mathematician, so I have to look up what the binomial coefficient is exactly. For the math noobs among us, me included, the method looks like this:
 
 ```
 n! / r!(n - r)!
