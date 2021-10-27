@@ -662,7 +662,7 @@ impl VecEx<u8> for Vec<u8> {
 With this implementation in place I can do things like:
 
 ```rust
-let vector = int_to_vec(15);
+let mut vector = int_to_vec(15);
 vector.multiply(int_to_vec(2)) // => [0, 3]
 vector.sum_vec(int_to_vec(2)) // => [2, 3]
 ```
