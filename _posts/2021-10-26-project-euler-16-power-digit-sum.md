@@ -606,6 +606,69 @@ fn test_problem_16() {
 
 It's a little bit longer than the Ruby method.
 
+---
+
+**Improvement of the answer**
+I made some improvements to the original answer, namely in the `sum_arrays` method and `multiply` method. It turns out I can simply do an inline update on the first array, supplied as an argument to those methods, in both cases. I also decided to update the naming of the variables a little bit and moving them into a `Trait`.
+
+```rust
+pub trait VecEx<U8> {
+    fn sum_vec(&mut self, total: Vec<u8>);
+    fn multiply(&mut self, total: Vec<u8>);
+}
+
+impl VecEx<u8> for Vec<u8> {
+    fn sum_vec(&mut self, total: Vec<u8>) {
+        let mut prev_div = 0;
+
+        if self.len() < total.len() {
+            self.resize(total.len(), 0);
+        }
+
+        for (i, x) in self.iter_mut().enumerate() {
+            let subt = *x + total.get(i).unwrap_or(&0);
+            let (div, modulo) = (subt / 10, subt % 10);
+
+            *x = modulo + prev_div;
+            prev_div = div;
+        }
+
+        if prev_div > 0 {
+            self.push(prev_div);
+        }
+    }
+
+    fn multiply(&mut self, m: Vec<u8>) {
+        let mut totals = vec![];
+
+        for (i, x) in self.iter().enumerate() {
+            for (j, y) in m.iter().enumerate() {
+                let mut total = vec![0; i + j];
+                let mut mul_vec = int_to_vec((x * y) as u128);
+
+                total.append(&mut mul_vec);
+                totals.push(total);
+            }
+        }
+
+        self.clear();
+        for t in totals {
+            self.sum_vec(t)
+        }
+    }
+}
+```
+
+With this implementation in place I can do things like:
+
+```rust
+let vector = int_to_vec(15);
+vector.multiply(int_to_vec(2)) // => [0, 3]
+vector.sum_vec(int_to_vec(2)) // => [2, 3]
+```
+
+This is not only nicer, but because of the borrowing and inline updating of `vector` this saves quite a lot of memory to get to the final answer.
+
 **Sources**
 
 \[1\] [https://stackoverflow.com/a/38168890/1694362](https://stackoverflow.com/a/38168890/1694362)
