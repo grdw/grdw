@@ -324,7 +324,7 @@ fn sum_arrays(a: Vec<u8>, b: Vec<u8>) -> Vec<u8> {
 }
 ```
 
-I know what you are thinking: "yikes, this method is almost 25% larger then the previous", and you'd be right. Let's make it even worse:
+I know what you are thinking: "yikes, this method is almost 25% larger than the previous", and you'd be right. Let's make it even worse:
 
 ```rust
 fn sum_arrays(a: Vec<u8>, b: Vec<u8>) -> Vec<u8> {
@@ -604,7 +604,7 @@ fn test_problem_16() {
 }
 ```
 
-It's a little bit longer then the Ruby method.
+It's a little bit longer than the Ruby method.
 
 **Sources**
 
