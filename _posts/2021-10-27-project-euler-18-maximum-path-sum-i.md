@@ -1,0 +1,96 @@
+---
+layout: post
+title: "Project Euler #18: Maximum path sum I"
+euler: 18
+---
+
+{% include euler.html %}
+
+**Introduction**
+
+The puzzle starts out with explaining that there's a triangle. We start from the top and move down and we move down with the highest number; when you're at the end, sum the total.
+
+The example they give is:
+
+```
+   3
+  7 4
+ 2 4 6
+8 5 9 3
+
+3 + 7 + 4 + 9 = 23
+```
+The puzzle is to give a solution for a more complex triangle:
+
+```
+              75
+             95 64
+            17 47 82
+           18 35 87 10
+          20 04 82 47 65
+         19 01 23 75 03 34
+        88 02 77 73 07 63 67
+       99 65 04 28 06 16 70 92
+      41 41 26 56 83 40 80 70 33
+     41 48 72 33 47 32 37 16 94 29
+    53 71 44 65 25 43 91 52 97 51 14
+   70 11 33 28 77 73 17 78 39 68 17 57
+  91 71 52 38 17 14 91 43 58 50 27 29 48
+ 63 66 04 68 89 53 67 30 73 16 69 87 40 31
+04 62 98 27 23 09 70 98 73 93 38 53 60 04 23
+```
+The first step in writing code for this is going to be finding a structure that works for containing these numbers in such a way. My first thought is: "this should be a tree", however I do think a two dimensional vector works just as well:
+
+```rust
+// Example with the small triangle:
+let triangle = vec![
+    vec![3],
+    vec![7, 4],
+    vec![2, 4, 6],
+    vec![8, 5, 9, 3]
+];
+```
+
+The reason I'm saying this is because, you can still limit the amount of choices here be taking slices of length 2 from the array below each time. The way this would work is like this:
+
+```rust
+// Taking the 'triangle' variable above as 't':
+fn problem_18(mut t: Vec<Vec<u32>>) -> u32 {
+    let mut result = t.remove(0)[0]; // This value is: 3
+    let mut offset = 0;
+
+    for sub_t in t {
+        let mut max = 0;
+        // - for the first cycle, look at [7, 4]
+        // as subset from [7, 4]
+        // the highest index = 0
+        // - for the next cycle look at subset [2, 4]
+        // as subset from [2, 4, 6]
+        // the highest index = 1
+        // - for the next cycle look at the subset [5, 9]
+        // from [8, 5, 9, 3]
+        // the highest index = 2
+        for (i, val) in sub_t[offset..offset + 2].iter().enumerate() {
+            if max < *val {
+                max = *val;
+                offset = i;
+            }
+        }
+        result += max
+    }
+
+    result
+}
+```
+
+Now I'm not sure if this is how I should interpret this triangle or if I should actually use a tree. Because the puzzle isn't specific about this, it might be nice to explore both as possible answers. Putting the big triangle in the method above I get the answer 1036 while the answer says it's 1074 (38 off), meaning it's time to start debugging. The first thing I noticed is that the `offset` that's being picked is wrong while it descends down the triangle; the offset should add `i` to `offset`.
+
+```rust
+for (i, val) in sub_t[offset..offset + 2].iter().enumerate() {
+    if max < *val {
+        max = *val;
+        offset += i;
+    }
+}
+```
+This changes the answer from 1036 to 1064 (which is 10 off from 1074). I made another error, namely that I forgot to learn how to read. You have to start at the _bottom_ of the triangle.
