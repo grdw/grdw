@@ -96,8 +96,8 @@ fn problem_19() -> u32 {
     // The rest of the 7 months are 31 days long,
     // except February which has 28 days except on leap years.
     let mut month_lengths = vec![
-        31, // January,
-        0,  // February,
+        31, // January
+        0,  // February
         31, // March
         30, // April
         31, // May
