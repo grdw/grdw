@@ -39,7 +39,7 @@ The puzzle is to give a solution for a more complex triangle:
  63 66 04 68 89 53 67 30 73 16 69 87 40 31
 04 62 98 27 23 09 70 98 73 93 38 53 60 04 23
 ```
-The first step in writing code for this is going to be finding a structure that works for containing these numbers in such a way. My first thought is: "this should be a tree", however I do think a two dimensional vector works just as well:
+The first step in writing code, is going to be finding a structure that works for containing these numbers in such a way. My first thought is: "this should be a tree", however I do think a two dimensional vector works just as well:
 
 ```rust
 // Example with the small triangle:
@@ -51,6 +51,7 @@ let triangle = vec![
 ];
 ```
 
+**The wrong route**
 The reason I'm saying this is because, you can still limit the amount of choices here be taking slices of length 2 from the array below each time. The way this would work is like this:
 
 ```rust
@@ -83,7 +84,7 @@ fn problem_18(mut t: Vec<Vec<u32>>) -> u32 {
 }
 ```
 
-Now I'm not sure if this is how I should interpret this triangle or if I should actually use a tree. Because the puzzle isn't specific about this, it might be nice to explore both as possible answers. Putting the big triangle in the method above I get the answer 1036 while the answer says it's 1074 (38 off), meaning it's time to start debugging. The first thing I noticed is that the `offset` that's being picked is wrong while it descends down the triangle; the offset should add `i` to `offset`.
+I'm not sure if this is how I should interpret this triangle, or if I should actually use a tree. Because the puzzle isn't specific about this, it might be nice to explore both as possible answers. Putting the big triangle in the method above I get the answer 1036 while the answer says it's 1074 (38 off), meaning it's time to start debugging. The first thing I noticed is that the `offset` that's being picked is wrong while it descends down the triangle; the offset should add `i` to `offset`.
 
 ```rust
 for (i, val) in sub_t[offset..offset + 2].iter().enumerate() {
@@ -93,4 +94,47 @@ for (i, val) in sub_t[offset..offset + 2].iter().enumerate() {
     }
 }
 ```
-This changes the answer from 1036 to 1064 (which is 10 off from 1074). I made another error, namely that I forgot to learn how to read. You have to start at the _bottom_ of the triangle.
+This changes the answer from 1036 to 1064 (which is 10 off from 1074). I Googled my faulty answer and somebody proceeded to explain why, causing me to read the actual approach (aren't there spoiler free hints anywhere?).
+
+**The right route**
+To resolve this you actually have to start from the _bottom_ of the triangle. The reason I found this out, was because I Googled my mistake unfortunately. Technically this does feel a little bit like cheating, but let's draw out how that works anyway:
+
+```
+   3
+  7 4
+ 2 4 6
+8 5 9 3
+
+Do 8 + 2 <> 5 + 2 . swap 2 with 10
+Do 5 + 4 <> 9 + 4 . swap 4 with 13
+Do 9 + 6 <> 6 + 3 . swap 6 with 15
+
+   3
+  7 4
+ 10 13 15
+
+etc.
+```
+
+This turns the actual correct code into this:
+
+```rust
+let mut inbetween = triangle.pop().unwrap();
+
+for layer in triangle.iter_mut().rev() {
+    for (index, value) in layer.iter_mut().enumerate() {
+        let x1 = inbetween.get(index).unwrap();
+        let x2 = inbetween.get(index + 1).unwrap_or(&0);
+
+        if *value + x1 > *value + x2 {
+            *value += x1
+        } else {
+            *value += x2
+        }
+    }
+
+    inbetween = layer.to_vec();
+}
+
+triangle[0][0]
+```
