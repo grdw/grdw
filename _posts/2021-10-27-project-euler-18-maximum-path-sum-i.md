@@ -8,7 +8,7 @@ euler: 18
 
 **Introduction**
 
-The puzzle starts out with explaining that there's a triangle. We start from the top and move down and we move down with the highest number; when you're at the end, sum the total.
+The puzzle starts out with explaining that there's a triangle. We start from the top and go down until we find the route which produces the highest number.
 
 The example they give is:
 
@@ -39,7 +39,7 @@ The puzzle is to give a solution for a more complex triangle:
  63 66 04 68 89 53 67 30 73 16 69 87 40 31
 04 62 98 27 23 09 70 98 73 93 38 53 60 04 23
 ```
-The first step in writing code, is going to be finding a structure that works for containing these numbers in such a way. My first thought is: "this should be a tree", however I do think a two dimensional vector works just as well:
+The first step while writing code, is going to be finding a structure that works for containing these numbers in such a way. My first thought is: "this should be a tree", however I do think a two dimensional vector works just as well:
 
 ```rust
 // Example with the small triangle:
