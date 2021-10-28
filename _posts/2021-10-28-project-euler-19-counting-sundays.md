@@ -82,7 +82,7 @@ for month in 0..=11 {
 }
 ```
 
-The answer I receive from the code is: 175 Sundays landed on the first day of a month. Upon checking the correct answer, I find out the actual answer should be 171 Sundays, meaning I'm 4 off. I also found out why, it was because I was resetting the `weekdays`to Tuesday every year which is not really what happens in real life. After fixing that little mistake I got the correct answer of 171 Sundays.
+The answer I receive from the code is: 175 Sundays landed on the first day of a month. Upon checking the correct answer, I find out the actual answer should be 171 Sundays, meaning I'm 4 off. I also found out why, it was because I was resetting the `weekdays` to Tuesday every year which is not really what happens in real life. After fixing that little mistake I got the correct answer of 171 Sundays.
 
 **Improvements**
 In the code `month_lengths` only has to be initiated once, instead of every loop cycle. Also I feel I can do something smart with the way we determine if it's a Sunday on the first of the month. Considering we're only interested in one day of the month, it feels a little bit useless to loop over each day of the month regardless. The code therefor can be shortened to:
