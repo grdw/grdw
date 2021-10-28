@@ -97,7 +97,7 @@ for (i, val) in sub_t[offset..offset + 2].iter().enumerate() {
 This changes the answer from 1036 to 1064 (which is 10 off from 1074). I Googled my faulty answer and somebody proceeded to explain why, causing me to read the actual approach (aren't there spoiler free hints anywhere?).
 
 **The right route**
-To resolve this you actually have to start from the _bottom_ of the triangle. The reason I found this out, was because I Googled my mistake unfortunately. Technically this does feel a little bit like cheating, but let's draw out how that works anyway:
+To resolve this you actually have to start from the _bottom_ of the triangle.  Technically, I didn't come up with this answer, which does feel a little bit like cheating. However, now that I know, let's draw out how that works anyway:
 
 ```
    3
@@ -116,7 +116,7 @@ Do 9 + 6 <> 6 + 3 . swap 6 with 15
 etc.
 ```
 
-This turns the actual correct code into this:
+Even though I cheated a little bit, writing the code was still a bit of a challenge in Rust because of the inline updating of the `triangle` vector. However after some carefully picked `iter_mut()`'s I came up with this:
 
 ```rust
 let mut inbetween = triangle.pop().unwrap();
