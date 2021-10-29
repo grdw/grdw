@@ -22,7 +22,7 @@ fn problem_20(factor: u128) -> u64 {
 }
 ```
 
-Putting in 10 as an argument to `problem_20` I receive 27. For 100 I receive: 648 which is the correct answer. Because this felt too eay; to make it a bit more interesting, I would love it if we could call `to_vec()` directly on a u128 integer (or maybe any other u2^N integer). Also I would think it would be nice if I can do `start * result` instead of `start.multiply(result)`. Similarly for adding vectors to other vectors, I would love to be able to do `start + result`.
+Putting in 10 as an argument to `problem_20` I receive 27. For 100 I receive: 648 which is the correct answer. Because this felt too easy; to make it a bit more interesting, I would love it if we could call `to_vec()` directly on a u128 integer (or maybe any other u2^N integer). Also I would think it would be nice if I can do `start * result` instead of `start.multiply(result)`. Similarly for adding vectors to other vectors, I would love to be able to do `start + result`.
 
 **int_to_vec() as a Trait**
 Turning `int_to_vec()` into a `trait` is very simple. You define a `trait` and implement it on the primitive type `u128`. I'm not quite sure how to implement on the other primitives `u64` and `u32`, but a quick Google search suggests that I need to use `macro_rules!` for this, which doesn't look too great.
