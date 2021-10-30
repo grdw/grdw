@@ -2,6 +2,7 @@
 layout: post
 title: "Project Euler #21: Amicable numbers"
 euler: 21
+complexity: 1
 ---
 
 {% include euler.html %}

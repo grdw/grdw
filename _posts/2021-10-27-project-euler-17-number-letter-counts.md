@@ -2,6 +2,7 @@
 layout: post
 title: "Project Euler #17: Number letter counts"
 euler: 17
+complexity: 1
 ---
 
 {% include euler.html %}

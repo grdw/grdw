@@ -2,6 +2,7 @@
 layout: post
 title: "Project Euler #16: Power digit sum"
 euler: 16
+complexity: 3
 ---
 
 {% include euler.html %}

@@ -2,6 +2,7 @@
 layout: post
 title: "Project Euler #14: Longest Collatz sequence"
 euler: 14
+complexity: 1
 ---
 
 {% include euler.html %}

@@ -2,6 +2,7 @@
 layout: post
 title: "Project Euler #19: Counting Sundays"
 euler: 19
+complexity: 1
 ---
 
 {% include euler.html %}

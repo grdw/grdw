@@ -2,6 +2,7 @@
 layout: post
 title: "Project Euler #15: Lattice paths"
 euler: 15
+complexity: 2
 ---
 
 {% include euler.html %}

@@ -2,6 +2,7 @@
 layout: post
 title: "Project Euler #20: Factorial digit sum"
 euler: 20
+complexity: 1
 ---
 
 {% include euler.html %}
