@@ -342,7 +342,7 @@ fn problem_23() -> u32 {
 }
 ```
 
-This results in the correct answer of 4179871. It is still quite slow, because for each number that isn't a double abundant number, a potential 6965 number need to be checked. I do believe this can be done quite a lot faster by splitting the numbers in to odd and even numbers. The reason why I'm suggesting this is that most abundant numbers are divisible by 2, however not all of them are.
+This results in the correct answer of 4179871. It is still quite slow, because for each number that isn't a double abundant number, a potential 6965 numbers need to be checked. I do believe this can be done quite a lot faster by splitting the numbers in to odd and even numbers. The reason why I'm suggesting this is that almost all abundant numbers are divisible by 2 (the first which isn't is 945).
 
 ```rust
 fn non_double_abundant(start: u32) -> u32 {
