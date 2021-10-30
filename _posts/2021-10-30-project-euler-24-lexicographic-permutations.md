@@ -168,7 +168,7 @@ while i < vector.len() {
 }
 ```
 
-This actually works, but the vectors look all scrambled in a somewhat random fashion. It's not a lexographical permutation just yet... Another method of generating permutations is by 'simple recursion' as described here [2] and implemented here [3]. This comes remarkably close; close, but no cigar. We need to find yet another method to build up permutations (there are quite a lot, browsing the internet). The one that does seem to provide a lexographical order is Ord-Smith's algorithm [4], so let's use that one:
+This actually works, but the vectors look all scrambled in a somewhat random fashion. It's not a lexicographical permutation just yet... Another method of generating permutations is by 'simple recursion' as described here [2] and implemented here [3]. This comes remarkably close; close, but no cigar. We need to find yet another method to build up permutations (there are quite a lot, browsing the internet). The one that does seem to provide a lexicographical order is Ord-Smith's algorithm [4], so let's use that one:
 
 ```rust
 fn reverse(vec: &mut Vec<u8>, mut a: usize, mut b: usize) {
