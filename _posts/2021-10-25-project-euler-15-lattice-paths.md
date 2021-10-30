@@ -426,3 +426,5 @@ It still won't fit on a 64-bit integer, but it's a tiny bit faster.
 \[2\] [https://www.chilimath.com/lessons/intermediate-algebra/simplifying-factorials-with-variables/](https://www.chilimath.com/lessons/intermediate-algebra/simplifying-factorials-with-variables/)
 
 \[3\] [https://www.dummies.com/education/math/algebra/how-to-simplify-factorial-expressions/](https://www.dummies.com/education/math/algebra/how-to-simplify-factorial-expressions/)
+
+{% include euler_complexity.html %}

@@ -1,0 +1,7 @@
+<div class="euler_complexity">
+  {% for post in site.posts reversed %}
+    {% if post.euler %}
+      <a class="complexity-{{ post.complexity }}" href="{{ post.url }}">{{ post.euler }}</a>
+    {% endif %}
+  {% endfor %}
+</div>

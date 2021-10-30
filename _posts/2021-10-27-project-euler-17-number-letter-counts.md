@@ -281,3 +281,5 @@ require "humanize" # gem install humanize
 ```
 
 😴
+
+{% include euler_complexity.html %}

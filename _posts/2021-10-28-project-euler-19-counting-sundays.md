@@ -131,3 +131,5 @@ fn problem_19() -> u32 {
     total_sundays
 }
 ```
+
+{% include euler_complexity.html %}

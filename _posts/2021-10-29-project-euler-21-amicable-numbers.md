@@ -108,3 +108,5 @@ fn test_problem_21() {
     assert_eq!(problem_21(), 31626);
 }
 ```
+
+{% include euler_complexity.html %}

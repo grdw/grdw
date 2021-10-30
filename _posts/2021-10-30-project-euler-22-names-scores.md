@@ -46,3 +46,5 @@ Giving me the correct answer of 871198282. The only tricky bit was figuring out 
 **Sources**
 
 \[1\] [https://users.rust-lang.org/t/iteration-thought-alphabets/30078/3](https://users.rust-lang.org/t/iteration-thought-alphabets/30078/3)
+
+{% include euler_complexity.html %}
