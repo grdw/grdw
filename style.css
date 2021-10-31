@@ -56,7 +56,12 @@ div.euler_complexity {
 
 div.euler_complexity a {
   border: solid 1px #000;
-  padding: 2px 5px;
+  padding: 6px 3px;
+  display: inline-block;
+  margin-bottom: 6px;
+  line-height: 1em;
+  width: 36px;
+  text-align: center;
   color: black;
 }
 
