@@ -8,7 +8,7 @@ complexity: 2
 {% include euler.html %}
 
 **Introduction**
-The puzzle explains how fractions divide. Some fractions, f.e.: 1/6th, look like 0.166666 and therefor has a repeating cycle of 1-digit for 6. Which denominator (D) below 1000 for the numerator of 1 has the highest recurring cycle.
+The puzzle explains how fractions divide. Some fractions, f.e.: 1/6th, look like 0.166666 and therefor has a repeating cycle of 1-digit for 6. Which denominator (D) below 1000 for the numerator of 1 has the highest recurring cycle?
 
 **Some facts**
 The dumb-dumb in me immediately thinks: can you use a `f64`, cast it to a String and check if there's a pattern? The max number of digits behind the dot on a f64 are 17 digits. To show this:
