@@ -437,7 +437,7 @@ fn cycle_count(n: u128, d: u128) -> u64 {
 }
 ```
 
-Quite tidy if I say so myself.
+Quite tidy if I say so myself. One small thing: I updated all the `u128` and `u64` to `u16`'s to save some memory; it all still fits, considering the max integer is 1000.
 
 **Sources**
 
