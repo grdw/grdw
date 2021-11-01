@@ -26,14 +26,10 @@ fn factor_points(grid: &Vec<Vec<i32>>,
     let temp = vec![];
 
     for n in 0..=SPOTS {
-        let mut loop_y = y;
-        let mut loop_x = x;
-
-        loop_y += n * dir_y;
-        loop_x += n * dir_x;
-
-        let y_row = grid.get(loop_y as usize).unwrap_or(&temp);
-        let x_value = y_row.get(loop_x as usize).unwrap_or(&0);
+        let y = y + n * dir_y;
+        let x = x + n * dir_x;
+        let y_row = grid.get(y as usize).unwrap_or(&temp);
+        let x_value = y_row.get(x as usize).unwrap_or(&0);
 
         total *= x_value;
     }
