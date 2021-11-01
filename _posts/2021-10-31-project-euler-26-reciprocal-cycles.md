@@ -8,9 +8,9 @@ complexity: 2
 {% include euler.html %}
 
 **Introduction**
-The puzzle explains how fractions divide. Some fractions, f.e.: 1/6th, look like 0.166666 and therefor has a repeating cycle of 1-digit for 6. Which denominator (D) below 1000 for the numerator of 1 has the highest recurring cycle?
+The puzzle explains how fractions divide into decimal numbers. 1/6th equals to 0.166666 and therefor has a repeating cycle of 1-digit for 6. Other fractions, like 1/2 have no repeating cycle. Which denominator (D) below 1000 for the numerator of 1 has the highest recurring cycle?
 
-**Some facts**
+**Use a float?**
 The dumb-dumb in me immediately thinks: can you use a `f64`, cast it to a String and check if there's a pattern? The max number of digits behind the dot on a f64 are 17 digits. To show this:
 
 ```rust
@@ -106,6 +106,7 @@ Executing this code however results in the program freezing up and for what it s
 10 / 12 = this doesn't fit.
 ```
 
+**Rabbit hole #1**
 So 10 / 12 equals 0 with a remainder of 10. This actually results in data loss on the integer. To prevent this (and for any future number like 943 f.e.) we need to make the base expand to 1000. However, this comes with a little problem. Let's go back to our example with 3, 8 and 7 and use 1000 as our numerator:
 
 ```
@@ -159,7 +160,10 @@ This doesn't quite work out because 1/11 = 0.090909, so the actual answer should
 1000 / .. => group of 2
 ```
 
-However, this conflicts with what I previously wrote down about multiplying groups by 3, since 11 clearly hasn't got 6 groups, but 2. Let's go back to our little algorithm and simplify it a little:
+However, this conflicts with what I previously wrote down about multiplying groups by 3, since 11 clearly hasn't got 6 groups, but 2.
+
+**The correct rabbit hole**
+Let's go back to our little algorithm and simplify it a little:
 
 ```rust
 fn division(n: u128, d: u128) -> u64 {
@@ -311,6 +315,82 @@ fn test_problem_26() {
 ```
 
 This gives me the correct answer of 983.
+
+---
+
+**Improvements on the answer**
+Coming back to this a day later, I think the algorithm can be improved a little. The answer for 1/12 is now 2, while the actual answer should be 1. In the grander scheme of things this doesn't really matter, but I would like to tweak this nontheless, just to be correct. To fix it properly I have to make a minor change for whenever `range` starts to populate:
+
+```rust
+fn cycle_count(n: u128, d: u128) -> u64 {
+    let base = 10;
+    let mut m = n;
+    let mut range = vec![];
+
+    loop {
+        m = m * base % d;
+
+        if m == 0 {
+            break 0;
+        }
+
+        if range.len() > 0 {
+            if range[range.len() - 1] == m {
+                break 1;
+            } else if range.contains(&m) {
+                break range.len() as u64;
+            }
+        }
+
+        range.push(m);
+    }
+}
+```
+
+So `range[range.len() - 1]` contains the last added remainder, however I'm wondering if I can get rid of `range.contains(&m)` and squash both ideas into a single solution. First up I'm going to lift the `if range.len() > 0`-block into a single function:
+
+```rust
+fn range_pattern_count(range: &Vec<u128>, m: u128) -> u64 {
+    if range.len() > 0 {
+        if range[range.len() - 1] == m {
+            1
+        } else if range.contains(&m) {
+            range.len() as u64
+        } else {
+            0
+        }
+    } else {
+        0
+    }
+}
+
+#[test]
+fn test_range_pattern_count() {
+    assert_eq!(range_pattern_count(&vec![], 1), 0);
+    assert_eq!(range_pattern_count(&vec![1], 1), 1);
+    assert_eq!(range_pattern_count(&vec![5, 2], 2), 1);
+    assert_eq!(range_pattern_count(&vec![1, 2, 3], 1), 3);
+}
+```
+
+The first refactoring is quite simple; nothing too fancy is happening just yet. All I did was include an early return for if `range` happens to be empty:
+
+```rust
+if range.len() == 0 {
+    return 0;
+}
+
+if range[range.len() - 1] == m {
+    1
+} else if range.contains(&m) {
+    range.len() as u64
+} else {
+    0
+}
+```
+
+I think this is probably as far as this goes for now. I might go back and improve on it further one day. I don't think we can get fully rid of `range.contains(&m)` just yet. My first idea of using `range.iter().rev()` proved uneventful to say the least. Anyway, the tests are all green now, so I'm happy.
+
 
 **Sources**
 
