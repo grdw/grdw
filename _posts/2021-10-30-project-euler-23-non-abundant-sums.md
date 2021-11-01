@@ -311,7 +311,7 @@ fn problem_23() -> u32 {
 }
 ```
 
-So loop over all the numbers from 1 to 28123, check if the number is abundant, if it is an abundant number it is automatically excluded from the total. Store the abundant number in a vector and test for all the abundant numbers if the  number minus that filter value is abundant. If that's the case, the loop should skip to the next number and not add anything to `total`. This approach gives me 100630861, which is a bit closer than before.
+So loop over all the numbers from 1 to 28123, check if the number is abundant. If it is an abundant number it is automatically excluded from the total. Store the abundant number in a vector and test for all the abundant numbers if the number minus that filter value is abundant. If that's the case, the loop should skip to the next number and not add anything to `total`. This approach gives me 100630861, which is a bit closer than before.
 
 Perhaps there's some bug in my code. After tweaking it slightly I got it working:
 
