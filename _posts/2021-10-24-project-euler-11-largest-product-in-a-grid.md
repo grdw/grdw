@@ -117,4 +117,32 @@ fn test_problem_11() {
 }
 ```
 
+---
+
+**Improvements**
+I figured I can make `factor_points()` a little smaller, namely because I can use `fold()` on the range `(0..=SPOTS)` like this:
+
+```rust
+const SPOTS:i32 = 3;
+
+fn factor_points(grid: &Vec<Vec<i32>>,
+                 y: i32,
+                 x: i32,
+                 dir_y: i32,
+                 dir_x: i32) -> i32 {
+
+    let temp = vec![];
+
+    (0..=SPOTS).fold(1, |acc, n| {
+        let y = y + n * dir_y;
+        let x = x + n * dir_x;
+        let y_row = grid.get(y as usize).unwrap_or(&temp);
+        let x_value = y_row.get(x as usize).unwrap_or(&0);
+
+        acc * x_value
+    })
+}
+```
+
+
 {% include euler_complexity.html %}
