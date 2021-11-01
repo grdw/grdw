@@ -389,8 +389,55 @@ if range[range.len() - 1] == m {
 }
 ```
 
-I think this is probably as far as this goes for now. I might go back and improve on it further one day. I don't think we can get fully rid of `range.contains(&m)` just yet. My first idea of using `range.iter().rev()` proved uneventful to say the least. Anyway, the tests are all green now, so I'm happy.
+Now the 0's are actually not really 0's but `null`. As Rust doesn't have a `null` we need to use `Option` which can return `Some(n)` or `None`. Using that pattern we get:
 
+```rust
+fn range_pattern_count(range: &Vec<u128>, m: u128) -> Option<u64> {
+    if range.len() == 0 {
+        return None;
+    }
+
+    let mut count = 0;
+    let mut iter = range.iter().rev();
+
+    loop {
+        count += 1;
+
+        let val = iter.next().unwrap_or(&0);
+        if *val == m {
+            break Some(count)
+        } else if *val == 0 {
+            break None
+        }
+    }
+}
+```
+
+It's a little lengthier, but it does look a bit more Rust-ey. Looking at the `cycle_count` method I can now do this:
+
+```rust
+fn cycle_count(n: u128, d: u128) -> u64 {
+    let base = 10;
+    let mut m = n;
+    let mut range = vec![];
+
+    loop {
+        m = m * base % d;
+
+        if m == 0 {
+            break 0;
+        }
+
+        if let Some(rpc) = range_pattern_count(&range, m) {
+            break rpc;
+        }
+
+        range.push(m);
+    }
+}
+```
+
+Quite tidy if I say so myself.
 
 **Sources**
 
