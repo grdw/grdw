@@ -66,6 +66,10 @@ div.euler_complexity a {
   color: black;
 }
 
+pre.highlight {
+  white-space: pre-wrap;
+}
+
 div.euler_complexity a.complexity-1 { background-color: #00b71d; }
 div.euler_complexity a.complexity-2 { background-color: #98bb19; }
 div.euler_complexity a.complexity-3 { background-color: #ffeb01; }
