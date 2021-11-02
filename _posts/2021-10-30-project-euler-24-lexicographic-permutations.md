@@ -311,11 +311,15 @@ fn test_next_perm() {
 
 **Sources**
 
-- \[1\] [https://en.wikipedia.org/wiki/Heap%27s_algorithm](https://en.wikipedia.org/wiki/Heap%27s_algorithm)
-- \[2\] [https://www.baeldung.com/cs/array-generate-all-permutations](https://www.baeldung.com/cs/array-generate-all-permutations)
-- \[3\] [https://stackoverflow.com/questions/7537791/understanding-recursion-to-generate-permutations](https://stackoverflow.com/questions/7537791/understanding-recursion-to-generate-permutations)
-- \[4\] [https://mathsanew.com/articles_html/27/permutations_with_recursionli5.html](https://mathsanew.com/articles_html/27/permutations_with_recursionli5.html)
-- \[5\] [https://www.quickperm.org/lexico.php](https://www.quickperm.org/lexico.php)
+\[1\] [Wikipedia/heap's algorithm](https://en.wikipedia.org/wiki/Heap%27s_algorithm)
+
+\[2\] [Baeldung/array generate all permutations](https://www.baeldung.com/cs/array-generate-all-permutations)
+
+\[3\] [Stackoverflow/understanding-recursion-to-generate-permutations](https://stackoverflow.com/questions/7537791/understanding-recursion-to-generate-permutations)
+
+\[4\] [Mathsanew/permutations with recursion](https://mathsanew.com/articles_html/27/permutations_with_recursionli5.html)
+
+\[5\] [Quickperm/lexico](https://www.quickperm.org/lexico.php)
 
 {% include euler_complexity.html %}
 

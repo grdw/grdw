@@ -421,6 +421,7 @@ fn test_problem_15() {
 It still won't fit on a 64-bit integer, but it's a tiny bit faster.
 
 **Sources**
+
 \[1\] [https://en.wikipedia.org/wiki/Lattice_path](https://en.wikipedia.orgi/wiki/Lattice_path)
 
 \[2\] [https://www.chilimath.com/lessons/intermediate-algebra/simplifying-factorials-with-variables/](https://www.chilimath.com/lessons/intermediate-algebra/simplifying-factorials-with-variables/)

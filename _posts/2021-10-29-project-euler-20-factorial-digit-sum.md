@@ -64,6 +64,7 @@ impl ops::AddAssign<Vec<u8>> for Vec<u8> {
 ... namely, that this is not allowed. Rust only allows you to do this once `Vec` is a struct that's known within the current crate. I believe this is a dead end, unless we create a new struct, which seems like a little too much work for what we're trying to achieve here.
 
 **Sources**
+
 \[1\] [https://doc.rust-lang.org/rust-by-example/trait/ops.html](https://doc.rust-lang.org/rust-by-example/trait/ops.html)
 
 \[2\] [https://doc.rust-lang.org/core/ops/](https://doc.rust-lang.org/core/ops/)
