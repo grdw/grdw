@@ -65,8 +65,8 @@ impl ops::AddAssign<Vec<u8>> for Vec<u8> {
 
 **Sources**
 
-\[1\] [https://doc.rust-lang.org/rust-by-example/trait/ops.html](https://doc.rust-lang.org/rust-by-example/trait/ops.html)
+\[1\] [doc.rust-lang.org/rust-by-example/trait/ops.html](https://doc.rust-lang.org/rust-by-example/trait/ops.html){:target="_blank"}
 
-\[2\] [https://doc.rust-lang.org/core/ops/](https://doc.rust-lang.org/core/ops/)
+\[2\] [doc.rust-lang.org/core/ops/](https://doc.rust-lang.org/core/ops/){:target="_blank"}
 
 {% include euler_complexity.html %}
