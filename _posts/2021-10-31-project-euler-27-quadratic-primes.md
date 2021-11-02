@@ -34,7 +34,6 @@ fn max_primes(a: u64, b: u64) -> u64 {
     }
 }
 
-
 #[test]
 fn test_max_primes() {
     assert_eq!(max_primes(1, 41), 40);
@@ -58,7 +57,6 @@ fn max_primes(a: i64, b: i64) -> u64 {
         n += 1;
     }
 }
-
 
 #[test]
 fn test_max_primes() {
