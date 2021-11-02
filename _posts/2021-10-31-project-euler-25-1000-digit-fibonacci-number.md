@@ -10,7 +10,7 @@ complexity: 1
 **Introduction**
 What is the index of the first term in the Fibonacci sequence to contain 1000 digits?
 
-I'm going to use the code I used for "Even Fibonacci numbers", the 2nd Euler puzzle. I haven't added that puzzle to this blog, but I've already done that one a long time ago. The code to generating the Fibonacci numbers I used is this one:
+I'm going to use the code I used for ["Even Fibonacci numbers"](/2021/10/23/project-euler-2-even-fibonacci-numbers.html), the 2nd Euler puzzle. The code to generating the Fibonacci numbers I used is this one:
 
 ```rust
 let mut far = vec![1, 2];
@@ -85,7 +85,7 @@ loop {
 }
 ```
 
-The funny thing is that this code skips 2 Fibonacci numbers ahead each time. So the output becomes {3,8,21,55,144}. Now, it could be that the number lies within a positive index, _or not_. To get the other Fibonacci numbers {2,5,13,34,89,233} I have to change `addition` to `1.to_vec()`. In theory, I can get to the answer now:
+The funny thing is that this code skips 2 Fibonacci numbers ahead each time. So the output becomes {3,8,21,55,144}. Now, it could be that the number lies within an even index, _or not_. To get the other Fibonacci numbers {2,5,13,34,89,233} I have to change the `addition` variable to `1.to_vec()`. In theory, I can get to the answer now:
 
 ```rust
 fn fibonacci_thousand(start: u128) -> u128 {
