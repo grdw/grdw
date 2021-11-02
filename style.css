@@ -23,6 +23,10 @@ pre {
   color: #777;
 }
 
+pre.highlight {
+  white-space: pre-wrap;
+}
+
 span.accent {
   color: #E1AD01;
 }
@@ -50,18 +54,12 @@ div.euler_complexity {
 
 div.euler_complexity a {
   border: solid 1px #000;
-  padding: 9px 2px;
+  padding: 5px 0;
   display: inline-block;
-  line-height: 1em;
-  font-size: 83%;
-  width: 34px;
+  width: 48px;
   text-align: center;
   text-decoration: none;
   color: black;
-}
-
-pre.highlight {
-  white-space: pre-wrap;
 }
 
 div.euler_complexity a.complexity-1 { background-color: #00b71d; }
@@ -163,9 +161,5 @@ div.euler_complexity a.complexity-5 { background-color: #ff4330; }
 @media only screen and (max-width: 575px) {
   html {
     font-size: 1.2em;
-  }
-
-  div.euler_complexity a {
-    padding: 6px 1px;
   }
 }
