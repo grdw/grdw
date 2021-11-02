@@ -16,7 +16,7 @@ Find the product of the coefficients, a and b, for the quadratic expression that
 - The ranges of n are 0 up till a value until no prime is found.
 
 **Validating n^2 + n + 41**
-The puzzle states that the above method returns a maximum of 40 prime numbers. Let's first proof that with some code. We'll take the `is_prime` method from ["Largest prime factor"](2021/10/23/project-euler-3-largest-prime-factor.html) and add some code around it:
+The puzzle states that the above method returns a maximum of 40 prime numbers. Let's first proof that with some code. We'll take the `is_prime` method from ["Largest prime factor"](/2021/10/23/project-euler-3-largest-prime-factor.html) and add some code around it:
 
 ```rust
 fn max_primes(a: u64, b: u64) -> u64 {
