@@ -33,7 +33,7 @@ There's already an interesting question appearing at this point: do I actually n
 
 This is a bit interesting because it consists of the same values as the 5x5 grid, but without the outer layer. For a 1001 by a 1001 spiral, we'll know the center value is 1. The top right value of the spiral will be 1001 x 1001 = 1002001. The top left value will be 1002001 - 1000 = 1001001. You'll go down another 1000 to go to the other corner of 100001, and another 1000 to go to the other.
 
-Another way of lookig at it, is like this:
+Another way of looking at it, is like this:
 
 ```
 21 22 23 24 25
