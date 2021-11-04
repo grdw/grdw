@@ -154,7 +154,34 @@ fn test_problem_29() {
 }
 ```
 
-It's still not the best code, but it gets the job done.
+The code above is a bit nicer, but it still takes 4 seconds to calculate. The reason why that is, is because 100^100 is denoted as a String containing 200 2's and 200 5's, a 400 character String if you will. This can obviously just become: `2|200|5|200|`; a string denoting the same information, but with a lot less characters. To make that change, we first change the way `prime_factors` work. It needs to return a tuple of unique prime factors and their counts. The next change is to parse that string a little differently using `format!`.
+
+After applying those changes the code still seems very slow which mainly has to do to with `!totals.contains(..)`. This method does a search every loop cycle, which becomes slower and slower once `totals` starts to increase. The simple solution here is to drop it from the code and use `sort()` and `dedup()` at the end of the for-loop, like this:
+
+```rust
+fn problem_29(max: u16) -> u16 {
+    let mut totals: Vec<String> = vec![];
+
+    for a in 2..=max {
+        let primes = prime_factors(a as u8);
+
+        for b in 2..=max {
+            let string = primes
+                .iter()
+                .map(|(n, len)| format!("{}|{}|", n, *len as u16 * b))
+                .collect();
+
+            totals.push(string)
+        }
+    }
+
+    totals.sort();
+    totals.dedup();
+    totals.len() as u16
+}
+```
+
+The speed increase here is quite significant; the runtime reduces from 4 seconds to 0.02 seconds. Now that's what I call podracing!
 
 **Sources**
 
