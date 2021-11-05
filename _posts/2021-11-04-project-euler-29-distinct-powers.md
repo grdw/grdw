@@ -25,14 +25,13 @@ The first part of this problem is: does 100^100 fit in a Rust integer? It seems 
 32*32 (2 32's)
 ```
 
-**The prime factors rabbit hole**
-My first train of thought is: we're going to turn 1 to a 100 into their distinct prime factors. I'm going to use the `is_prime` method from ["Largest prime factor"](/2021/10/23/project-euler-3-largest-prime-factor.html) and write a method to determine the prime factors:
+**The prime factors**
+My first train of thought is: turn 1 to a 100 into their distinct prime factors. I'm going to use the `is_prime` method from ["Largest prime factor"](/2021/10/23/project-euler-3-largest-prime-factor.html) and write a method to determine the prime factors:
 
 ```rust
 fn prime_factors(mut number: u64) -> Vec<u64> {
     let mut factors: Vec<u64> = vec![];
     let mut factor: u64 = 2;
-    let end = (number as f64).sqrt().floor() as u64;
 
     while number > 1 {
         if is_prime(factor) && number % factor == 0 {
@@ -46,7 +45,22 @@ fn prime_factors(mut number: u64) -> Vec<u64> {
 }
 ```
 
-The prime factors of 4 are 2x2, if I were to take the power of 4 from 4, that's 256, or 2^8 in prime factors (those would both be a duplicate). So first up; the code below will generate all prime factors:
+The prime factors of 4 are [2,2], if I were to take the power of 4 from 4, that's 256, or 2^8 in prime factors. To elaborate:
+
+```
+2^4 = [2,2,2,2] (4 times a 2)
+4^2 = [2,2] + [2,2] (also: 2 times [2,2])
+
+2^6 = [2,2,2,2,2,2] (6 times a 2)
+4^3 = [2,2] + [2,2] + [2,2] (3 times [2,2])
+8^2 = [2,2,2] + [2,2,2] (2 times [2,2,2])
+
+2^8  = [2,2,2,2,2,2,2,2] (8 times a 2)
+4^3  = [2,2] + [2,2] + [2,2] + [2,2] (4 times [2,2])
+16^2 = [2,2,2,2] + [2,2,2,2] (2 times [2,2,2,2])
+```
+
+The first rough version, in code, looks like this:
 
 ```rust
 for i in 2..=100 {
@@ -62,7 +76,10 @@ for i in 2..=100 {
 }
 ```
 
-The next step would be to push all the vectors into another vector and checking if the previous vector has already passed once before. However, comparing `<Vec>'s` with each other is going to be a big fat pain. Especially when the vector for 100^100 looks like: 200 2's followed by 200 5's. To be a little blunt: this isn't going anywhere. In theory, we could solve it like this, but this is going to be way too complicated. There has to be an easier solution. Perhaps it's: only the perfect numbers will be in here more than once? Perhaps the Wikipedia article on Exponentiation [1] can be of use? In that article they mention some interesting facts which may or may not be of use. One of the things that catches my eye is their power table.
+The next step would be to push all the `list` vectors into another vector and checking if the previous vector has already passed once before. However, comparing `<Vec>'s` with each other is going to be a pain. Especially when the vector for 100^100 looks like: 200 2's followed by 200 5's. In theory, we could solve it like this, but there might be an easier way.
+
+**Finding an easier way out ...**
+There has to be an easier solution. Perhaps it's: only the perfect numbers will be in here more than once? Perhaps the Wikipedia article on Exponentiation [1] can be of use? In that article they mention some interesting facts which may or may not be of use. One of the things that catches my eye is their power table.
 
 So a couple of things that catch my eye:
 
@@ -80,10 +97,10 @@ etc.
 etc.
 ```
 
-Assuming the first row of 2^n's will give unique results (and they will), we'll have 99 unique values. The next row, with value 3^n, will also give unique results and won't interfere with the 2^n's and for any prime number they will give unique results. For the number 4, skip, (99 - 2) / 2 = 48 numbers. For the number 6, even though it's a composite, we'll also allow all numbers. For the number 8 we skip the first (99 - 2) / 4 = 24 outcomes. For the number 10 we'll also allow the first 99 digits. Again, thinking about it in this way won't get me anywhere near the actual answer, because I fail to see the pattern.
+Assuming the first row of 2^n's will give unique results (and they will), we'll have 99 unique values. The next row, with value 3^n, will also give unique results and won't interfere with the 2^n's. Pretty much, for any prime number, taking the power of that number will give unique results. For the number 4, skip, (99 - 2) / 2 = 48 numbers. For the number 6, even though it's a composite, we'll also allow all numbers. For the number 8 we skip the first (99 - 2) / 4 = 24 outcomes. For the number 10 we'll also allow the first 99 digits. Again, thinking about it in this way won't get me anywhere near the actual answer, because I fail to see the pattern.
 
-**Rethinking the prime factors rabbit hole**
-Switching back to the prime factors rabbit hole, there's a simple way of comparing those large vectors, casting them to a String of course.
+**.. back to the prime factors**
+Switching back to the prime factors, there's a simple way of comparing those large vectors. Casting them to a String of course:
 
 ```rust
 fn problem_29(max: u64) -> u64 {
@@ -117,7 +134,7 @@ fn test_problem_29() {
 }
 ```
 
-This actually gives me an answer: 9276 unique numbers. This seems to be incorrect, and I might know why that is, it is because we currently don't sort the factors. After some sorting, we get to the correct answer of 9183. It's not the fastest route, but it gives me the correct answer.
+This actually gives me an answer: 9276 unique numbers. This seems to be incorrect, and I might know why that is, it is because we currently don't sort the `factors`. After some sorting (`factors.sort()`), we get to the correct answer of 9183. It's not the fastest solution, but it is correct.
 
 **Improving the answer**
 After some refactoring I got rid of the sorting and after reading up on how to repeat characters in a string [2], this is the code I end up with:
@@ -154,9 +171,41 @@ fn test_problem_29() {
 }
 ```
 
-The code above is a bit nicer, but it still takes 4 seconds to calculate. The reason why that is, is because 100^100 is denoted as a String containing 200 2's and 200 5's, a 400 character String if you will. This can obviously just become: `2|200|5|200|`; a string denoting the same information, but with a lot less characters. To make that change, we first change the way `prime_factors` work. It needs to return a tuple of unique prime factors and their counts. The next change is to parse that string a little differently using `format!`.
+The code above is a bit nicer, but it still takes 4 seconds to calculate. The reason why that is, is because 100^100 is denoted as a String containing 200 2's and 200 5's, a 400 character String if you will. We can compress that information to: `2|200|5|200|`; a string denoting the same information, but with a lot less characters. To make that change, we first change the `prime_factors` method. It needs to return a tuple of unique prime factors and their counts:
 
-After applying those changes the code still seems very slow which mainly has to do to with `!totals.contains(..)`. This method does a search every loop cycle, which becomes slower and slower once `totals` starts to increase. The simple solution here is to drop it from the code and use `sort()` and `dedup()` at the end of the for-loop, like this:
+```rust
+fn prime_factors(mut number: u8) -> Vec<(u8, u8)> {
+    let mut factors: Vec<(u8, u8)> = vec![];
+    let mut factor: u8 = 2;
+
+    while number > 1 {
+        if is_prime(factor) && number % factor == 0 {
+            match factors.iter().position(|(a,_)| *a == factor) {
+                Some(index) => factors[index].1 += 1,
+                None => factors.push((factor, 1))
+            }
+
+            number /= factor;
+        } else {
+            factor += 1;
+        }
+    }
+    factors
+}
+
+#[test]
+fn test_prime_factors() {
+    assert_eq!(prime_factors(2), vec![(2, 1)]);
+    assert_eq!(prime_factors(3), vec![(3, 1)]);
+    assert_eq!(prime_factors(4), vec![(2, 2)]);
+    assert_eq!(prime_factors(5), vec![(5, 1)]);
+    assert_eq!(prime_factors(10), vec![(2, 1), (5, 1)]);
+    assert_eq!(prime_factors(99), vec![(3, 2), (11, 1)]);
+    assert_eq!(prime_factors(100), vec![(2, 2), (5, 2)]);
+}
+```
+
+The next set of changes are all at the `problem_29()` method. First up I changed the way I build up the string. Instead of using `repeat()` I can use something simple like `format!` to concatenate the amount of prime factors and their counts. However, what I noticed is that after applying those changes the code still seems very slow, which mainly has to do with `!totals.contains(..)`. Using `.contains()` does a search every loop cycle, which becomes slower and slower once `totals` starts to increase. The simple solution here, after some trial and error, is to drop it from the code and use `sort()` and `dedup()` at the end of the for-loop, like this:
 
 ```rust
 fn problem_29(max: u16) -> u16 {
