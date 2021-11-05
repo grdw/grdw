@@ -205,7 +205,7 @@ fn test_prime_factors() {
 }
 ```
 
-The next set of changes are all at the `problem_29()` method. First up I changed the way I build up the string. Instead of using `repeat()` I can use something simple like `format!` to concatenate the amount of prime factors and their counts. However, what I noticed is that after applying those changes the code still seems very slow, which mainly has to do with `!totals.contains(..)`. Using `.contains()` does a search every loop cycle, which becomes slower and slower once `totals` starts to increase. The simple solution here, after some trial and error, is to drop it from the code and use `sort()` and `dedup()` at the end of the for-loop, like this:
+The next set of changes are all at the `problem_29()` method. First up, I changed the way I build up the string. Instead of using `repeat()` I can use something simple like `format!` to concatenate the amount of prime factors and their counts. However, what I noticed is that after applying those changes the code still seems very slow, which mainly has to do with `!totals.contains(..)`. Using `.contains()` does a search every loop cycle, which becomes slower and slower once `totals` starts to increase. The simple solution here, after some trial and error, is to drop it from the code and use `sort()` and `dedup()` at the end of the for-loop, like this:
 
 ```rust
 fn problem_29(max: u16) -> u16 {
