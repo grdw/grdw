@@ -8,7 +8,7 @@ complexity: 1
 {% include euler.html %}
 
 **Introduction**
-The puzzle states that there are only three numbers that can be written as their sum of fourth power digits. 1^4 is not included, but 0^4 is? I'm not sure why that is, but fine, perhaps I'm misreading this part.
+The puzzle states that there are only three numbers that can be written as their sum of fourth power digits. 1^4 is not included; so start from 2.
 
 Find the sum of all the numbers that can be written as the sum of fifth powers of their digits.
 
@@ -25,7 +25,7 @@ fn test_power_digits() {
 }
 ```
 
-The first questions I have is: does the fact that the numbers are of length 4 trivial or not? Can I lazily assume that for the powers of 5, these numbers are only going to be 5 digits long? Let's assume that the boundaries are beteen 2 and 9999 for a fourth power number. If I use `int_to_vec()` from "Power digit sum" I come up with this proof:
+The first questions I have is: does the fact that the numbers are of length 4 trivial or not? Can I lazily assume that for the powers of 5, these numbers are only going to be 5 digits long? Let's assume that the boundaries are between 2 and 9999 for a fourth power number. If I use `int_to_vec()` from ["Power digit sum"](/2021/10/26/project-euler-16-power-digit-sum.html) I come up with this proof:
 
 ```rust
 fn problem_30() -> Vec<u128>{
@@ -75,6 +75,21 @@ fn test_power_digits() {
 }
 ```
 
-I get the answer 248860 which seems to be incorrect. The right answer is 443839. If I amp up the range from 99.999 to 999.999, I do get the correct answer.
+I get the answer 248860 which seems to be incorrect. The right answer is 443839. If I amp up the range from 99.999 to 999.999, I do get the correct answer. It seems like there's a number with 6 digits (or multiple), that if the power of 5 is taken of those digits, it results in the same number.
+
+**Improvements on the answer**
+I believe this can be done a bit smarter. Upon inspecting the numbers, it seems like 4151 is a number for which the 5th power "rule" holds true. However, that means 1145 should also return 4151, which is much earlier in the cycle. Another example, 4150, already returns true for (0)145. In fact, we'd only have to move up till 147999 (which is 194979), to return all the possible variations.
+
+```
+First | Fifth power number
+145     4150
+1145    4151
+3489    93084
+22779   92727
+44578   54748
+147999  194979
+```
+
+However I'm not entirely sure how to make this smarter, without giving myself a really painful headache.
 
 {% include euler_complexity.html %}
