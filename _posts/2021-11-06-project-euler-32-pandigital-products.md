@@ -2,7 +2,7 @@
 layout: post
 title: "Project Euler #32: Pandigital products"
 euler: 32
-complexity: 1
+complexity: 2
 ---
 
 {% include euler.html %}
