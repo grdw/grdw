@@ -78,7 +78,7 @@ We can choose an infinite amount of each digit to form a number. Out of curiosit
 
 Let's start of with the lowest number 3 (which is 3! = 6) which isn't actually much of a sum. I believe the first value that fits the rule of being a sum is the number 10 (it becoming 1! + 0! = 2). To make that 2 turn into a 3 we need to write 12, 21 or 20.
 
-I always require >1 digit to make a number of a single digit. The only exception is 3. I can't really see a working pattern here because my math skills are too poor to figure this out.
+I always require >1 digit to make a number of a single digit. The only exception is 3. The upper bound I imagined would be 9_999_999 considering the length of that number will still remain 7 (the same as it starts out with). When doing 9! * 8 or (99_999_999 the length is lower than 8, and it will therefor never match). However letting the loop go till that far knowing it won't do much for the better part of the program, is a bit silly.
 
 For now I'll loop until 40585, knowing that there is a smarter way of approaching this.
 
