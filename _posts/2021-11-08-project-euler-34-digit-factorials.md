@@ -82,4 +82,9 @@ It will always require >1 digit to make a number of a single digit. The only exc
 
 For now I'll loop until 40585, knowing that there is a smarter way of approaching this.
 
+---
+
+**The upper bound**
+The clear mystery to this Euler puzzle is the upper bound. What is the upper bound? I've looked online at other answers and I see a lot of people simply using 9!7 (2.540.160) as the upper bound, but I fail to see why that's a reasonable upper bound. The reason why I'm questioning this, is because 2.540.160 is going to be turned into factorials again, which will result in 869. It just so happens to be that 145 and 40585 are lower than 9!7. My initial understanding is that 9.999.999 is the upper bound because the length of digits (7) will not exceed the _sum_ of its factorials. Perhaps a more "reasonable upper bound" is the _first number_ where the sum of its factorials and the initial number both equal to 7 digits? By taking a calculator, the first number for which this is true is: 1.000.999. 9!3 is equal to 1.088.640 and the rest are all 1's.
+
 {% include euler_complexity.html %}
