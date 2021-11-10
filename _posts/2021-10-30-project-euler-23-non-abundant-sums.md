@@ -15,7 +15,7 @@ The puzzle is very clear: "Find the sum of all the positive integers which canno
 - Loop over 0 till 28123, if the number is in the set X reject it and sum the total.
 
 **Step 1: finding all abundant numbers**
-Finding all abundant numbers is relatively straight forward. You start be creating a method to see which number is abundant. This method is a slightly altered variation from the method in ["Amicable numbers"]("/2021/10/29/project-euler-21-amicable-numbers.html").
+Finding all abundant numbers is relatively straight forward. You start be creating a method to see which number is abundant. This method is a slightly altered variation from the method in ["Amicable numbers"](/2021/10/29/project-euler-21-amicable-numbers.html).
 
 ```rust
 fn abundant(i: u32) -> bool {
