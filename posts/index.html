@@ -8,11 +8,11 @@ title: 'Scribbles'
 
   <div class="pagination">
     {% if paginator.previous_page %}
-      <a href="{{ paginator.previous_page_path }}" class="previous">&xlarr;</a>
+      <a href="{{ paginator.previous_page_path }}" class="previous">&lt;&lt;</a>
     {% endif %}
     <span class="page_number ">{{ paginator.page }} | {{ paginator.total_pages }}</span>
     {% if paginator.next_page %}
-      <a href="{{ paginator.next_page_path }}" class="next">&xrarr;</a>
+      <a href="{{ paginator.next_page_path }}" class="next">&gt;&gt;</a>
     {% endif %}
   </div>
 
