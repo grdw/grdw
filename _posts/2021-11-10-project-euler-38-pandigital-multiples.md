@@ -72,7 +72,10 @@ fn multiply_concatenate(n: u64) -> Option<String> {
 
 #[test]
 fn test_multiply_concatenate() {
-    assert_eq!(multiply_concatenate(192), Some(String::from("192384576")));
+    assert_eq!(
+        multiply_concatenate(192),
+        Some(String::from("192384576"))
+    );
     assert_eq!(multiply_concatenate(1), Some(String::from("123456789")));
     assert_eq!(multiply_concatenate(2), None)
 }
