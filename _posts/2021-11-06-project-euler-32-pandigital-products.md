@@ -10,7 +10,7 @@ complexity: 2
 **Introduction**
 Find the sum of all products whose multiplicand/multiplier/product identity can be written as a 1 through 9 pandigital.
 
-An example they give us is:
+An example is:
 
 ```
 39 × 186 = 7254
@@ -20,7 +20,7 @@ which contains the numbers 3,9,1,8,6,7,2,5,4 or sorted:
 ```
 
 **Idea 1: brute forcing!**
-The first brute force idea I have is to take `{1,2,3,4,5,6,7,8,9}`, generate all possible permutations and for each permutation squeeze the `x` and `=` symbols in between. So if we start off with `{1,2,3,4,5,6,7,8,9}`, the amount of sums you can make are:
+My first attempt at brute forcing is to take `{1,2,3,4,5,6,7,8,9}`, generate all possible permutations and for each permutation squeeze the `x` and `=` symbols in between. If we were to start with `{1,2,3,4,5,6,7,8,9}`, the amount of sums you can make are:
 
 ```
 1 * 2345678 = 9 F
@@ -53,10 +53,10 @@ The first brute force idea I have is to take `{1,2,3,4,5,6,7,8,9}`, generate all
 1234567 * 8 = 9 F
 ```
 
-There are 28 variations per permutation, times 9! (362880) which equals to 10.160.640 possibilities. Not only is that a lot, what's also unfortunate is that quite a lot of these 10.160.640 products are false statements. Just checking the 28 I mentioned above, not one of them is correct.
+This means there are 28 variations per permutation multiplied by 9! (362880) which equals to 10.160.640 possibilities. Not only is that a lot, what is also unfortunate is that quite a lot of these 10.160.640 products are false statements. Just checking the 28 I mentioned above, not one of them is correct.
 
 **Idea 2: More brute forcing!**
-Another idea I have is to start from the highest number you can make, which is: 987.654.321 and determine the divisors of said number. You'll lower by 1 each time and check if any of the unique divisor pairs and the sum are pandigital 1 till 9. Now, we can already do something a bit smarter here and start from 98.765.432 purely because 987.654.321 will never become pandigital in it's product because all the numbers 1 till 9 are already taken. Let's see how far this will get me. So first I'll steal the common divisors method from ["Amicable numbers"](/2021/10/29/project-euler-21-amicable-numbers.html) and tweak it slightly:
+Another brute forcing idea is to start from the highest number you can make, which is: 987.654.321 and determine the divisors of said number. You'll lower by 1 each time and check if any of the unique divisor pairs and the sum are pandigital 1 till 9. Now, we can already do something a bit smarter here and start from 98.765.432 purely because 987.654.321 will never become pandigital in its product, because all the numbers 1 till 9 are already taken. First up I'll steal the common divisors method from ["Amicable numbers"](/2021/10/29/project-euler-21-amicable-numbers.html) and tweak it slightly:
 
 ```rust
 fn divisors(i: u64) -> Vec<u64> {
@@ -82,7 +82,7 @@ fn test_common_divisors() {
 }
 ```
 
-From this method we can already see very quickly which divisors won't be pandigital. So let's exclude those:
+From this method we can already see very quickly which divisors won't be pandigital; let's exclude those by checking for duplicate numbers:
 
 ```rust
 fn valid_divisors(i: u64, d1: u64, d2: u64) -> bool {
@@ -154,7 +154,7 @@ fn test_problem_32() {
 }
 ```
 
-So after some fiddling I figured that the number of the product at max can be 98765 high. This is obviously a guess, but it does get the loop started, instead of going from 98765432 (which will take forever). After that code has run (in 2.35s, which is not awful) there's a list of numbers with all divisors containing unique numbers. Now obviously some of them don't contain all numbers from 1 till 9, so we'll filter those out:
+After some fiddling I figured that a good upper bound would be 98765. This is obviously a guess, but it does get the loop started, instead of going from 98765432 (which will take forever). After that code has run (in 2.35s, which is not awful) there's a list of numbers with all divisors containing numbers consisting of unique digits. Now obviously some of them don't contain all digits from 1 till 9 (like 6 = 3 x 2), so we'll filter those out by checking if all of these pairs are in fact pandigital:
 
 ```rust
 fn problem_32() -> u64 {
@@ -196,7 +196,7 @@ fn test_problem_32() {
 }
 ```
 
-The sum of all the _products_ is 5541. The actual answer is 45228, meaning that I also need to push the totals? If I do that, the number becomes 61911, which is closer, but no cigar. So to get the actual answer you require to only add the "total product" and remove the duplicates, which gives me the right answer:
+The sum of all the _factors_ is 5541. However, the actual answer is 45228, meaning that I also need to push the totals? If I do that, the number becomes 61911, which is closer, but no cigar. To get the actual answer you require to only add the "total product" and remove the duplicates, which gives me the right answer:
 
 ```rust
 fn problem_32() -> u64 {
@@ -241,8 +241,8 @@ fn test_problem_32() {
 
 ---
 
-**Improvements of the answer**
-First up we're going to change `valid_divisors()` to this:
+**Improvement #1: Combining filters**
+The code above contains a filter to check for duplicate digits and a filter to check if the number is pandigital. This feels redundant, and we can combine both into one singe filter. `valid_divisors` can be reduced to this:
 
 ```rust
 fn valid_divisors(i: u64, d1: u64, d2: u64) -> bool {
@@ -256,7 +256,8 @@ fn valid_divisors(i: u64, d1: u64, d2: u64) -> bool {
 }
 ```
 
-After applying that change, we can reduce `problem_32` down quite dramatically. Alongside that change; the next thing to do is to see what the highest number in the loop is, which seems to be 7852, so we can start our loop from 7853. All in all, we can reduce `problem_32` down to:
+**Improvement #2: Change the starting off point**
+After implementing the improved `valid_divisors()` method, the `problem_32()`-method can be slimmed down quite dramatically. The next thing to do is to see what the highest number in the loop is, which seems to be 7852, so we can start our loop from 7853. With both those changes, we can reduce `problem_32` down to:
 
 ```rust
 fn problem_32() -> u64 {
@@ -283,6 +284,40 @@ fn test_problem_32() {
 }
 ```
 
-Talking about refactoring! Obviously the 7853 is a magic number and feels a bit ugly. I feel this can probably be done a lot nicer, but I'll come back to it at a later point!
+Talking about refactoring! Obviously the 7853 is a magic number and feels a bit ugly. I feel this can probably be done a lot nicer, but I'll come back to it at a later point.
+
+---
+
+**Improvement on the upper bound**
+Coming back to this code a few days later, I see that 7853 is not a valid upper bound. To revisit this:
+
+- 987654321 is the first upper bound I picked. However that can never result in pandigital factors, because all of the numbers have already been picked once.
+- 98765432 was the second candidate. However splitting that in its factors, is also impossible because no _two factors_ exist that would make this pandigital.
+
+The idea for the upper bound relies on the _two factors_, what are the highest two factors that you can make? If we were to take the group of digits `{1,2,3,4,5,6,7,8,9}` and start splitting them up in odds and evens, from high to low: `{9,7,5,3,1}` and `{8,6,4,2}`. Those would be the highest two factors. However, their product will always contain duplicate digits because all the digits are in use.
+
+To think about it in another way:
+
+```
+a * b = c
+
+Where the length needs to be:
+al + bl + cl = 9 digits.
+
+What is the max value of c?
+```
+
+I can make `c` 9 digits long, but that means `a` and `b` need to be 0 digits long, which is impossible. `c` at least needs to be 7 digits long, so `a` and `b` can be 1 digit long, but the highest 1-digit product only gives a 2-digit number (`9 * 8`). So let's reduce `c` down to a 6-digit number, meaning `a` (or `b`) will be 2 digits and `b` (or `a`) will be 1 digit long. The highest possible product would be (`98 * 7`), which is a 3-digit number, not a 6-digit number. Let's repeat this process:
+
+```
+a b c
+0 0 9 Impossible
+1 1 7 Not possible because, highest factor 9 * 8 = 72 (2 digits)
+2 1 6 Not possible because, highest factor 98 * 7 = 686 (3 digits)
+3 1 5 Not possible because, highest factor 987 * 6 = 5922 (4 digits)
+4 1 4 Possible, because highest factor 9876 * 5 = 49380 (5 digits)
+```
+
+`c` needs to be a 4-digit number, to make two factors of length 1 and length 4, where the highest possible number is 9876.
 
 {% include euler_complexity.html %}
