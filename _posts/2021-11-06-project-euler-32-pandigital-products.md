@@ -311,11 +311,11 @@ I can make `c` 9 digits long, but that means `a` and `b` need to be 0 digits lon
 
 ```
 a b c
-0 0 9 Impossible
-1 1 7 Not possible because, highest factor 9 * 8 = 72 (2 digits)
-2 1 6 Not possible because, highest factor 87 * 9 = 783 (3 digits)
-3 1 5 Not possible because, highest factor 876 * 9 = 7884 (4 digits)
-4 1 4 Possible, because highest factor 8765 * 9 = 78885 (5 digits)
+0 0 9 ❌ impossible
+1 1 7 ❌ highest product 9 * 8 = 72 (2 digits)
+2 1 6 ❌ highest product 87 * 9 = 783 (3 digits)
+3 1 5 ❌ highest product 876 * 9 = 7884 (4 digits)
+4 1 4 ✅ highest product 8765 * 9 = 78885 (5 digits)
 ```
 
 `c` needs to be a 4-digit number, to make two factors of length 1 and length 4, where the highest possible number is 9876.
