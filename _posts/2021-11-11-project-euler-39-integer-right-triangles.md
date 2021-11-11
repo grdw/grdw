@@ -51,7 +51,7 @@ fn test_pythagoras() {
 }
 ```
 
-Just to prove the original problem statement for 120, I wrote this:
+Just to prove the original problem statement for a perimeter of 120, I wrote the following:
 
 ```rust
 fn problem_39() -> u64 {
@@ -84,7 +84,7 @@ fn problem_39() -> u64 {
     let max_r: u64 = max - 2;
     let mut triplets = vec![0; (max + 1) as usize];
     let mut max_index = 0;
-    let mut max = 0;
+    let mut max_f = 0;
 
     for a in 1..=max_r {
         for b in a..=max_r {
@@ -99,8 +99,8 @@ fn problem_39() -> u64 {
     }
 
     for (i, f) in triplets.iter().enumerate() {
-        if *f > max {
-            max = *f;
+        if *f > max_f {
+            max_f = *f;
             max_index = i;
         }
     }
@@ -114,6 +114,6 @@ fn test_problem_39() {
 }
 ```
 
-My answer is: for a perimeter (p) 840 there are the most Pythagorean triplets. According to the answer sheet, that is correct.
+My answer is: a triangle with a perimeter of 840 has the most Pythagorean triplets. According to the answer sheet, that is correct.
 
 {% include euler_complexity.html %}
