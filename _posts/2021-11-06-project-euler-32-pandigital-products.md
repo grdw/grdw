@@ -291,8 +291,8 @@ Talking about refactoring! Obviously the 7853 is a magic number and feels a bit 
 **Improvement on the upper bound**
 Coming back to this code a few days later, I see that 7853 is not a valid upper bound. To revisit this:
 
-- 987654321 is the first upper bound I picked. However that can never result in pandigital factors, because all of the numbers have already been picked once.
-- 98765432 was the second candidate. However splitting that in its factors, is also impossible because no _two factors_ exist that would make this pandigital.
+- 987654321 is the first upper bound I picked. However, that can never result in pandigital factors, because all the numbers have already been picked once.
+- 98765432 was the second candidate. However, splitting that in its factors, is also impossible because no _two factors_ exist that would make this pandigital.
 
 The idea for the upper bound relies on the _two factors_, what are the highest two factors that you can make? If we were to take the group of digits `{1,2,3,4,5,6,7,8,9}` and start splitting them up in odds and evens, from high to low: `{9,7,5,3,1}` and `{8,6,4,2}`. Those would be the highest two factors. However, their product will always contain duplicate digits because all the digits are in use.
 
@@ -307,15 +307,15 @@ al + bl + cl = 9 digits.
 What is the max value of c?
 ```
 
-I can make `c` 9 digits long, but that means `a` and `b` need to be 0 digits long, which is impossible. `c` at least needs to be 7 digits long, so `a` and `b` can be 1 digit long, but the highest 1-digit product only gives a 2-digit number (`9 * 8`). So let's reduce `c` down to a 6-digit number, meaning `a` (or `b`) will be 2 digits and `b` (or `a`) will be 1 digit long. The highest possible product would be (`98 * 7`), which is a 3-digit number, not a 6-digit number. Let's repeat this process:
+I can make `c` 9 digits long, but that means `a` and `b` need to be 0 digits long, which is impossible. `c` at least needs to be 7 digits long, so `a` and `b` can be 1 digit long, but the highest 1-digit product only gives a 2-digit number (`9 * 8`). So let's reduce `c` down to a 6-digit number, meaning `a` (or `b`) will be 2 digits and `b` (or `a`) will be 1 digit long. The highest possible product would be (`87 * 9`), which is a 3-digit number, not a 6-digit number. Let's repeat this process:
 
 ```
 a b c
 0 0 9 Impossible
 1 1 7 Not possible because, highest factor 9 * 8 = 72 (2 digits)
-2 1 6 Not possible because, highest factor 98 * 7 = 686 (3 digits)
-3 1 5 Not possible because, highest factor 987 * 6 = 5922 (4 digits)
-4 1 4 Possible, because highest factor 9876 * 5 = 49380 (5 digits)
+2 1 6 Not possible because, highest factor 87 * 9 = 783 (3 digits)
+3 1 5 Not possible because, highest factor 876 * 9 = 7884 (4 digits)
+4 1 4 Possible, because highest factor 8765 * 9 = 78885 (5 digits)
 ```
 
 `c` needs to be a 4-digit number, to make two factors of length 1 and length 4, where the highest possible number is 9876.
