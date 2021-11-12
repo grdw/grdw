@@ -8,7 +8,7 @@ complexity: 1
 {% include euler.html %}
 
 **Introduction**
-The puzzle starts of with explaining an irrational decimal fraction which looks like this:
+The puzzle starts by showing us an irrational decimal fraction which looks like this:
 
 ```
              |
