@@ -1,7 +1,8 @@
 ---
 layout: post
 title: "Project Euler #18: Maximum path sum I"
-euler: 18
+problem_type: euler
+problem: 18
 complexity: 2
 ---
 

@@ -1,7 +1,8 @@
 ---
 layout: post
 title: "Project Euler #40: Champernowne's constant"
-euler: 40
+problem_type: euler
+problem: 40
 complexity: 1
 ---
 

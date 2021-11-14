@@ -1,7 +1,8 @@
 ---
 layout: post
 title: "Project Euler #31: Coin sums"
-euler: 31
+problem_type: euler
+problem: 31
 complexity: 3
 ---
 

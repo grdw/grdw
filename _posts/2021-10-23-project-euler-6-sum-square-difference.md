@@ -1,7 +1,8 @@
 ---
 layout: post
 title: "Project Euler #6: Sum square difference"
-euler: 6
+problem_type: euler
+problem: 6
 complexity: 1
 ---
 

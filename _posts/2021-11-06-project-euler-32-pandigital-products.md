@@ -1,7 +1,8 @@
 ---
 layout: post
 title: "Project Euler #32: Pandigital products"
-euler: 32
+problem_type: euler
+problem: 32
 complexity: 2
 ---
 

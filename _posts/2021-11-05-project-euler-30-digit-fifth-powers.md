@@ -1,7 +1,8 @@
 ---
 layout: post
 title: "Project Euler #30: Digit fifth powers"
-euler: 30
+problem_type: euler
+problem: 30
 complexity: 1
 ---
 

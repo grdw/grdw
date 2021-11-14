@@ -1,7 +1,8 @@
 ---
 layout: post
 title: "Project Euler #21: Amicable numbers"
-euler: 21
+problem_type: euler
+problem: 21
 complexity: 1
 ---
 

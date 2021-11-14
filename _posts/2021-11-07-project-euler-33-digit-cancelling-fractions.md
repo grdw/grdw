@@ -1,7 +1,8 @@
 ---
 layout: post
 title: "Project Euler #33: Digit cancelling fractions"
-euler: 33
+problem_type: euler
+problem: 33
 complexity: 2
 ---
 

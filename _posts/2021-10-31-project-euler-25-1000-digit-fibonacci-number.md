@@ -1,7 +1,8 @@
 ---
 layout: post
 title: "Project Euler #25: 1000-digit Fibonacci number"
-euler: 25
+problem_type: euler
+problem: 25
 complexity: 1
 ---
 

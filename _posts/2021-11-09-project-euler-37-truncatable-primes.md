@@ -1,7 +1,8 @@
 ---
 layout: post
 title: "Project Euler #37: Truncatable primes"
-euler: 37
+problem_type: euler
+problem: 37
 complexity: 1
 ---
 

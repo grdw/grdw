@@ -1,7 +1,8 @@
 ---
 layout: post
 title: "Project Euler #3: Largest prime factor"
-euler: 3
+problem_type: euler
+problem: 3
 complexity: 2
 ---
 

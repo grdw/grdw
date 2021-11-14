@@ -1,7 +1,8 @@
 ---
 layout: post
 title: "Project Euler #7: 10001st prime"
-euler: 7
+problem_type: euler
+problem: 7
 complexity: 1
 ---
 

@@ -1,7 +1,8 @@
 ---
 layout: post
 title: "Project Euler #42: Coded triangular numbers"
-euler: 42
+problem_type: euler
+problem: 42
 complexity: 1
 ---
 

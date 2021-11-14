@@ -1,7 +1,8 @@
 ---
 layout: post
 title: "Project Euler #13: Large sum"
-euler: 13
+problem_type: euler
+problem: 13
 complexity: 2
 ---
 

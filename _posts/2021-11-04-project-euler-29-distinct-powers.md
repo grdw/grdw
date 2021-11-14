@@ -1,7 +1,8 @@
 ---
 layout: post
 title: "Project Euler #29: Distinct powers"
-euler: 29
+problem_type: euler
+problem: 29
 complexity: 2
 ---
 

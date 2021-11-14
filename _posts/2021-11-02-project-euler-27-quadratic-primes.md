@@ -1,7 +1,8 @@
 ---
 layout: post
 title: "Project Euler #27: Quadratic primes"
-euler: 27
+problem_type: euler
+problem: 27
 complexity: 1
 ---
 

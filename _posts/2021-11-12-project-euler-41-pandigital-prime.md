@@ -1,7 +1,8 @@
 ---
 layout: post
 title: "Project Euler #41: Pandigital prime"
-euler: 41
+problem_type: euler
+problem: 41
 complexity: 2
 ---
 

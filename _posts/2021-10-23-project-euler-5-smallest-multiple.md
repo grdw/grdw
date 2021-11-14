@@ -1,7 +1,8 @@
 ---
 layout: post
 title: "Project Euler #5: Smallest multiple"
-euler: 5
+problem_type: euler
+problem: 5
 complexity: 1
 ---
 

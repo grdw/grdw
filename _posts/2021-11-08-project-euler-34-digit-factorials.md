@@ -1,7 +1,8 @@
 ---
 layout: post
 title: "Project Euler #34: Digit factorials"
-euler: 34
+problem_type: euler
+problem: 34
 complexity: 1
 ---
 

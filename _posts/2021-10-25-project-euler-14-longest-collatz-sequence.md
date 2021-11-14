@@ -1,7 +1,8 @@
 ---
 layout: post
 title: "Project Euler #14: Longest Collatz sequence"
-euler: 14
+problem_type: euler
+problem: 14
 complexity: 1
 ---
 

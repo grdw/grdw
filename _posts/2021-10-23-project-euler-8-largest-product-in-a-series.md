@@ -1,7 +1,8 @@
 ---
 layout: post
 title: "Project Euler #8: Largest product in a series"
-euler: 8
+problem_type: euler
+problem: 8
 complexity: 1
 ---
 

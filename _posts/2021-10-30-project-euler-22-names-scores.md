@@ -1,7 +1,8 @@
 ---
 layout: post
 title: "Project Euler #22: Names scores"
-euler: 22
+problem_type: euler
+problem: 22
 complexity: 1
 ---
 

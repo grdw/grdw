@@ -1,7 +1,8 @@
 ---
 layout: post
 title: "Project Euler #11: Largest product in a grid"
-euler: 11
+problem_type: euler
+problem: 11
 complexity: 2
 ---
 

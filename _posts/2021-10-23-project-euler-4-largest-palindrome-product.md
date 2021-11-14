@@ -1,7 +1,8 @@
 ---
 layout: post
 title: "Project Euler #4: Largest palindrome product"
-euler: 4
+problem_type: euler
+problem: 4
 complexity: 1
 ---
 

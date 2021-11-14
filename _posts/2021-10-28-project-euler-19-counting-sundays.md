@@ -1,7 +1,8 @@
 ---
 layout: post
 title: "Project Euler #19: Counting Sundays"
-euler: 19
+problem_type: euler
+problem: 19
 complexity: 1
 ---
 

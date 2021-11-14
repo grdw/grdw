@@ -1,7 +1,8 @@
 ---
 layout: post
 title: "Project Euler #43: Sub-string divisibility"
-euler: 43
+problem_type: euler
+problem: 43
 complexity: 2
 ---
 

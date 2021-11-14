@@ -1,7 +1,8 @@
 ---
 layout: post
 title: "Project Euler #28: Number spiral diagonals"
-euler: 28
+problem_type: euler
+problem: 28
 complexity: 1
 ---
 

@@ -1,7 +1,8 @@
 ---
 layout: post
 title: "Project Euler #24: Lexicographic permutations"
-euler: 24
+problem_type: euler
+problem: 24
 complexity: 2
 ---
 

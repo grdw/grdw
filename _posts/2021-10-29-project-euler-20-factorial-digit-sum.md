@@ -1,7 +1,8 @@
 ---
 layout: post
 title: "Project Euler #20: Factorial digit sum"
-euler: 20
+problem_type: euler
+problem: 20
 complexity: 1
 ---
 

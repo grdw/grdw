@@ -1,7 +1,8 @@
 ---
 layout: post
 title: "Project Euler #35: Circular primes"
-euler: 35
+problem_type: euler
+problem: 35
 complexity: 1
 ---
 

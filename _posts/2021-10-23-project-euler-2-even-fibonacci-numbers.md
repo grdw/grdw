@@ -1,7 +1,8 @@
 ---
 layout: post
 title: "Project Euler #2: Even Fibonacci numbers"
-euler: 2
+problem_type: euler
+problem: 2
 complexity: 1
 ---
 

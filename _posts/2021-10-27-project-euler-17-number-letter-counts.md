@@ -1,7 +1,8 @@
 ---
 layout: post
 title: "Project Euler #17: Number letter counts"
-euler: 17
+problem_type: euler
+problem: 17
 complexity: 1
 ---
 

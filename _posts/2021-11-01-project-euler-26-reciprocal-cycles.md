@@ -1,7 +1,8 @@
 ---
 layout: post
 title: "Project Euler #26: Reciprocal cycles"
-euler: 26
+problem_type: euler
+problem: 26
 complexity: 2
 ---
 

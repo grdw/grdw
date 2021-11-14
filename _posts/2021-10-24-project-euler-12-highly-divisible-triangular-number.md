@@ -1,7 +1,8 @@
 ---
 layout: post
 title: "Project Euler #12: Highly divisible triangular number"
-euler: 12
+problem_type: euler
+problem: 12
 complexity: 1
 ---
 

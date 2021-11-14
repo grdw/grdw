@@ -1,7 +1,8 @@
 ---
 layout: post
 title: "Project Euler #15: Lattice paths"
-euler: 15
+problem_type: euler
+problem: 15
 complexity: 2
 ---
 

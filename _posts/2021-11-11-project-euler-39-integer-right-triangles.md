@@ -1,7 +1,8 @@
 ---
 layout: post
 title: "Project Euler #39: Integer right triangles"
-euler: 39
+problem_type: euler
+problem: 39
 complexity: 1
 ---
 

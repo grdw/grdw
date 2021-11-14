@@ -1,7 +1,8 @@
 ---
 layout: post
 title: "Project Euler #38: Pandigital multiples"
-euler: 38
+problem_type: euler
+problem: 38
 complexity: 1
 ---
 

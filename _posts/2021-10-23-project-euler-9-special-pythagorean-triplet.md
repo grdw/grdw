@@ -1,7 +1,8 @@
 ---
 layout: post
 title: "Project Euler #9: Special Pythogorean triplet"
-euler: 9
+problem_type: euler
+problem: 9
 complexity: 2
 ---
 

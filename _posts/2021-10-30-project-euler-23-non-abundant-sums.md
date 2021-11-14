@@ -1,7 +1,8 @@
 ---
 layout: post
 title: "Project Euler #23: Non-abundant sums"
-euler: 23
+problem_type: euler
+problem: 23
 complexity: 3
 ---
 

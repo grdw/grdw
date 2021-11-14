@@ -1,7 +1,8 @@
 ---
 layout: post
 title: "Project Euler #1: Multiples of 3 or 5"
-euler: 1
+problem_type: euler
+problem: 1
 complexity: 1
 ---
 

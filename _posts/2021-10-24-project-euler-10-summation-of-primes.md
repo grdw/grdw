@@ -1,7 +1,8 @@
 ---
 layout: post
 title: "Project Euler #10: Summation of primes"
-euler: 10
+problem_type: euler
+problem: 10
 complexity: 1
 ---
 

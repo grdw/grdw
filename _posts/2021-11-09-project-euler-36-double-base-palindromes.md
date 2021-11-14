@@ -1,7 +1,8 @@
 ---
 layout: post
 title: "Project Euler #36: Double-base palindromes"
-euler: 36
+problem_type: euler
+problem: 36
 complexity: 1
 ---
 
