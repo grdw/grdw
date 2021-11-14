@@ -23,7 +23,7 @@ It continues by stating:
 Find the sum of all 0 to 9 pandigital numbers with this property.
 
 **Step 1: Heap's algorithm, again**
-First up I'll reuse Heap's algorithm from ["Pandigital prime"](2021/11/12/project-euler-41-pandigital-prime.html) with the group `{0,1,2,3,4,5,6,7,8,9}` and generate all possible permutations.
+First up I'll reuse Heap's algorithm from ["Pandigital prime"](/2021/11/12/project-euler-41-pandigital-prime.html) with the group `{0,1,2,3,4,5,6,7,8,9}` and generate all possible permutations.
 
 **Step 2: Sub-string divisibility**
 The next part is to take one of these permutations and loop over them in groups of three. If this were Ruby, this would be really easy because Ruby has an `each_cons()` method, where Rust doesn't have one. Luckily they're really easy to make:
@@ -57,6 +57,8 @@ fn is_divisible(digits: &Vec<char>) -> bool {
             .parse()
             .unwrap();
 
+        // Yeah, I know I could've just used a modulo, but
+        // I only figured that out later....
         if !divisors(n).contains(&primes[i - 1]) {
             break false
         }
