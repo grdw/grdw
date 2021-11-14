@@ -6,9 +6,10 @@ layout: default
   {{ page.title }}
 </h1>
 
-{% if page.problem_type %}
+{% case page.problem_type %}
+{% when "euler" %}
   {% include euler.html %}
-{% endif %}
+{% endcase %}
 
 {{ content }}
 
