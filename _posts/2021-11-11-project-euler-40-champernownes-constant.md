@@ -5,9 +5,6 @@ problem_type: euler
 problem: 40
 complexity: 1
 ---
-
-
-
 **Introduction**
 The puzzle starts by showing us an irrational decimal fraction which looks like this:
 
@@ -87,5 +84,3 @@ fn test_problem_40() {
     assert_eq!(problem_40(), 210);
 }
 ```
-
-

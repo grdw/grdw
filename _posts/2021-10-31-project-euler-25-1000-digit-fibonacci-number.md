@@ -5,9 +5,6 @@ problem_type: euler
 problem: 25
 complexity: 1
 ---
-
-
-
 **Introduction**
 What is the index of the first term in the Fibonacci sequence to contain 1000 digits?
 
@@ -156,5 +153,3 @@ fn test_problem_25() {
     assert_eq!(problem_25(1000), 4782);
 }
 ```
-
-

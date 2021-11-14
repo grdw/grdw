@@ -5,9 +5,6 @@ problem_type: euler
 problem: 19
 complexity: 1
 ---
-
-
-
 **Introduction**
 The puzzle asks: "how many Sundays fell on the first of the month during the twentieth century (1 Jan 1901 to 31 Dec 2000)?"
 
@@ -132,5 +129,3 @@ fn problem_19() -> u32 {
     total_sundays
 }
 ```
-
-

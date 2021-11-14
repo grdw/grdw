@@ -5,9 +5,6 @@ problem_type: euler
 problem: 10
 complexity: 1
 ---
-
-
-
 This article features only an answer, because I've started writing from [problem 14](/2021/10/25/project-euler-14-longest-collatz-sequence.html).
 
 ```rust
@@ -44,5 +41,3 @@ fn total_primes_below_x() {
     assert_eq!(total_primes_for(2_000_000), 142913828922);
 }
 ```
-
-

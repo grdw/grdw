@@ -5,9 +5,6 @@ problem_type: euler
 problem: 36
 complexity: 1
 ---
-
-
-
 **Introduction**
 "Find the sum of all numbers, less than one million, which are palindromic in base 10 and base 2."
 
@@ -67,5 +64,3 @@ fn palindrome_numbers_test() {
     assert_eq!(sum_palindrome_base2_10(1_000_000), 872187);
 }
 ```
-
-

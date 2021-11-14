@@ -5,9 +5,6 @@ problem_type: euler
 problem: 14
 complexity: 1
 ---
-
-
-
 **Introduction**
 The puzzle is called "Longest Collatz sequence" which starts off by stating that it's a sequence of positive integers. To build up such a sequence, we take any number. If it's an even number, we divide the number by 2. If the number is an uneven number we multiply by 3 and add 1. The result of that we loop back into the sequence until we are left with the final number, which is always 1. It also gives me an example to create such a sequence for the number 13.
 
@@ -142,5 +139,3 @@ fn problem_14() -> u64 {
 ```
 
 It's a bit more elegant, where elegant here just means shorter, but I'm still not a big fan of those `.1` and `.0` accessors that are required from mapping to a tuple. However, considering that the question is _which number produces the highest chain_ and not how high is _the highest chain_ I need to persist the number. As far as I see here, there is no way around the tuple.
-
-

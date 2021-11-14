@@ -5,9 +5,6 @@ problem_type: euler
 problem: 23
 complexity: 3
 ---
-
-
-
 **Introduction**
 The puzzle is very clear: "Find the sum of all the positive integers which cannot be written as the sum of two abundant numbers." The puzzle specifies that all these numbers are below 28123. The problem consists of these parts, as far as I can see:
 
@@ -288,10 +285,7 @@ for i in 0..all_abundant.len() - 1 {
 Oddly enough, this gives me an array of 9918 numbers, which is higher than the 8253 numbers I got earlier with the slower algorithm. However, this doesn't really matter, because I still get a result of 261307216. I gave up on my method.
 
 **Getting to the actual correct answer...**
-After taking a shower, I came up with a way less complex approach. I figured that any number which is abundant I should persist in a vector of some kind. Then for each following number in the loop, I need to check with the previous list of abundant numbers. If reducing said number by any of the previous abundant numbers is also an abundant number, it is a double abundant number. My first attempt looks like this:
-
-
-```rust
+After taking a shower, I came up with a way less complex approach. I figured that any number which is abundant I should persist in a vector of some kind. Then for each following number in the loop, I need to check with the previous list of abundant numbers. If reducing said number by any of the previous abundant numbers is also an abundant number, it is a double abundant number. My first attempt looks like this:```rust
 fn problem_23() -> u32 {
     let mut filter_set = vec![];
     let mut total = 0;
@@ -380,5 +374,3 @@ fn problem_23() -> u32 {
 ```
 
 This is quite a bit faster already.
-
-

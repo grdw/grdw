@@ -5,9 +5,6 @@ problem_type: euler
 problem: 42
 complexity: 1
 ---
-
-
-
 **Introduction**
 "Using a 16K text file containing nearly two-thousand common English words, how many are triangle words?"
 
@@ -90,5 +87,3 @@ fn is_triangle(n: &str) -> bool {
 **Sources**
 
 \[1\] [Fastest method to define whether a number is a triangular number](https://stackoverflow.com/a/2913319/1694362)
-
-

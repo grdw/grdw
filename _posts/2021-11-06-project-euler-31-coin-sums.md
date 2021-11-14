@@ -5,9 +5,6 @@ problem_type: euler
 problem: 31
 complexity: 3
 ---
-
-
-
 **Introduction**
 How many different ways can £2 be made using any number of coins?
 
@@ -86,5 +83,3 @@ It's the correct answer, but I have no clue how this works from a math point of 
 \[4\] [Integer Partitioning with Dynamic Programming](https://www.youtube.com/watch?v=3hc-Urx4S8g)
 
 \[5\] [Change for a dollar](https://math.stackexchange.com/questions/176363/keep-getting-generating-function-wrong-making-change-for-a-dollar/176397#176397)
-
-

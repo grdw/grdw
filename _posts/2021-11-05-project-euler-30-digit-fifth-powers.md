@@ -5,9 +5,6 @@ problem_type: euler
 problem: 30
 complexity: 1
 ---
-
-
-
 **Introduction**
 The puzzle states that there are only three numbers that can be written as their sum of fourth power digits. 1^4 is not included; so start from 2.
 
@@ -232,5 +229,3 @@ time cargo test problem_30_improved
 ```
 
 It shaves of 0.74 seconds.
-
-

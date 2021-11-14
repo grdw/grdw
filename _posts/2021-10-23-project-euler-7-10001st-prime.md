@@ -5,9 +5,6 @@ problem_type: euler
 problem: 7
 complexity: 1
 ---
-
-
-
 Taking the `is_prime()` function from the ["Largest prime factor"](/2021/10/23/project-euler-3-largest-prime-factor.html), we can solve this relatively easily:
 
 ```rust
@@ -33,5 +30,3 @@ fn test_problem_7() {
     assert_eq!(problem_7(), 104743);
 }
 ```
-
-

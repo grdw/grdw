@@ -5,9 +5,6 @@ problem_type: euler
 problem: 2
 complexity: 1
 ---
-
-
-
 This article features only an answer, because I've started writing from [problem 14](/2021/10/25/project-euler-14-longest-collatz-sequence.html).
 
 ```rust
@@ -38,5 +35,3 @@ fn even_fibonnaci_numbers_test() {
     assert_eq!(fibonacci_even(4000000), 4613732);
 }
 ```
-
-

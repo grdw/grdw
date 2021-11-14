@@ -5,9 +5,6 @@ problem_type: euler
 problem: 22
 complexity: 1
 ---
-
-
-
 **Introduction**
 You're given a file with names, calculate the sum of all the name scores. A name score can be determined by summing up all individual character positions in the alphabet and multiply it by the index of that name within the sorted list of names. This particular puzzle is incredibly easy and in all honestly wasn't much of a challenge. There are sometimes those Euler puzzles that feel a little bit too easy. The full code I used is this:
 
@@ -47,5 +44,3 @@ Giving me the correct answer of 871198282. The only tricky bit was figuring out 
 **Sources**
 
 \[1\] [Rust-lang/Iteration thought alphabets](https://users.rust-lang.org/t/iteration-thought-alphabets/30078/3){:target="_blank"}
-
-

@@ -5,9 +5,6 @@ problem_type: euler
 problem: 24
 complexity: 2
 ---
-
-
-
 **Introduction**
 The lexicographic permutations of 0, 1 and 2 are:
 
@@ -321,6 +318,3 @@ fn test_next_perm() {
 \[4\] [Mathsanew/permutations with recursion](https://mathsanew.com/articles_html/27/permutations_with_recursionli5.html){:target="_blank"}
 
 \[5\] [Quickperm/lexico](https://www.quickperm.org/lexico.php){:target="_blank"}
-
-
-

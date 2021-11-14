@@ -5,9 +5,6 @@ problem_type: euler
 problem: 9
 complexity: 2
 ---
-
-
-
 This article features only an answer, because I've started writing from [problem 14](/2021/10/25/project-euler-14-longest-collatz-sequence.html).
 
 ```rust
@@ -63,5 +60,3 @@ fn find_triplet_test() {
     assert_eq!(find_triplet(1000), (200, 375, 425));
 }
 ```
-
-

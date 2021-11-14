@@ -5,9 +5,6 @@ problem_type: euler
 problem: 15
 complexity: 2
 ---
-
-
-
 **Introduction**
 This puzzle is called "Lattice paths" (no, not lettuce paths). The puzzle talks about a grid of 2x2 and how there are only 6 distinct ways of moving from the top left to the bottom right. How many ways are there for a 20x20 grid?
 
@@ -82,10 +79,7 @@ A   E   I
 
 That's interesting, so it looks like a diamond. I'm not sure what that even means, and I'm sure there are some math geniuses out there that will immediately see the answer, however I don't see it quite yet. Is it as easy as: from the root node A, it can only pick two routes B and D which themselves only have two routes, so 3 x 2 = 6?
 
-Let's check how many routes there are for the 3x3 grid using a tree:
-
-
-```
+Let's check how many routes there are for the 3x3 grid using a tree:```
 A 3x3 plane which has 16 grid points:
 
 A B C D
@@ -164,10 +158,7 @@ fn problem_15(mut n: i32) -> i32 {
         n -= 1
     }
     0
-}
-
-
-#[test]
+}#[test]
 fn test_problem_15() {
     assert_eq!(problem_15(2), 6);
     assert_eq!(problem_15(3), 20);
@@ -185,10 +176,7 @@ fn problem_15(mut n: i32) -> i32 {
         n -= 1
     }
     c
-}
-
-
-#[test]
+}#[test]
 fn test_problem_15() {
     assert_eq!(problem_15(2), 6);
     assert_eq!(problem_15(3), 20);
@@ -205,10 +193,7 @@ Judging by the number I'm assuming factorials come into play one way or the othe
 fn problem_15(mut n: u64) -> u64 {
     let mut c = 0;
     c
-}
-
-
-#[test]
+}#[test]
 fn test_problem_15() {
     assert_eq!(problem_15(2), 6);
     assert_eq!(problem_15(3), 20);
@@ -237,10 +222,7 @@ fn problem_15(k: u64) -> u64 {
     let n = k * 2;
 
     fact(n) / (fact(k) * fact(n - k))
-}
-
-
-#[test]
+}#[test]
 fn test_problem_15() {
     assert_eq!(problem_15(2), 6);
     assert_eq!(problem_15(3), 20);
@@ -265,10 +247,7 @@ fn problem_15(k: u64) -> u64 {
 }
 ```
 
-With my minor math skills I can see that "(something * 2) - something" is the same as "one of something" so:
-
-
-```rust
+With my minor math skills I can see that "(something * 2) - something" is the same as "one of something" so:```rust
 fn problem_15(k: u64) -> u64 {
     fact(k * 2) / (fact(k) * fact(k))
 }
@@ -311,10 +290,7 @@ I can drop one n! if I only calculate the factorial of 6
 up till three numbers.
 ```
 
-Knowing that this is true, this will make my code a lot simpler. Taking the grid size as `k` I have to multiply that number by 2 and create two "factorials" for lack of a better term (which we'll call `o` and `p`) from `k` and `n`. If I then divide the result `o` by `p` I should get the correct answer:
-
-
-```rust
+Knowing that this is true, this will make my code a lot simpler. Taking the grid size as `k` I have to multiply that number by 2 and create two "factorials" for lack of a better term (which we'll call `o` and `p`) from `k` and `n`. If I then divide the result `o` by `p` I should get the correct answer:```rust
 fn problem_15(mut k: u64) -> u64 {
     let mut n = k * 2;
     let mut o = 1;
@@ -328,10 +304,7 @@ fn problem_15(mut k: u64) -> u64 {
     }
 
     o / p
-}
-
-
-#[test]
+}#[test]
 fn test_problem_15() {
     assert_eq!(problem_15(2), 6);
     assert_eq!(problem_15(3), 20);
@@ -355,10 +328,7 @@ fn problem_15(mut k: u128) -> u128 {
     }
 
     o / p
-}
-
-
-#[test]
+}#[test]
 fn test_problem_15() {
     assert_eq!(problem_15(2), 6);
     assert_eq!(problem_15(3), 20);
@@ -381,10 +351,7 @@ For a grid where size equals 3, the way to calculate the number of routes is don
 3 * 2 * 1
 ```
 
-I just noticed that it's the same as this:
-
-
-```
+I just noticed that it's the same as this:```
 5 * 4
 ----- * 2
 2 * 1
@@ -408,10 +375,7 @@ fn problem_15(mut k: u128) -> u128 {
     }
 
     (o / p) * 2
-}
-
-
-#[test]
+}#[test]
 fn test_problem_15() {
     assert_eq!(problem_15(2), 6);
     assert_eq!(problem_15(3), 20);
@@ -428,5 +392,3 @@ It still won't fit on a 64-bit integer, but it's a tiny bit faster.
 \[2\] [Chilimath/simplifying factorials](https://www.chilimath.com/lessons/intermediate-algebra/simplifying-factorials-with-variables/){:target="_blank"}
 
 \[3\] [Dummies/how to simplify factorial expressions](https://www.dummies.com/education/math/algebra/how-to-simplify-factorial-expressions/){:target="_blank"}
-
-

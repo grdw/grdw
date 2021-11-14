@@ -5,9 +5,6 @@ problem_type: euler
 problem: 16
 complexity: 3
 ---
-
-
-
 **Introduction**
 2^16 = 32768. Summing up all individual digits (3 + 2 + 7 + 6 + 8) results in 26. What is the sum of the digits to 2^1000?
 
@@ -534,10 +531,7 @@ fn test_summing_arrays() {
     assert_eq!(sum_arrays(vec![0, 2, 1], vec![0, 8]), vec![0, 0, 2]);
     // 92 + 80 = 271
     assert_eq!(sum_arrays(vec![2, 9], vec![0, 8]), vec![2, 7, 1]);
-}
-
-
-#[test]
+}#[test]
 fn test_summing_multiple_arrays() {
     let mut start = vec![1, 1, 1];
     start = sum_arrays(start, vec![1, 1, 2]);
@@ -674,5 +668,3 @@ This is not only nicer, but because of the borrowing and inline updating of `vec
 **Sources**
 
 \[1\] [Stackoverflow: iterate two vectors with different lengths](https://stackoverflow.com/a/38168890/1694362){:target="_blank"}
-
-

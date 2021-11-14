@@ -5,9 +5,6 @@ problem_type: euler
 problem: 5
 complexity: 1
 ---
-
-
-
 What is the smallest positive number that is evenly divisible by all of the numbers from 1 to 20?
 
 The lazy and expensive way of doing this is:
@@ -32,5 +29,3 @@ fn test_problem_5() {
 Voila! The answer is 232792560.
 
 But a smarter way is increasing `start` by 20 each time, making the whole process 20 times faster.
-
-
