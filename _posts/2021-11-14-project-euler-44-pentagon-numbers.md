@@ -27,7 +27,7 @@ etc.
 I'm not sure what they mean with 'minimised', but let's start!
 
 **How to detect if a number is pentagonal?**
-This problem feels similar to the ["Coded triangular numbers"](/2021/11/13/project-euler-42-coded-triangle-numbers.html) issue with triangular numbers. How would I know that 4 isn't a pentagonal number, but 5 is? On the Wikipedia page is a formula [1] that we can use. Implementing that method in code looks something like this:
+This problem feels similar to the ["Coded triangular numbers"](/2021/11/13/project-euler-42-coded-triangle-numbers.html) issue with triangular numbers. How would I know that 4 isn't a pentagonal number, but 5 is? On the Wikipedia page is a formula [1] that I can use. Implementing that method in code looks something like this:
 
 ```rust
 fn is_pentagonal(i: u64) -> bool {
@@ -43,7 +43,7 @@ fn test_is_pentagonal() {
 }
 ```
 
-Alongside that method, we also need one that gives a pentagonal number for a positive integer:
+Alongside that method, I also need one that gives a pentagonal number for a positive integer:
 
 ```rust
 fn to_pentagonal_number(i: u64) -> u64 {
@@ -98,7 +98,7 @@ The answer I get is 6004799519073081, but the actual answer is 5482660. I made a
 
 The variable `pj`, in my example, never updates. There needs to be an act of balancing where the inner loop quits because some arbitrary condition is met. But what is that condition?
 
-The first pair is (1, 6004799519073081), but what is the other number for 5? For 5 it is 24019198519188237. 24019198519188237 is way higher than 6004799519073081, so we can stop before we hit a number higher than the previous match. However, the first 20 pentagon numbers all require numbers higher than 6004799519073081, making the code painfully slow. This seems like a dead end.
+The first pair is (1, 6004799519073081), but what is the other number for 5? For 5 it is 24019198519188237. 24019198519188237 is way higher than 6004799519073081, so I can stop before I hit a number higher than the previous match. However, the first 20 pentagon numbers all require numbers higher than 6004799519073081, making the code painfully slow. This seems like a dead end.
 
 **On pen and paper**
 If I were to this on paper, I'd go something like this:
