@@ -5,6 +5,7 @@ problem_type: euler
 problem: 4
 complexity: 1
 ---
+
 This little puzzle asks to find the largest palindrome product of two 3-digit numbers. All the 3-digit numbers range from 100 to 999 and the result should be a palindrome. This is fairly easy:
 
 ```rust

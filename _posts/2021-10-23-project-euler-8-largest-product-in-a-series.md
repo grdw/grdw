@@ -5,6 +5,7 @@ problem_type: euler
 problem: 8
 complexity: 1
 ---
+
 You're given a 1000-digit number, which adjacent 13 digit string of numbers have the greatest product? This is fairly simple:
 
 ```rust

@@ -5,6 +5,7 @@ problem_type: euler
 problem: 21
 complexity: 1
 ---
+
 **Introduction**
 Amicable numbers are numbers where d(a) = b and d(b) = a and a != b. To determine d(N), you find all divisors for N and sum them. You take that sum and check if d(Sum) returns the same N, if it does, it's a pair. If it doesn't, it isn't a pair. Find and sum up all the pairs below 10.000.
 

@@ -5,6 +5,7 @@ problem_type: euler
 problem: 11
 complexity: 2
 ---
+
 This was quite a doable puzzle, but it was a lot of work. If you follow the link, it specifies to find the largest product in a 20x20 grid. You can look down, up, left, right and diagonally.
 
 I'm not going to talk about my first approach, because that was a nightmare. It worked, but it was the most insanely redundant code ever. After quite some refactoring, I got to the answer I currently have. Without going into the nightmare code, I'm going to talk about how I managed to solve it, with relatively _little_ code.

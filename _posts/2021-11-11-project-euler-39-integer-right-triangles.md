@@ -5,6 +5,7 @@ problem_type: euler
 problem: 39
 complexity: 1
 ---
+
 **Introduction**
 The problem description starts out with describing a "right-angle triangle" (meaning Pythagoras will come into play) and how there are three solutions where the perimeter (p) = 120. For which solution p ≤ 1000 do we get the maximum amount of solutions.
 

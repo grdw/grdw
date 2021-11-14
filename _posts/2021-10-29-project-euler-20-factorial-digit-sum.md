@@ -5,6 +5,7 @@ problem_type: euler
 problem: 20
 complexity: 1
 ---
+
 **Introduction**
 Find the sum of the digits in the number 100!.
 

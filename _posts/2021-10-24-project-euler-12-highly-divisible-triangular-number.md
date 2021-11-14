@@ -5,6 +5,7 @@ problem_type: euler
 problem: 12
 complexity: 1
 ---
+
 This article features only an answer, because I've started writing from [problem 14](/2021/10/25/project-euler-14-longest-collatz-sequence.html).```rust
 fn num_factors(n: i64) -> i64 {
     if n == 1 {

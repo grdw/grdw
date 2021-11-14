@@ -5,6 +5,7 @@ problem_type: euler
 problem: 24
 complexity: 2
 ---
+
 **Introduction**
 The lexicographic permutations of 0, 1 and 2 are:
 

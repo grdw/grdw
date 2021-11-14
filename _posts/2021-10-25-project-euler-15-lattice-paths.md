@@ -5,6 +5,7 @@ problem_type: euler
 problem: 15
 complexity: 2
 ---
+
 **Introduction**
 This puzzle is called "Lattice paths" (no, not lettuce paths). The puzzle talks about a grid of 2x2 and how there are only 6 distinct ways of moving from the top left to the bottom right. How many ways are there for a 20x20 grid?
 

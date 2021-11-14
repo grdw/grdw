@@ -5,6 +5,7 @@ problem_type: euler
 problem: 42
 complexity: 1
 ---
+
 **Introduction**
 "Using a 16K text file containing nearly two-thousand common English words, how many are triangle words?"
 

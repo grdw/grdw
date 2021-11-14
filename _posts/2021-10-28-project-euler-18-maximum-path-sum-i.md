@@ -5,6 +5,7 @@ problem_type: euler
 problem: 18
 complexity: 2
 ---
+
 **Introduction**
 
 The puzzle starts out with explaining that there's a triangle. We start from the top and go down until we find the route which produces the highest number.

@@ -5,6 +5,7 @@ problem_type: euler
 problem: 34
 complexity: 1
 ---
+
 **Introduction**
 Find the sum of all numbers which are equal to the sum of the factorial of their digits. You can skip 1 and 2, because they aren't sums.
 

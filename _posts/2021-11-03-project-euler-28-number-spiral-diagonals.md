@@ -5,6 +5,7 @@ problem_type: euler
 problem: 28
 complexity: 1
 ---
+
 The puzzle is asking us to make a 2-D vector in a spiral form and to sum up all the diagonal values of that same spiral. This seems doable, but much like ["Largest product in a grid"](/2021/10/24/project-euler-11-largest-product-in-a-grid.html), this is going to be a lot of work, or is it? Let's start with the basics of being able to make such a grid:
 
 ```rust

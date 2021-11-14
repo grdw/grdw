@@ -5,6 +5,7 @@ problem_type: euler
 problem: 31
 complexity: 3
 ---
+
 **Introduction**
 How many different ways can £2 be made using any number of coins?
 
