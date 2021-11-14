@@ -1,9 +1,9 @@
 <strong>The full solution is available on <a target="_blank" href="https://github.com/grdw/euler/blob/master/rust/problem_{{ page.euler | prepend: '0000' | slice: -4, 4 }}/src/main.rs">GitHub</a>.</strong>
 
-<div class="euler_complexity">
-  {% for post in site.posts reversed %}
-    {%- if post.euler -%}
-      <a class="complexity-{{ post.complexity }}" href="{{ post.url }}">{{ post.euler -}}</a>
-    {%- endif -%}
-  {% endfor %}
+{% assign euler_posts = site.posts | where: "problem_type", "euler" %}
+
+<div class="complexity">
+  {%- for post in euler_posts reversed -%}
+    <a class="complexity-{{ post.complexity }}" href="{{ post.url }}">{{ post.problem -}}</a>
+  {%- endfor -%}
 </div>

@@ -52,11 +52,11 @@ div.footer, footer {
   font-size: 0.7em;
 }
 
-div.euler_complexity {
+div.complexity {
   margin-bottom: 1em;
 }
 
-div.euler_complexity a {
+div.complexity a {
   border: solid 1px #000;
   padding: 5px 0;
   display: inline-block;
@@ -66,11 +66,11 @@ div.euler_complexity a {
   color: black;
 }
 
-div.euler_complexity a.complexity-1 { background-color: #00b71d; }
-div.euler_complexity a.complexity-2 { background-color: #98bb19; }
-div.euler_complexity a.complexity-3 { background-color: #ffeb01; }
-div.euler_complexity a.complexity-4 { background-color: #ff9000; }
-div.euler_complexity a.complexity-5 { background-color: #ff4330; }
+div.complexity a.complexity-1 { background-color: #00b71d; }
+div.complexity a.complexity-2 { background-color: #98bb19; }
+div.complexity a.complexity-3 { background-color: #ffeb01; }
+div.complexity a.complexity-4 { background-color: #ff9000; }
+div.complexity a.complexity-5 { background-color: #ff4330; }
 
 /* Generated for code highlighting*/
 .highlight table td { padding: 5px; }
