@@ -175,14 +175,12 @@ Let's see how much faster `problem_43()` becomes by applying this change:
 
 ```
 Before:
-
-time cargo test problem_43
-cargo test problem_43  13.52s user 0.07s system 100% cpu 13.565 total
+  time cargo test problem_43
+  cargo test problem_43  13.52s user 0.07s system 100% cpu 13.565 total
 
 After:
-
-time cargo test problem_43
-cargo test problem_43  3.44s user 0.09s system 100% cpu 3.498 total
+  time cargo test problem_43
+  cargo test problem_43  3.44s user 0.09s system 100% cpu 3.498 total
 ```
 
 It shaves of 10 whole seconds!
@@ -210,12 +208,12 @@ Not only does this return a simple boolean, it also saves storing a lot of point
 
 ```
 After improvement #1:
-time cargo test problem_43
-cargo test problem_43  3.44s user 0.09s system 100% cpu 3.498 total
+  time cargo test problem_43
+  cargo test problem_43  3.44s user 0.09s system 100% cpu 3.498 total
 
 After improvement #2:
-time cargo test problem_43
-cargo test problem_43  2.44s user 0.08s system 100% cpu 2.506 total
+  time cargo test problem_43
+  cargo test problem_43  2.44s user 0.08s system 100% cpu 2.506 total
 ```
 
 It saves us a whole second, which is always nice.
@@ -224,13 +222,12 @@ Another thing I noticed is that the whole `divisible_by_prime` method is a bit r
 
 ```
 Before:
-
-time cargo test problem_43
-cargo test problem_43  13.52s user 0.07s system 100% cpu 13.565 total
+  time cargo test problem_43
+  cargo test problem_43  13.52s user 0.07s system 100% cpu 13.565 total
 
 After:
-time cargo test problem_43
-cargo test problem_43  1.89s user 0.02s system 99% cpu 1.910 total
+  time cargo test problem_43
+  cargo test problem_43  1.89s user 0.02s system 99% cpu 1.910 total
 ```
 
 As far as speed improvements go, this is fine for me.
