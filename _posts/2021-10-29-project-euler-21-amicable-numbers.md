@@ -110,4 +110,4 @@ fn test_problem_21() {
 }
 ```
 
-{% include euler_complexity.html %}
+{% include complexity.html %}

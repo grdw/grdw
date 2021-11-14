@@ -141,4 +141,4 @@ for layer in triangle.iter_mut().rev() {
 triangle[0][0]
 ```
 
-{% include euler_complexity.html %}
+{% include complexity.html %}

@@ -70,4 +70,4 @@ impl ops::AddAssign<Vec<u8>> for Vec<u8> {
 
 \[2\] [doc.rust-lang.org/core/ops/](https://doc.rust-lang.org/core/ops/){:target="_blank"}
 
-{% include euler_complexity.html %}
+{% include complexity.html %}

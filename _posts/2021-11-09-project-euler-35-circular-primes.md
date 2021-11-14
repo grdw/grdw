@@ -57,4 +57,4 @@ fn test_problem_35() {
 
 The answer is 55 prime numbers. Easy enough.
 
-{% include euler_complexity.html %}
+{% include complexity.html %}

@@ -28,4 +28,4 @@ fn find_multiples_of_3_and_5() {
 }
 ```
 
-{% include euler_complexity.html %}
+{% include complexity.html %}

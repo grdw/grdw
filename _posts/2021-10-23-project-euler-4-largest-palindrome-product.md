@@ -53,4 +53,4 @@ fn test_problem_4() {
 
 Voila! The answer is 906609.
 
-{% include euler_complexity.html %}
+{% include complexity.html %}

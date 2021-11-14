@@ -675,4 +675,4 @@ This is not only nicer, but because of the borrowing and inline updating of `vec
 
 \[1\] [Stackoverflow: iterate two vectors with different lengths](https://stackoverflow.com/a/38168890/1694362){:target="_blank"}
 
-{% include euler_complexity.html %}
+{% include complexity.html %}

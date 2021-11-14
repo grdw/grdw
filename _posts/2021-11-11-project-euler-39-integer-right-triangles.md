@@ -117,4 +117,4 @@ fn test_problem_39() {
 
 My answer is: a triangle with a perimeter of 840 has the most Pythagorean triplets. According to the answer sheet, that is correct.
 
-{% include euler_complexity.html %}
+{% include complexity.html %}

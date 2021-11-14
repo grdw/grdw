@@ -195,4 +195,4 @@ fn test_highest_pandigital_prime() {
 }
 ```
 
-{% include euler_complexity.html %}
+{% include complexity.html %}

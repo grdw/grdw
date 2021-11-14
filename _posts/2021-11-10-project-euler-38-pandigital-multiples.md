@@ -138,4 +138,4 @@ fn test_problem_38() {
 
 That's elegant enough for me!
 
-{% include euler_complexity.html %}
+{% include complexity.html %}

@@ -74,4 +74,4 @@ fn is_truncatable_prime(number: i64) -> bool {
 }
 ```
 
-{% include euler_complexity.html %}
+{% include complexity.html %}

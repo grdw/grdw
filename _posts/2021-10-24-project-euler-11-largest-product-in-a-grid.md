@@ -146,4 +146,4 @@ fn factor_points(grid: &Vec<Vec<i32>>,
 ```
 
 
-{% include euler_complexity.html %}
+{% include complexity.html %}

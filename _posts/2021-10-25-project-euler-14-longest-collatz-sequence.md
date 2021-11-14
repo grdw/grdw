@@ -143,4 +143,4 @@ fn problem_14() -> u64 {
 
 It's a bit more elegant, where elegant here just means shorter, but I'm still not a big fan of those `.1` and `.0` accessors that are required from mapping to a tuple. However, considering that the question is _which number produces the highest chain_ and not how high is _the highest chain_ I need to persist the number. As far as I see here, there is no way around the tuple.
 
-{% include euler_complexity.html %}
+{% include complexity.html %}

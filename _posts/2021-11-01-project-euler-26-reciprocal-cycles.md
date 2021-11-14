@@ -538,4 +538,4 @@ fn test_problem_26() {
 
 \[1\] [An Algorithm for Arbitrary Precision Integer Division](http://justinparrtech.com/JustinParr-Tech/an-algorithm-for-arbitrary-precision-integer-division/){:target="_blank"}
 
-{% include euler_complexity.html %}
+{% include complexity.html %}

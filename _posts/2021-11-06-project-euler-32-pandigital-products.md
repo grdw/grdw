@@ -321,4 +321,4 @@ a b c
 
 `c` needs to be a 4-digit number, to make two factors of length 1 and length 4, where the highest possible number is 9876.
 
-{% include euler_complexity.html %}
+{% include complexity.html %}

@@ -239,4 +239,4 @@ The speed increase here is quite significant; the runtime reduces from 4 seconds
 
 \[2\] [Fill string with repeated character](https://users.rust-lang.org/t/fill-string-with-repeated-character/1121)
 
-{% include euler_complexity.html %}
+{% include complexity.html %}

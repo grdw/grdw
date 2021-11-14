@@ -98,4 +98,4 @@ fn test_make_spiral_grid() {
 
 It seems that for a 1001x1001 size grid, the sum of its diagonal points equals to 669171001 and upon checking the answer with the sheet, that seems to be the correct answer.
 
-{% include euler_complexity.html %}
+{% include complexity.html %}

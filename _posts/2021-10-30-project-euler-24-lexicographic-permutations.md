@@ -322,5 +322,5 @@ fn test_next_perm() {
 
 \[5\] [Quickperm/lexico](https://www.quickperm.org/lexico.php){:target="_blank"}
 
-{% include euler_complexity.html %}
+{% include complexity.html %}
 

@@ -27,4 +27,4 @@ fn test_problem_6() {
 }
 ```
 
-{% include euler_complexity.html %}
+{% include complexity.html %}

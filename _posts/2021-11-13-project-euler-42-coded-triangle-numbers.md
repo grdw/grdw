@@ -91,4 +91,4 @@ fn is_triangle(n: &str) -> bool {
 
 \[1\] [Fastest method to define whether a number is a triangular number](https://stackoverflow.com/a/2913319/1694362)
 
-{% include euler_complexity.html %}
+{% include complexity.html %}

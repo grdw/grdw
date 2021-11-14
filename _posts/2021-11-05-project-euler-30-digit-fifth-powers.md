@@ -233,4 +233,4 @@ time cargo test problem_30_improved
 
 It shaves of 0.74 seconds.
 
-{% include euler_complexity.html %}
+{% include complexity.html %}

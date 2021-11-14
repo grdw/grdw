@@ -159,4 +159,4 @@ fn test_first_ten_digits() {
 }
 ```
 
-{% include euler_complexity.html %}
+{% include complexity.html %}

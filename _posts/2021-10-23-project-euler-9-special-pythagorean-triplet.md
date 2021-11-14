@@ -64,4 +64,4 @@ fn find_triplet_test() {
 }
 ```
 
-{% include euler_complexity.html %}
+{% include complexity.html %}

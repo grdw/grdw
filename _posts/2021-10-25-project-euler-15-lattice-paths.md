@@ -429,4 +429,4 @@ It still won't fit on a 64-bit integer, but it's a tiny bit faster.
 
 \[3\] [Dummies/how to simplify factorial expressions](https://www.dummies.com/education/math/algebra/how-to-simplify-factorial-expressions/){:target="_blank"}
 
-{% include euler_complexity.html %}
+{% include complexity.html %}

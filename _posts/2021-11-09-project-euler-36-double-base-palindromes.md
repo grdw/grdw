@@ -68,4 +68,4 @@ fn palindrome_numbers_test() {
 }
 ```
 
-{% include euler_complexity.html %}
+{% include complexity.html %}

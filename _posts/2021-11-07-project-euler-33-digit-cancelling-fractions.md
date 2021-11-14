@@ -258,4 +258,4 @@ fn cancelled_simplified(
 
 I think this is as nice as it gets.
 
-{% include euler_complexity.html %}
+{% include complexity.html %}

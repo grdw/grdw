@@ -381,4 +381,4 @@ fn problem_23() -> u32 {
 
 This is quite a bit faster already.
 
-{% include euler_complexity.html %}
+{% include complexity.html %}

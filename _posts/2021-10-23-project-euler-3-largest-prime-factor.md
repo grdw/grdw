@@ -70,4 +70,4 @@ fn prime_factors_test() {
 }
 ```
 
-{% include euler_complexity.html %}
+{% include complexity.html %}

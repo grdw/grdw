@@ -61,4 +61,4 @@ fn test_num_factors() {
 }
 ```
 
-{% include euler_complexity.html %}
+{% include complexity.html %}

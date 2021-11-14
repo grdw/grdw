@@ -133,4 +133,4 @@ fn problem_19() -> u32 {
 }
 ```
 
-{% include euler_complexity.html %}
+{% include complexity.html %}

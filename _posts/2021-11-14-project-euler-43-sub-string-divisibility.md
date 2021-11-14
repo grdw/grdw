@@ -233,4 +233,4 @@ After:
 
 As far as speed improvements go, this is fine for me.
 
-{% include euler_complexity.html %}
+{% include complexity.html %}

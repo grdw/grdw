@@ -45,4 +45,4 @@ fn total_primes_below_x() {
 }
 ```
 
-{% include euler_complexity.html %}
+{% include complexity.html %}

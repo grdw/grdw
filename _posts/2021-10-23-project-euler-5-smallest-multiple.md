@@ -33,4 +33,4 @@ Voila! The answer is 232792560.
 
 But a smarter way is increasing `start` by 20 each time, making the whole process 20 times faster.
 
-{% include euler_complexity.html %}
+{% include complexity.html %}
