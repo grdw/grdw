@@ -1,4 +1,4 @@
-{% assign euler_posts = site.posts | where: "problem_type", page.problem_type %}
+{% assign problem_posts = site.posts | where: "problem_type", page.problem_type %}
 
 <p>
   <strong>
@@ -8,7 +8,7 @@
 </p>
 
 <div class="complexity">
-  {%- for post in euler_posts reversed -%}
+  {%- for post in problem_posts reversed -%}
     <a class="complexity-{{ post.complexity }}" href="{{ post.url }}">{{ post.problem -}}</a>
   {%- endfor -%}
 </div>
