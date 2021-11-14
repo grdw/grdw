@@ -113,6 +113,9 @@ p1 p2 p3 p4 p5  (p1, p5), (p2, p5), (p3, p5), (p4, p5)
 Each `(px, py)` is a comparison to make. The loop would go something like this:
 
 ```rust
+let j = 1;
+let mut k = 1;
+
 loop {
     k += 1;
 
