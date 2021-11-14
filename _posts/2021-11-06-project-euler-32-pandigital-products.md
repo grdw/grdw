@@ -6,7 +6,7 @@ problem: 32
 complexity: 2
 ---
 
-{% include euler.html %}
+
 
 **Introduction**
 Find the sum of all products whose multiplicand/multiplier/product identity can be written as a 1 through 9 pandigital.
@@ -321,4 +321,4 @@ a b c
 
 `c` needs to be a 4-digit number, to make two factors of length 1 and length 4, where the highest possible number is 9876.
 
-{% include complexity.html %}
+

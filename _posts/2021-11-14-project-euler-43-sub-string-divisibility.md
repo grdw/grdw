@@ -6,7 +6,7 @@ problem: 43
 complexity: 2
 ---
 
-{% include euler.html %}
+
 
 **Introduction**
 "The number, 1406357289, is a 0 to 9 pandigital number because it is made up of each of the digits 0 to 9 in some order, but it also has a rather interesting sub-string divisibility property."
@@ -233,4 +233,4 @@ After:
 
 As far as speed improvements go, this is fine for me.
 
-{% include complexity.html %}
+

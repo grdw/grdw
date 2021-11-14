@@ -6,7 +6,7 @@ problem: 3
 complexity: 2
 ---
 
-{% include euler.html %}
+
 
 This article features only an answer, because I've started writing from [problem 14](/2021/10/25/project-euler-14-longest-collatz-sequence.html).
 
@@ -70,4 +70,4 @@ fn prime_factors_test() {
 }
 ```
 
-{% include complexity.html %}
+

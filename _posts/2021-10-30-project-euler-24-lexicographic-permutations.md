@@ -6,7 +6,7 @@ problem: 24
 complexity: 2
 ---
 
-{% include euler.html %}
+
 
 **Introduction**
 The lexicographic permutations of 0, 1 and 2 are:
@@ -322,5 +322,5 @@ fn test_next_perm() {
 
 \[5\] [Quickperm/lexico](https://www.quickperm.org/lexico.php){:target="_blank"}
 
-{% include complexity.html %}
+
 

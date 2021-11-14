@@ -6,7 +6,7 @@ problem: 8
 complexity: 1
 ---
 
-{% include euler.html %}
+
 
 You're given a 1000-digit number, which adjacent 13 digit string of numbers have the greatest product? This is fairly simple:
 
@@ -57,4 +57,4 @@ fn test_problem_8() {
 }
 ```
 
-{% include complexity.html %}
+

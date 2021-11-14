@@ -6,7 +6,7 @@ problem: 20
 complexity: 1
 ---
 
-{% include euler.html %}
+
 
 **Introduction**
 Find the sum of the digits in the number 100!.
@@ -70,4 +70,4 @@ impl ops::AddAssign<Vec<u8>> for Vec<u8> {
 
 \[2\] [doc.rust-lang.org/core/ops/](https://doc.rust-lang.org/core/ops/){:target="_blank"}
 
-{% include complexity.html %}
+

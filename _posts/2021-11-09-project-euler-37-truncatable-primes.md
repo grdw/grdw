@@ -6,7 +6,7 @@ problem: 37
 complexity: 1
 ---
 
-{% include euler.html %}
+
 
 **Introduction**
 "Find the sum of the only eleven primes that are both truncatable from left to right and right to left."
@@ -74,4 +74,4 @@ fn is_truncatable_prime(number: i64) -> bool {
 }
 ```
 
-{% include complexity.html %}
+

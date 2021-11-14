@@ -6,7 +6,7 @@ problem: 26
 complexity: 2
 ---
 
-{% include euler.html %}
+
 
 **Introduction**
 The puzzle explains how fractions divide into decimal numbers. 1/6th equals to 0.166666 and therefor has a repeating cycle of 1-digit for 6. Other fractions, like 1/2 have no repeating cycle. Which denominator (D) below 1000 for the numerator of 1 has the highest recurring cycle?
@@ -538,4 +538,4 @@ fn test_problem_26() {
 
 \[1\] [An Algorithm for Arbitrary Precision Integer Division](http://justinparrtech.com/JustinParr-Tech/an-algorithm-for-arbitrary-precision-integer-division/){:target="_blank"}
 
-{% include complexity.html %}
+

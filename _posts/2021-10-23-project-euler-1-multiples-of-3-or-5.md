@@ -6,8 +6,6 @@ problem: 1
 complexity: 1
 ---
 
-{% include euler.html %}
-
 This article features only an answer, because I've started writing from [problem 14](/2021/10/25/project-euler-14-longest-collatz-sequence.html).
 
 ```rust
@@ -27,5 +25,3 @@ fn find_multiples_of_3_and_5() {
     assert_eq!(multiples_of_3_and_5(1000), 233168);
 }
 ```
-
-{% include complexity.html %}

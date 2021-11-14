@@ -6,7 +6,7 @@ problem: 11
 complexity: 2
 ---
 
-{% include euler.html %}
+
 
 This was quite a doable puzzle, but it was a lot of work. If you follow the link, it specifies to find the largest product in a 20x20 grid. You can look down, up, left, right and diagonally.
 
@@ -146,4 +146,4 @@ fn factor_points(grid: &Vec<Vec<i32>>,
 ```
 
 
-{% include complexity.html %}
+

@@ -6,7 +6,7 @@ problem: 35
 complexity: 1
 ---
 
-{% include euler.html %}
+
 
 **Introduction**
 "How many circular primes are there below one million?"
@@ -57,4 +57,4 @@ fn test_problem_35() {
 
 The answer is 55 prime numbers. Easy enough.
 
-{% include complexity.html %}
+

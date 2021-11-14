@@ -6,7 +6,7 @@ problem: 13
 complexity: 2
 ---
 
-{% include euler.html %}
+
 
 This article features only an answer, because I've started writing from [problem 14](/2021/10/25/project-euler-14-longest-collatz-sequence.html).
 
@@ -159,4 +159,4 @@ fn test_first_ten_digits() {
 }
 ```
 
-{% include complexity.html %}
+

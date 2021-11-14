@@ -6,7 +6,7 @@ problem: 15
 complexity: 2
 ---
 
-{% include euler.html %}
+
 
 **Introduction**
 This puzzle is called "Lattice paths" (no, not lettuce paths). The puzzle talks about a grid of 2x2 and how there are only 6 distinct ways of moving from the top left to the bottom right. How many ways are there for a 20x20 grid?
@@ -429,4 +429,4 @@ It still won't fit on a 64-bit integer, but it's a tiny bit faster.
 
 \[3\] [Dummies/how to simplify factorial expressions](https://www.dummies.com/education/math/algebra/how-to-simplify-factorial-expressions/){:target="_blank"}
 
-{% include complexity.html %}
+

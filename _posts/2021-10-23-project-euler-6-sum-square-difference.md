@@ -6,7 +6,7 @@ problem: 6
 complexity: 1
 ---
 
-{% include euler.html %}
+
 
 This article features only an answer, because I've started writing from [problem 14](/2021/10/25/project-euler-14-longest-collatz-sequence.html).
 
@@ -27,4 +27,4 @@ fn test_problem_6() {
 }
 ```
 
-{% include complexity.html %}
+

@@ -6,7 +6,7 @@ problem: 18
 complexity: 2
 ---
 
-{% include euler.html %}
+
 
 **Introduction**
 
@@ -141,4 +141,4 @@ for layer in triangle.iter_mut().rev() {
 triangle[0][0]
 ```
 
-{% include complexity.html %}
+

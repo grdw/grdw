@@ -6,7 +6,7 @@ problem: 39
 complexity: 1
 ---
 
-{% include euler.html %}
+
 
 **Introduction**
 The problem description starts out with describing a "right-angle triangle" (meaning Pythagoras will come into play) and how there are three solutions where the perimeter (p) = 120. For which solution p ≤ 1000 do we get the maximum amount of solutions.
@@ -117,4 +117,4 @@ fn test_problem_39() {
 
 My answer is: a triangle with a perimeter of 840 has the most Pythagorean triplets. According to the answer sheet, that is correct.
 
-{% include complexity.html %}
+

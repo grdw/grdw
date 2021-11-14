@@ -6,7 +6,7 @@ problem: 4
 complexity: 1
 ---
 
-{% include euler.html %}
+
 
 This little puzzle asks to find the largest palindrome product of two 3-digit numbers. All the 3-digit numbers range from 100 to 999 and the result should be a palindrome. This is fairly easy:
 
@@ -53,4 +53,4 @@ fn test_problem_4() {
 
 Voila! The answer is 906609.
 
-{% include complexity.html %}
+

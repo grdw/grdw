@@ -6,7 +6,7 @@ problem: 17
 complexity: 1
 ---
 
-{% include euler.html %}
+
 
 **Introduction**
 The puzzle is simple enough: count the amount of characters it takes to write out 1 till 1000 in the British English language.
@@ -283,4 +283,4 @@ require "humanize" # gem install humanize
 
 😴
 
-{% include complexity.html %}
+

@@ -6,7 +6,7 @@ problem: 38
 complexity: 1
 ---
 
-{% include euler.html %}
+
 
 **Introduction**
 "What is the largest 1 to 9 pandigital 9-digit number that can be formed as the concatenated product of an integer with (1,2, ... , n) where n > 1?"
@@ -138,4 +138,4 @@ fn test_problem_38() {
 
 That's elegant enough for me!
 
-{% include complexity.html %}
+

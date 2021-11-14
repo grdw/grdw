@@ -6,7 +6,7 @@ problem: 40
 complexity: 1
 ---
 
-{% include euler.html %}
+
 
 **Introduction**
 The puzzle starts by showing us an irrational decimal fraction which looks like this:
@@ -88,4 +88,4 @@ fn test_problem_40() {
 }
 ```
 
-{% include complexity.html %}
+

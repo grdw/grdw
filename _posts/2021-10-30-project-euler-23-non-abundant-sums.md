@@ -6,7 +6,7 @@ problem: 23
 complexity: 3
 ---
 
-{% include euler.html %}
+
 
 **Introduction**
 The puzzle is very clear: "Find the sum of all the positive integers which cannot be written as the sum of two abundant numbers." The puzzle specifies that all these numbers are below 28123. The problem consists of these parts, as far as I can see:
@@ -381,4 +381,4 @@ fn problem_23() -> u32 {
 
 This is quite a bit faster already.
 
-{% include complexity.html %}
+

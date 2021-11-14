@@ -1,9 +1,11 @@
-<strong>
-  The full solution is available on
-  <a target="_blank" href="https://github.com/grdw/{{ page.problem_type }}/blob/master/rust/problem_{{ page.problem | prepend: '0000' | slice: -4, 4 }}/src/main.rs">GitHub</a>.
-</strong>
-
 {% assign euler_posts = site.posts | where: "problem_type", page.problem_type %}
+
+<p>
+  <strong>
+    The full solution is available on
+    <a target="_blank" href="https://github.com/grdw/{{ page.problem_type }}/blob/master/rust/problem_{{ page.problem | prepend: '0000' | slice: -4, 4 }}/src/main.rs">GitHub</a>.
+  </strong>
+</p>
 
 <div class="complexity">
   {%- for post in euler_posts reversed -%}

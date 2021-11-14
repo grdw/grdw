@@ -6,7 +6,7 @@ problem: 16
 complexity: 3
 ---
 
-{% include euler.html %}
+
 
 **Introduction**
 2^16 = 32768. Summing up all individual digits (3 + 2 + 7 + 6 + 8) results in 26. What is the sum of the digits to 2^1000?
@@ -675,4 +675,4 @@ This is not only nicer, but because of the borrowing and inline updating of `vec
 
 \[1\] [Stackoverflow: iterate two vectors with different lengths](https://stackoverflow.com/a/38168890/1694362){:target="_blank"}
 
-{% include complexity.html %}
+
