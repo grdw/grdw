@@ -168,3 +168,39 @@ fn test_problem_46() {
 ```
 
 It finishes in 0.14 seconds.
+
+---
+
+**Further improvements**
+There is room for some clean-up. Mainly I see that I can squash the "double squares"-method described above, together with the inner loop of `is_prime_and_square()` like such:
+
+```rust
+fn is_prime_and_square(n: u64, primes: &Vec<u64>) -> bool {
+    let mut goldbachs_conjecture = false;
+
+    'outer: for p in primes {
+        let t = n - p;
+        let max = ((t / 2) as f64).sqrt() as u64;
+
+        for n in 1..=max {
+            if t - (n.pow(2) * 2) == 0 {
+                goldbachs_conjecture = true;
+                break 'outer;
+            }
+        }
+    }
+
+    goldbachs_conjecture
+}
+
+#[test]
+fn test_is_prime_and_square() {
+    let primes = vec![2, 3, 5, 7, 11, 13];
+
+    assert_eq!(is_prime_and_square(9, &primes), true);
+    assert_eq!(is_prime_and_square(15, &primes), true);
+    assert_eq!(is_prime_and_square(25, &primes), true);
+}
+```
+
+I don't think this can be squeezed into some `any()`-type of situation and resolve it in a bit more functional-programming kind of way, purely because we break the outer loop.
