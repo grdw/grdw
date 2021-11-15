@@ -22,7 +22,7 @@ fn is_prime_and_square(
     primes: &Vec<u64>,
     squares: &Vec<u64>) -> bool {
 
-    let mut goldmans_conjecture = false;
+    let mut goldbachs_conjecture = false;
 
     'outer: for p in primes {
         let t = n - p;
@@ -33,13 +33,13 @@ fn is_prime_and_square(
             if t < double { continue };
 
             if t - double == 0 {
-                goldmans_conjecture = true;
+                goldbachs_conjecture = true;
                 break 'outer;
             }
         }
     }
 
-    goldmans_conjecture
+    goldbachs_conjecture
 }
 
 #[test]
@@ -106,7 +106,7 @@ Obviously, I can squeeze that idea in my `is_prime_and_square()` method like suc
 
 ```rust
 fn is_prime_and_square(n: u64, primes: &Vec<u64>) -> bool {
-    let mut goldmans_conjecture = false;
+    let mut goldbachs_conjecture = false;
     let mut squares = vec![];
 
     for p in 1..=((n / 2) as f64).sqrt() as u64 {
@@ -120,13 +120,13 @@ fn is_prime_and_square(n: u64, primes: &Vec<u64>) -> bool {
             if t < *ds { continue };
 
             if t - ds == 0 {
-                goldmans_conjecture = true;
+                goldbachs_conjecture = true;
                 break 'outer;
             }
         }
     }
 
-    goldmans_conjecture
+    goldbachs_conjecture
 }
 
 #[test]
