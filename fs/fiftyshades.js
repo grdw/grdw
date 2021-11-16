@@ -654,6 +654,7 @@ if (voices.length > 0) {
         synth.cancel();
     };
 } else {
+    text.innerHTML = "No voices found :(";
     startButton.setAttribute("disabled", "disabled");
     stopButton.setAttribute("disabled", "disabled");
 }
