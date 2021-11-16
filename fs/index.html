@@ -1,0 +1,28 @@
+---
+layout: default
+title: 'Fifty shades'
+---
+
+<h1>{{ page.title }}</h1>
+
+<button id="fiftyshades-start">Start</button>
+<button id="fiftyshades-stop">Stop</button>
+<p id="fiftyshadestext"></p>
+
+<style>
+  button {
+    background-color: #555555;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+  }
+  button:hover { cursor: pointer; }
+  button#fiftyshades-start:focus { background-color: #4CAF50 }
+  button#fiftyshades-stop:focus { background-color: #CC0000 }
+  button[disabled] { background-color: #999; }
+</style>
+
+<script src="fiftyshades.js"></script>
