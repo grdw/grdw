@@ -642,6 +642,7 @@ if (voices.length > 0) {
     startButton.onclick = function(event) {
         event.preventDefault();
 
+        text.innerHTML = "";
         playing = true;
         speakFiftyShades();
     };
