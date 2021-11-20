@@ -117,3 +117,73 @@ fn test_problem_48() {
 ```
 
 Solved ... in 19.15 seconds. I'll come back to optimize it later.
+
+---
+
+**Improvements**
+This can be done way faster, by writing a little algorithm. The algorithm goes something like this:
+
+```rust
+fn power_to_10(i: u64) -> u64 {
+    let mut tens: u64 = 10;
+    let mut n = 1;
+    let mut i_base = i;
+    let mut total = 0;
+    let max = 10;
+
+    while n < i {
+        while i_base > 0 {
+            let base = i_base % tens;
+            total += base * i;
+
+            if tens > 10_u64.pow(max) {
+                break;
+            }
+
+            tens *= 10;
+            i_base -= base;
+        }
+
+        // Prevents total from getting reset to 0
+        // on the final iteration
+        if i - n > 1 {
+            i_base = total;
+            total = 0;
+        }
+
+        tens = 10;
+        n += 1;
+    }
+
+    total
+}
+
+#[test]
+fn test_power_to_10() {
+    assert_eq!(power_to_10(11), 285311670611); // last 11 digits
+    assert_eq!(power_to_10(14), 206825558016); // last 11 digits
+}
+```
+
+There are a couple of things to unpack: the first `while`-loop is nothing more than a loop that acts as "the self power". The inner `while`-loop, splits a number into its base parts (so: 31353 becomes 3, 50, 300, 1000, 30000) and multiplies each individual part with `i`. If the base contains more than 10 digits, stop the loop. This method does produce some extra digits, but that's fine. The `problem_48` method can be resolved something like this:
+
+```rust
+fn problem_48() -> u64 {
+    let mut start: u64 = 0;
+    let mut total = 1; // To combat 1^1
+
+    while start < 1000 {
+        start += 1;
+        total += power_to_10(start);
+    }
+
+    total % 10_u64.pow(10)
+}
+
+#[test]
+fn test_problem_48() {
+    assert_eq!(problem_48(), 9110846700);
+}
+```
+
+It runs in 0.08 seconds!
