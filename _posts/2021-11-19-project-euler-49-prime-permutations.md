@@ -184,7 +184,7 @@ for g in &groups {
     }
 }
 
-result # [2969, 6299, 9629]
+result // [2969, 6299, 9629]
 ```
 
 Done!
