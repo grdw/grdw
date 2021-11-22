@@ -217,7 +217,8 @@ fn deficient(i: u32) -> bool {
 Maybe an abundant number + another abundant number is always another abundant number? This seems to not be the case, but there's an odd pattern emerging when debugging this a little:
 
 ```rust
-println!("    {:?}", &all_abundant[0..16]);
+println!("{:?}", &all_abundant[0..16]);
+
 for n in &all_abundant[0..16] {
     print!("{} =", n);
     for m in &all_abundant[0..16] {
@@ -286,7 +287,9 @@ for i in 0..all_abundant.len() - 1 {
 Oddly enough, this gives me an array of 9918 numbers, which is higher than the 8253 numbers I got earlier with the slower algorithm. However, this doesn't really matter, because I still get a result of 261307216. I gave up on my method.
 
 **Getting to the actual correct answer...**
-After taking a shower, I came up with a way less complex approach. I figured that any number which is abundant I should persist in a vector of some kind. Then for each following number in the loop, I need to check with the previous list of abundant numbers. If reducing said number by any of the previous abundant numbers is also an abundant number, it is a double abundant number. My first attempt looks like this:```rust
+After taking a shower, I came up with a way less complex approach. I figured that any number which is abundant I should persist in a vector of some kind. Then for each following number in the loop, I need to check with the previous list of abundant numbers. If reducing said number by any of the previous abundant numbers is also an abundant number, it is a double abundant number. My first attempt looks like this:
+
+```rust
 fn problem_23() -> u32 {
     let mut filter_set = vec![];
     let mut total = 0;
