@@ -248,7 +248,7 @@ fn test_partial_coeff() {
 }
 ```
 
-Not only is this the right way of resolving this problem, it also saves storing any number to some vector or having to calculate the factorial of a 100. Extra wins all around!
+Not only is this the right way of resolving this problem, it also saves storing any insanely high number to some vector like the factorial of a 100. Extra wins all around!
 
 To resolve problem 53:
 
