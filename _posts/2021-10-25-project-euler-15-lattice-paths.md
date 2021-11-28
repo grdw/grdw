@@ -248,7 +248,9 @@ fn problem_15(k: u64) -> u64 {
 }
 ```
 
-With my minor math skills I can see that "(something * 2) - something" is the same as "one of something" so:```rust
+With my minor math skills I can see that "(something * 2) - something" is the same as "one of something" so:
+
+```rust
 fn problem_15(k: u64) -> u64 {
     fact(k * 2) / (fact(k) * fact(k))
 }
