@@ -293,7 +293,9 @@ I can drop one n! if I only calculate the factorial of 6
 up till three numbers.
 ```
 
-Knowing that this is true, this will make my code a lot simpler. Taking the grid size as `k` I have to multiply that number by 2 and create two "factorials" for lack of a better term (which we'll call `o` and `p`) from `k` and `n`. If I then divide the result `o` by `p` I should get the correct answer:```rust
+Knowing that this is true, this will make my code a lot simpler. Taking the grid size as `k` I have to multiply that number by 2 and create two "factorials" for lack of a better term (which we'll call `o` and `p`) from `k` and `n`. If I then divide the result `o` by `p` I should get the correct answer:
+
+```rust
 fn problem_15(mut k: u64) -> u64 {
     let mut n = k * 2;
     let mut o = 1;
@@ -307,7 +309,9 @@ fn problem_15(mut k: u64) -> u64 {
     }
 
     o / p
-}#[test]
+}
+
+#[test]
 fn test_problem_15() {
     assert_eq!(problem_15(2), 6);
     assert_eq!(problem_15(3), 20);
@@ -331,7 +335,9 @@ fn problem_15(mut k: u128) -> u128 {
     }
 
     o / p
-}#[test]
+}
+
+#[test]
 fn test_problem_15() {
     assert_eq!(problem_15(2), 6);
     assert_eq!(problem_15(3), 20);
@@ -354,7 +360,9 @@ For a grid where size equals 3, the way to calculate the number of routes is don
 3 * 2 * 1
 ```
 
-I just noticed that it's the same as this:```
+I just noticed that it's the same as this:
+
+```
 5 * 4
 ----- * 2
 2 * 1
@@ -378,7 +386,9 @@ fn problem_15(mut k: u128) -> u128 {
     }
 
     (o / p) * 2
-}#[test]
+}
+
+#[test]
 fn test_problem_15() {
     assert_eq!(problem_15(2), 6);
     assert_eq!(problem_15(3), 20);
