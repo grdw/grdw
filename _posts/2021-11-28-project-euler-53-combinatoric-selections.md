@@ -212,7 +212,7 @@ I can get rid of 97! like this:
 -------------
 3 * 2 * 1
 
-This equals 161.700 and is the same as:
+This equals to 161.700 and is the same as:
 
 100   99   98
 --- x -- x --
