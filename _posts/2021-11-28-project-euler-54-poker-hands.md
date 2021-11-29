@@ -159,15 +159,4 @@ Voila, solved!
 ---
 
 **Improvements**
-This puzzle is not really _that_ complicated, it's just a lot of work. An improvement I see is using the `PartialOrd`-trait. This way I could do:
-
-```rust
-let hand = PokerHand::sorted(cards);
-let other_hand = PokerHand::sorted(cards);
-
-if hand > other_hand {
-   println!("WINNER! to hand");
-}
-```
-
-However, I'll improve that at a later moment considering that is going to need a lot of rewriting.
+This puzzle is not really _that_ complicated, it's just a lot of work. After wasting some more hours, I improved quite a bit to the existing code. I figured that not once in the `p054_poker.txt` a game exists with a similar "double pair" and a similar high hand; so there's always an _obvious_ winner. This means the whole iterator idea can be tossed out of the window. Because of this, I calculate the `rank()` as a vector. The first value contains the old rank; meaning a value from 0-9, where 0 is "high hand" and 9 means "royal flush". The next value is only useful for high hand and any of the pairs to indicate the height of said pair. The full version can be seen in the GitHub link below.
