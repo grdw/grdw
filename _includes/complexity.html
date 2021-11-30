@@ -8,7 +8,7 @@
 </p>
 
 <div class="complexity">
-  {%- for post in problem_posts reversed -%}
+  {%- for post in problem_posts -%}
     <a class="complexity-{{ post.complexity }}" href="{{ post.url }}">{{ post.problem -}}</a>
   {%- endfor -%}
 </div>
