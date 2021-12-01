@@ -9,6 +9,8 @@ layout: default
 {% case page.problem_type %}
 {% when "euler" %}
   {% include euler.html %}
+{% when "aoc2021" %}
+  {% include aoc2021.html %}
 {% endcase %}
 
 {{ content }}
