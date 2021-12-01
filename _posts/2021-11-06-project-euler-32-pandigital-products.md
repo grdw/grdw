@@ -241,7 +241,7 @@ fn test_problem_32() {
 ---
 
 **Improvement #1: Combining filters**
-The code above contains a filter to check for duplicate digits and a filter to check if the number is pandigital. This feels redundant, and we can combine both into one singe filter. `valid_divisors` can be reduced to this:
+The code above contains a filter to check for duplicate digits and a filter to check if the number is pandigital. This feels redundant, and we can combine both into one single filter. `valid_divisors` can be reduced to this:
 
 ```rust
 fn valid_divisors(i: u64, d1: u64, d2: u64) -> bool {
