@@ -63,4 +63,4 @@ fn test_problem_56() {
 }
 ```
 
-The code is not particular fast, but it results in the right answer. It resolves in 9.16s.
+The code is not fast, but it results in the right answer. It resolves in 9.16s.
