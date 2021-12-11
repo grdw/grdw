@@ -9,7 +9,7 @@ The name grdw are all the unique consonants of my first name (Gerard), followed 
 - **2018-:** WeTransfer
 - **2014-2018:** Quintel Intelligence
 - **2013-2014:** Holder
-- **2009-2013:** University of applied science
+- **2009-2013:** IT, University of applied science
 - **2004-2009:** High school, learned HTML/CSS/SQL
 
 ### Privacy
