@@ -4,7 +4,7 @@ layout: default
 
 # About
 ### Whoami
-The name grdw are all the unique consonants of my first name (Gerard), followed by the first character of my last name (Westerhof). I've been an engineer since 2013 and have contributed to a lot of projects in various shapes and sizes. Companies I work(ed) for:
+The name grdw are all the unique consonants of my first name (Gerard), followed by the first character of my last name (Westerhof). I've been an engineer since 2013 and have contributed to a lot of projects in various shapes and sizes. List of employers and studies:
 
 - **2018-:** WeTransfer
 - **2014-2018:** Quintel Intelligence
