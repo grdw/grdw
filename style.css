@@ -35,8 +35,13 @@ span.accent {
   color: #E1AD01;
 }
 
-strong, i {
-  display: block;
+h3 {
+  margin: 0;
+  font-size: 100%;
+}
+
+h3 ~ p {
+  margin-top: 0;
 }
 
 table {
