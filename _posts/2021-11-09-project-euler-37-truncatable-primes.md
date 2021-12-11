@@ -6,10 +6,10 @@ problem: 37
 complexity: 1
 ---
 
-**Introduction**
+### Introduction
 "Find the sum of the only eleven primes that are both truncatable from left to right and right to left."
 
-**Solution**
+### Solution
 I've already solved this Euler puzzle some time ago, and the code I used is in the GitHub link below. The answer is 748317. The meat and bones of this puzzle is in determining if a prime number is truncatable or not:
 
 ```rust
@@ -52,7 +52,7 @@ The idea is to take a number, turn it into a `String` and create string slices l
 
 ---
 
-**Improvements**
+### Improvements
 There's a small improvement on `is_truncatable_prime()`, namely to use `.all()` to reduce some code:
 
 ```rust

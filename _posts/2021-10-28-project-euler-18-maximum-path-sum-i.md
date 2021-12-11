@@ -6,7 +6,7 @@ problem: 18
 complexity: 2
 ---
 
-**Introduction**
+### Introduction
 
 The puzzle starts out with explaining that there's a triangle. We start from the top and go down until we find the route which produces the highest number.
 
@@ -51,7 +51,7 @@ let triangle = vec![
 ];
 ```
 
-**The wrong route**
+### The wrong route
 The reason I'm saying this is because, you can still limit the amount of choices here be taking slices of length 2 from the array below each time. The way this would work is like this:
 
 ```rust
@@ -96,7 +96,7 @@ for (i, val) in sub_t[offset..offset + 2].iter().enumerate() {
 ```
 This changes the answer from 1036 to 1064 (which is 10 off from 1074). I Googled my faulty answer and somebody proceeded to explain why, causing me to read the actual approach (aren't there spoiler free hints anywhere?).
 
-**The right route**
+### The right route
 To resolve this you actually have to start from the _bottom_ of the triangle.  Technically, I didn't come up with this answer, which does feel a little bit like cheating. However, now that I know, let's draw out how that works anyway:
 
 ```

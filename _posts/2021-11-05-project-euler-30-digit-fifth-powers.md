@@ -6,7 +6,7 @@ problem: 30
 complexity: 1
 ---
 
-**Introduction**
+### Introduction
 The puzzle states that there are only three numbers that can be written as their sum of fourth power digits. 1^4 is not included; so start from 2.
 
 Find the sum of all the numbers that can be written as the sum of fifth powers of their digits.
@@ -78,7 +78,7 @@ I get the answer 248860 which seems to be incorrect. The right answer is 443839.
 
 ---
 
-**Improvements on the answer**
+### Improvements on the answer
 I believe this can be done a bit smarter. Upon inspecting the numbers, it seems like 4151 is a number for which the 5th power "rule" holds true. However, that means 1145 should also return 4151, which is much earlier in the cycle. Another example, 4150, already returns true for (0)145. In fact, we'd only have to move up till 147999 (which is 194979), to return all the possible variations.
 
 ```

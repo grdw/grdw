@@ -6,10 +6,10 @@ problem: 54
 complexity: 1
 ---
 
-**Introduction**
+### Introduction
 I am explained the game of poker, which is a highly needed because I've only played a single game in my life. There's text file containing poker hands. The format is: each line contains 10 cards, where the first 5 cards belong to Player 1 and the other 5 cards belong to Player 2. The puzzle wants to know how many times Player 1 wins the game over Player 2.
 
-**Calculating the value of a hand**
+### Calculating the value of a hand
 The first step is calculating the value of "a hand". According to the game of poker, there are 10 possible outcomes. Let's start with that, and we'll deal with the edge cases later. The first step is to take a hand and turn them into individual cards:
 
 ```rust
@@ -146,7 +146,7 @@ impl Iterator for PokerHandIter<'_> {
 
 After writing the correct loop for it, I get an answer to problem 54. According to [my current code](https://github.com/grdw/euler/blob/4f53dcc84570564e36a17da6a88f35106221c3f9/rust/problem_0054/src/main.rs), 491 games are awarded to Player 1. Upon checking the answer, which is 376, it seems that I'm awarding a little too many games to Player 1. Looking at my code, I do spot that I probably need to break when Player 2 holds a higher card than Player 1, which drops the amount of wins to 359. This means that there are probably cases with one pair and a single high card, where the single high card is higher than the value of the one pair.
 
-**One hour further**
+### One hour further
 I managed to resolve it. Upon investigating all the hands, it seemed like the only duplicate ranks were for "one pair" and "high hand". Not once was there a case where Player 1 and Player 2 had a "one pair", followed by the same high hand.In most cases the resolve was like this:
 
 - On `PokerHand` include an empty vector (or array)
@@ -158,5 +158,5 @@ Voila, solved!
 
 ---
 
-**Improvements**
+### Improvements
 This puzzle is not really _that_ complicated, it's just a lot of work. After wasting some more hours, I improved quite a bit to the existing code. I figured that not once in the `p054_poker.txt` a game exists with a similar "double pair" and a similar high hand; so there's always an _obvious_ winner. This means the whole iterator idea can be tossed out of the window. Because of this, I calculate the `rank()` as a vector. The first value contains the old rank; meaning a value from 0-9, where 0 is "high hand" and 9 means "royal flush". The next value is only useful for high hand and any of the pairs to indicate the height of said pair. The full version can be seen in the GitHub link below.

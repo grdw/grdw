@@ -6,12 +6,12 @@ problem: 52
 complexity: 1
 ---
 
-**Introduction**
+### Introduction
 "It can be seen that the number, 125874, and its double, 251748, contain exactly the same digits, but in a different order.
 
 Find the smallest positive integer, x, such that 2x, 3x, 4x, 5x, and 6x, contain the same digits."
 
-**Solution**
+### Solution
 I'll reuse the `unique_digits` method from the [previous Euler puzzle](/2021/11/21/project-euler-51-prime-digit-replacements.html) and slightly alter it to be more in line with `int_to_vec()` of ["Power digit sum"](/2021/10/26/project-euler-16-power-digit-sum.html). The next thing I did was to sort the digits that come out in the end.
 
 To resolve problem 52:

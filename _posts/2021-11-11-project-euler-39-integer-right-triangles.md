@@ -6,7 +6,7 @@ problem: 39
 complexity: 1
 ---
 
-**Introduction**
+### Introduction
 The problem description starts out with describing a "right-angle triangle" (meaning Pythagoras will come into play) and how there are three solutions where the perimeter (p) = 120. For which solution p ≤ 1000 do we get the maximum amount of solutions.
 
 Pythagoras states that in a "right-angle triangle" `a^2 + b^2 = c^2`, where `c` is the diagonal side of the triangle. The perimeter is `a + b + c`. Firstly, I'll write a method trying to determine `c` from two digits:
@@ -27,7 +27,7 @@ fn test_pythagoras() {
 
 We can already see that in this situation, 120 and 1 will give a `c` of 120, meaning that the perimeter is 141. Going forward with this problem, I'm going to assume that `a`, `b` and `c` are all > 1. The highest possible value of `a` (or `b` or `c`) is 998, implying that `b` and `c` are both 1, however that's impossible as we already showed above. However, for brute forcing purposes we'll keep it like this, and we'll clean it up later.
 
-**Bug found!**
+### Bug found!
 While trying to find the solution, I found a bug in my Pythagoras `calculate_c` method, namely because of the type casting. It could so happen that a number comes remarkably close, but it still fits because of the typecasting (which means nothing more than slicing off the decimals). An example here is 499 and 2, and also 120 and 1. These numbers don't fit the description of being an actual Pythagorean triplet, and we should return a `None` for those. Only whole numbers fit the description.
 
 ```rust

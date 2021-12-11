@@ -6,7 +6,7 @@ problem: 43
 complexity: 2
 ---
 
-**Introduction**
+### Introduction
 "The number, 1406357289, is a 0 to 9 pandigital number because it is made up of each of the digits 0 to 9 in some order, but it also has a rather interesting sub-string divisibility property."
 
 It continues by stating:
@@ -21,10 +21,10 @@ It continues by stating:
 
 Find the sum of all 0 to 9 pandigital numbers with this property.
 
-**Step 1: Heap's algorithm, again**
+### Step 1: Heap's algorithm, again
 First up I'll reuse Heap's algorithm from ["Pandigital prime"](/2021/11/12/project-euler-41-pandigital-prime.html) with the group `{0,1,2,3,4,5,6,7,8,9}` and generate all possible permutations.
 
-**Step 2: Sub-string divisibility**
+### Step 2: Sub-string divisibility
 The next part is to take one of these permutations and loop over them in groups of three. If this were Ruby, this would be really easy because Ruby has an `each_cons()` method, where Rust doesn't have one. Luckily they're really easy to make:
 
 ```rust
@@ -80,7 +80,7 @@ fn test_is_divisible() {
 }
 ```
 
-**Solving the actual problem**
+### Solving the actual problem
 I know that in the starting position of the group, `9876543210`, the sub-string divisibility rule doesn't match, so I can skip that initial permutation in Heap's algorithm. After some fiddling, the solution I get is 16695334890:
 
 ```rust
@@ -131,7 +131,7 @@ Another one solved!
 
 ---
 
-**Speed improvements**
+### Speed improvements
 Getting to the answer takes the code ~13 seconds, which is not fast. The reason for this is that it has to go over 10! (3.628.800) permutations. Obviously, a lot of these I can skip by making use of the divisibility rules. For example: the divisibility rule of 2 states that a number, divisible by 2, has to end on an even number. Looking at a more complex example: for a number to be divisible by 3, the sum of its digits has to by divisible by 3 (this implies parsing, summing etc.). However, the divisibility rule for 5 states that the number has to end on a 5 or a 0.
 
 If I were to take the simplest divisibility rules, the ones of 2 and 5, than I know that the digit on the 3rd index has to be an even number, and the digit on the 5th index has to be a 5 or a 0. Perhaps by looking at those two facts, I can speed up the code. Firstly, I'll add a method called `fits_div_rule_2_and_5()`:
@@ -184,7 +184,7 @@ After:
 
 It shaves of 10 whole seconds!
 
-**Another speed improvement in divisors**
+### Another speed improvement in divisors
 Another improvement I see is in the `is_divisors()` and `divisors()` methods. Currently, we're grabbing _all_ divisors, which is obviously a bit too much. If we find one of the matching prime numbers, the code can stop checking for further divisors:
 
 ```rust

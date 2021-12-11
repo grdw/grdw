@@ -6,10 +6,10 @@ problem: 55
 complexity: 1
 ---
 
-**Introduction**
+### Introduction
 "How many Lychrel numbers are there below ten-thousand?"
 
-**Is a number a Lychrel number?**
+### Is a number a Lychrel number?
 The puzzle states that we can take a max of 50 cycles before stopping to check if a number is a Lychrel number or not. My initial setup therefore will look like this:
 
 ```rust

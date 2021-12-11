@@ -6,7 +6,7 @@ problem: 25
 complexity: 1
 ---
 
-**Introduction**
+### Introduction
 What is the index of the first term in the Fibonacci sequence to contain 1000 digits?
 
 I'm going to use the code I used for ["Even Fibonacci numbers"](/2021/10/23/project-euler-2-even-fibonacci-numbers.html), the 2nd Euler puzzle. The code to generating the Fibonacci numbers I used is this one:
@@ -24,7 +24,7 @@ loop {
 
 This will go on until infinity, except right now I need to stop when the number is 1000 digits long. Even with the biggest integer u128 I can't store a 1000 digit integer, so I have to use my `int_to_vec()` and `sum_vec()` from ["Power digit sum"](/2021/10/26/project-euler-16-power-digit-sum.html). However, I need to tweak `sum_vec()` slightly because right now it can only sum up values that aren't bigger than 2 digits.
 
-**Fixing sum_vec()**
+### Fixing sum_vec()
 To fix `sum_vec()` I'm going to write some tests which I know will fail:
 
 ```rust
@@ -65,7 +65,7 @@ impl VecEx<u8> for Vec<u8> {
 
 Another minor tweak I made is for `total` to be a reference, instead of passing the full vector along.
 
-**Fibonacci with int_to_vec()**
+### Fibonacci with int_to_vec()
 While fiddling a little, I came up with this answer:
 
 ```rust

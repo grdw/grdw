@@ -6,14 +6,14 @@ problem: 23
 complexity: 3
 ---
 
-**Introduction**
+### Introduction
 The puzzle is very clear: "Find the sum of all the positive integers which cannot be written as the sum of two abundant numbers." The puzzle specifies that all these numbers are below 28123. The problem consists of these parts, as far as I can see:
 
 - Find all the abundant numbers up till 28123
 - Add all the possible abundant numbers together in every which way and create a set X. Skip all the values that are > 28123.
 - Loop over 0 till 28123, if the number is in the set X reject it and sum the total.
 
-**Step 1: finding all abundant numbers**
+### Step 1: finding all abundant numbers
 Finding all abundant numbers is relatively straight forward. You start be creating a method to see which number is abundant. This method is a slightly altered variation from the method in ["Amicable numbers"](/2021/10/29/project-euler-21-amicable-numbers.html).
 
 ```rust
@@ -73,7 +73,7 @@ fn test_abundant() {
 }
 ```
 
-**Step 2: Creating the set**
+### Step 2: Creating the set
 Creating the set of all double abundant numbers, in theory should go something like this:
 
 ```rust
@@ -167,7 +167,7 @@ println!("{:?}", lowest_double_abundant.len());
 
 So first I create the full list of the lowest double abundant numbers. When I loop over all the numbers, I check which abundant numbers can be added to a double abundant number without exceeding the next double abundant number. This gives me a set of 8253 numbers.
 
-**Step 3: Filtering out the set**
+### Step 3: Filtering out the set
 The last step feels rather trivial but here it is:
 
 ```rust
@@ -181,7 +181,7 @@ for i in 1..=MAX {
 
 This gives me a total of `279_501_778` which seems way too high. Upon checking the answer 4179871, this seems to be the case. I clearly screwed up a thing or two, so it seems.
 
-**Rabbit hole #1**
+### Rabbit hole #1
 My original plan doesn't work quite as expected, and I seem to be missing quite a lot of numbers. Let's go back to step 1, and perhaps we can find a good solution. The problem clearly tells me about perfect numbers and deficient numbers, so I'll add tests for those, not quite sure how they'll come into play just yet.
 
 ```rust
@@ -256,7 +256,7 @@ etc.
 
 It always seems to be skipping in steps of 2 and all numbers are divisble by at least two? Whatever this is, it doesn't really seem to help me go forward with an answer.
 
-**Back to the previous rabbit hole**
+### Back to the previous rabbit hole
 I'm not going to change my method. I still believe, checking which double abundant numbers lies between all the abundant numbers times 2, is the way forward. Furthermore, I did make the algorithm a little faster:
 
 ```rust
@@ -286,7 +286,7 @@ for i in 0..all_abundant.len() - 1 {
 
 Oddly enough, this gives me an array of 9918 numbers, which is higher than the 8253 numbers I got earlier with the slower algorithm. However, this doesn't really matter, because I still get a result of 261307216. I gave up on my method.
 
-**Getting to the actual correct answer...**
+### Getting to the actual correct answer...
 After taking a shower, I came up with a way less complex approach. I figured that any number which is abundant I should persist in a vector of some kind. Then for each following number in the loop, I need to check with the previous list of abundant numbers. If reducing said number by any of the previous abundant numbers is also an abundant number, it is a double abundant number. My first attempt looks like this:
 
 ```rust

@@ -6,7 +6,7 @@ problem: 47
 complexity: 1
 ---
 
-**Introduction**
+### Introduction
 "The first two consecutive numbers to have two distinct prime factors are:
 
 ```
@@ -24,10 +24,10 @@ The first three consecutive numbers to have three distinct prime factors are:
 
 Find the first four consecutive integers to have four distinct prime factors each. What is the first of these numbers?"
 
-**Step 1: reusing the prime_factors method**
+### Step 1: reusing the prime_factors method
 I already made a `prime_factors` method once in the past for ["Distinct powers"](/2021/11/04/project-euler-29-distinct-powers.html), so I'll start by reusing that method. The wonderful thing about that method is that it groups together unique prime factors already. The next thing I tried was to brute-force it, but it seems like this is a bit too slow...
 
-**Step 2: Speeding up prime_factors**
+### Step 2: Speeding up prime_factors
 This is what the `prime_factors` method currently looks like:
 
 ```rust
@@ -122,7 +122,7 @@ Another one solved!
 
 ---
 
-**Improvements**
+### Improvements
 The current solution works, but it is rather slow. It takes the code 9.23 seconds to find the answer, which is not optimal. I'm curious to see if there are ways to speed it up. Obviously, we can skip all the prime numbers, because they only have one single prime factor. However, that would've already been resolved with the `prime_factors` method.
 
 Another way of thinking about this would be: generate prime numbers one by one, test all possible combinations of that group in some shape or way. However, the downside is that multiple of the same prime can be picked. Also, there's no way of knowing which numbers live side by side, without pushing everything into an array, sorting and testing if there are four consecutive numbers.
@@ -206,7 +206,7 @@ fn test_problem_47() {
 }
 ```
 
-**Sources**
+### Sources
 
 \[1\] [Quora: Can you determine how many prime factors a number has without determining what they are?](https://www.quora.com/Can-you-determine-how-many-prime-factors-a-number-has-without-determining-what-they-are-For-natural-number-n-how-many-prime-factors-does-n-have)
 

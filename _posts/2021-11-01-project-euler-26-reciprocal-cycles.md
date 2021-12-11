@@ -6,10 +6,10 @@ problem: 26
 complexity: 2
 ---
 
-**Introduction**
+### Introduction
 The puzzle explains how fractions divide into decimal numbers. 1/6th equals to 0.166666 and therefor has a repeating cycle of 1-digit for 6. Other fractions, like 1/2 have no repeating cycle. Which denominator (D) below 1000 for the numerator of 1 has the highest recurring cycle?
 
-**Use a float?**
+### Use a float?
 The dumb-dumb in me immediately thinks: can you use a `f64`, cast it to a String and check if there's a pattern? The max number of digits behind the dot on a f64 are 17 digits. To show this:
 
 ```rust
@@ -105,7 +105,7 @@ Executing this code however results in the program freezing up and for what it s
 10 / 12 = this doesn't fit.
 ```
 
-**Rabbit hole #1**
+### Rabbit hole #1
 So 10 / 12 equals 0 with a remainder of 10. This actually results in data loss on the integer. To prevent this (and for any future number like 943 f.e.) we need to make the base expand to 1000. However, this comes with a little problem. Let's go back to our example with 3, 8 and 7 and use 1000 as our numerator:
 
 ```
@@ -161,7 +161,7 @@ This doesn't quite work out because 1/11 = 0.090909, so the actual answer should
 
 However, this conflicts with what I previously wrote down about multiplying groups by 3, since 11 clearly hasn't got 6 groups, but 2.
 
-**The correct rabbit hole**
+### The correct rabbit hole
 Let's go back to our little algorithm and simplify it a little:
 
 ```rust
@@ -220,7 +220,7 @@ fn division(n: u128, d: u128) -> u64 {
 
 I know this is less than ideal but it works for the numbers up till 1000. When using this algorithm I get the answer 97 which has 96 cycles. The actual correct number should be 983, meaning my algorithm still needs some improvements.
 
-**I was already at the correct answer...**
+### I was already at the correct answer...
 After some more headscratching I figured out that the non-primary numbers are giving me a bit of a headache with resolving this puzzle. Infinite loops popping up everywhere, so my 2nd thought is:
 
 ```
@@ -244,7 +244,7 @@ Yes it does.
 
 Perhaps splitting up every number in their unique prime factors first and checking each prime factor will work?
 
-**... yes, this just happened**
+### ... yes, this just happened
 How about: no. I just made a really dumb error 🙄️. For testing purposes I had it cycle from 1 till a 100, and I forgot to update the 100 to a 1000. My algorithm is actually already working.
 
 ```rust
@@ -317,7 +317,7 @@ This gives me the correct answer of 983.
 
 ---
 
-**Improvements on the answer**
+### Improvements on the answer
 Coming back to this a day later, I think the algorithm can be improved a little. The answer for 1/12 is now 2, while the actual answer should be 1. In the grander scheme of things this doesn't really matter, but I would like to tweak this nontheless, just to be correct. To fix it properly I have to make a minor change for whenever `range` starts to populate:
 
 ```rust
@@ -532,6 +532,6 @@ fn test_problem_26() {
 }
 ```
 
-**Sources**
+### Sources
 
 \[1\] [An Algorithm for Arbitrary Precision Integer Division](http://justinparrtech.com/JustinParr-Tech/an-algorithm-for-arbitrary-precision-integer-division/){:target="_blank"}

@@ -6,7 +6,7 @@ problem: 27
 complexity: 1
 ---
 
-**Introduction**
+### Introduction
 Find the product of the coefficients, a and b, for the quadratic expression that produces the maximum number of primes for consecutive values of n, starting with n = 0. A couple of things we know:
 
 - The quadratic notation is `n^2 + an + b`.
@@ -14,7 +14,7 @@ Find the product of the coefficients, a and b, for the quadratic expression that
 - The ranges of b are 1..=1000.
 - The ranges of n are 0 up till a value until no prime is found.
 
-**Validating n^2 + n + 41**
+### Validating n^2 + n + 41
 The puzzle states that the above method returns a maximum of 40 prime numbers. Let's first proof that with some code. We'll take the `is_prime` method from ["Largest prime factor"](/2021/10/23/project-euler-3-largest-prime-factor.html) and add some code around it:
 
 ```rust

@@ -6,10 +6,10 @@ problem: 36
 complexity: 1
 ---
 
-**Introduction**
+### Introduction
 "Find the sum of all numbers, less than one million, which are palindromic in base 10 and base 2."
 
-**Solution**
+### Solution
 I've already solved this Euler puzzle some time ago, and this is the code I used:
 
 ```rust

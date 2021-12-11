@@ -6,7 +6,7 @@ problem: 40
 complexity: 1
 ---
 
-**Introduction**
+### Introduction
 The puzzle starts by showing us an irrational decimal fraction which looks like this:
 
 ```
@@ -23,7 +23,7 @@ The 12th digit in that decimal fraction is a 1. It took me a little while to fig
 
 Find d1 × d10 × d100 × d1000 × d10000 × d100000 × d1000000.
 
-**Champernowne's method**
+### Champernowne's method
 The first part is to make a method, which returns the Champernowne's constant as a vector:
 
 ```rust

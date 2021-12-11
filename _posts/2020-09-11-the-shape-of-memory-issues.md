@@ -11,19 +11,19 @@ Throughout the case study I will give some handlebars and things to look out for
 
 There are three distinct shapes you should be frightened of and I'll list them from least worrying to most worrying:
 
-**Memory bloat:**
+### Memory bloat:
 
 ![bloat](/img/1/1.gif)
 
 The memory jumps up significantly. Some memory is freed along the way, but overall the total memory will grow in large quantities in small amounts of time. The total accumulated memory keeps persisting and eventually it will cause the memory to overflow.
 
-**Memory fragmentation:**
+### Memory fragmentation:
 
 ![bloat](/img/1/2.gif)
 
 The shape of memory fragmentation is logarithmic. This means the total memory used will grow and grow and will try to reach a point it can never reach. Usually these issues are slow-moving.
 
-**Memory leak:**
+### Memory leak:
 
 ![bloat](/img/1/3.gif)
 
@@ -79,7 +79,7 @@ After keeping our backend running for a long time without the restart patch, it 
 
 The logical next theory in finding this ninja leak would be that an underlying C-library was leaking in one of the Ruby dependencies. The way to measure this according to some articles I read, was to compile Ruby with [jemalloc](http://jemalloc.net/).
 
-**Excerpt rbtrace results:**
+### Excerpt rbtrace results:
 
 Time   | RSS Size (pmap) | Total heap size (rbtrace)
 -------|-----------------|---------------------------

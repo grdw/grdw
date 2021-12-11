@@ -6,7 +6,7 @@ problem: 32
 complexity: 2
 ---
 
-**Introduction**
+### Introduction
 Find the sum of all products whose multiplicand/multiplier/product identity can be written as a 1 through 9 pandigital.
 
 An example is:
@@ -18,7 +18,7 @@ which contains the numbers 3,9,1,8,6,7,2,5,4 or sorted:
 1,2,3,4,5,6,7,8,9
 ```
 
-**Idea 1: brute forcing!**
+### Idea 1: brute forcing!
 My first attempt at brute forcing is to take `{1,2,3,4,5,6,7,8,9}`, generate all possible permutations and for each permutation squeeze the `x` and `=` symbols in between. If we were to start with `{1,2,3,4,5,6,7,8,9}`, the amount of sums you can make are:
 
 ```
@@ -54,7 +54,7 @@ My first attempt at brute forcing is to take `{1,2,3,4,5,6,7,8,9}`, generate all
 
 This means there are 28 variations per permutation multiplied by 9! (362880) which equals to 10.160.640 possibilities. Not only is that a lot, what is also unfortunate is that quite a lot of these 10.160.640 products are false statements. Just checking the 28 I mentioned above, not one of them is correct.
 
-**Idea 2: More brute forcing!**
+### Idea 2: More brute forcing!
 Another brute forcing idea is to start from the highest number you can make, which is: 987.654.321 and determine the divisors of said number. You'll lower by 1 each time and check if any of the unique divisor pairs and the sum are pandigital 1 till 9. Now, we can already do something a bit smarter here and start from 98.765.432 purely because 987.654.321 will never become pandigital in its product, because all the numbers 1 till 9 are already taken. First up I'll steal the common divisors method from ["Amicable numbers"](/2021/10/29/project-euler-21-amicable-numbers.html) and tweak it slightly:
 
 ```rust
@@ -240,7 +240,7 @@ fn test_problem_32() {
 
 ---
 
-**Improvement #1: Combining filters**
+### Improvement #1: Combining filters
 The code above contains a filter to check for duplicate digits and a filter to check if the number is pandigital. This feels redundant, and we can combine both into one single filter. `valid_divisors` can be reduced to this:
 
 ```rust
@@ -255,7 +255,7 @@ fn valid_divisors(i: u64, d1: u64, d2: u64) -> bool {
 }
 ```
 
-**Improvement #2: Change the starting off point**
+### Improvement #2: Change the starting off point
 After implementing the improved `valid_divisors()` method, the `problem_32()`-method can be slimmed down quite dramatically. The next thing to do is to see what the highest number in the loop is, which seems to be 7852, so we can start our loop from 7853. With both those changes, we can reduce `problem_32` down to:
 
 ```rust
@@ -287,7 +287,7 @@ Talking about refactoring! Obviously the 7853 is a magic number and feels a bit 
 
 ---
 
-**Improvement on the upper bound**
+### Improvement on the upper bound
 Coming back to this code a few days later, I see that 7853 is not a valid upper bound. To revisit this:
 
 - 987654321 is the first upper bound I picked. However, that can never result in pandigital factors, because all the numbers have already been picked once.

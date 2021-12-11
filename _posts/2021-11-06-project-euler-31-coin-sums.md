@@ -6,7 +6,7 @@ problem: 31
 complexity: 3
 ---
 
-**Introduction**
+### Introduction
 How many different ways can £2 be made using any number of coins?
 
 Upon reading the full puzzle, this feels like one of those classic combination with repetition problems. However, I'm assuming there's a twist to the story. By converting all coin values to pence and by not even writing code, you can start listing them:
@@ -73,7 +73,7 @@ fn test_problem_31() {
 
 It's the correct answer, but I have no clue how this works from a math point of view. I'm not sure if I'm supposed to understand how any of this works, in all honesty.
 
-**Sources**
+### Sources
 
 \[1\] [How many combinations possible to make $10 from a set](https://math.stackexchange.com/questions/3774377/how-many-combinations-possible-to-make-10-from-a-set-amount-of-coins)
 

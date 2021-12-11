@@ -6,10 +6,10 @@ problem: 56
 complexity: 1
 ---
 
-**Introduction**
+### Introduction
 "Considering natural numbers of the form, a<sup>b</sup>, where a, b < 100, what is the maximum digital sum?"
 
-**Part 1: sum_vec(), mul_vec() and to_digits()**
+### Part 1: sum_vec(), mul_vec() and to_digits()
 I'll be reusing the code originally started in ["Power digit sum"](/2021/10/26/project-euler-16-power-digit-sum.html) to form the base of this puzzle. The next part is to take the power of a 100 of each digit and check which consecutive iteration of each vector contains the most digits (so: multiply by the same vector each time).
 
 ```rust
@@ -38,7 +38,7 @@ fn test_max_power_digit_sum() {
 }
 ```
 
-**Part 2: Resolving problem 56**
+### Part 2: Resolving problem 56
 To resolve problem 56 do the following:
 
 ```rust

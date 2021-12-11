@@ -6,14 +6,14 @@ problem: 46
 complexity: 1
 ---
 
-**Introduction**
+### Introduction
 "It was proposed by Christian Goldbach that every odd composite number can be written as the sum of a prime and twice a square.
 
 It turns out that the conjecture was false.
 
 What is the smallest odd composite that cannot be written as the sum of a prime and twice a square?"
 
-**Solution**
+### Solution
 The loop we're going to make is a loop that starts at 1 and skips all the prime numbers and even numbers. Each prime number we encounter, we'll store inside a vector. For each next odd number we encounter we'll test if that number can be written as any of those previous primes we encountered and a square, once that condition no longer holds, we've found our answer. The method to test for this will look something like this:
 
 ```rust
@@ -88,7 +88,7 @@ fn test_problem_46() {
 
 Solved!
 
-**Improvements**
+### Improvements
 The code results in the correct answer, but it takes 10.38 seconds to get to that answer. The reason for that is because the `squares`-vector becomes absurdly large. I believe it's faster to make the squares vector on the fly, and only make _double_ squares up to the value of `start`. To do that a bit smartly, I can do something like this:
 
 ```rust
@@ -171,7 +171,7 @@ It finishes in 0.14 seconds.
 
 ---
 
-**Further improvements**
+### Further improvements
 There is room for some clean-up. Mainly I see that I can squash the "double squares"-method described above, together with the inner loop of `is_prime_and_square()` like such:
 
 ```rust

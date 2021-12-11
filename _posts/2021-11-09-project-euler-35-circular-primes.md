@@ -6,7 +6,7 @@ problem: 35
 complexity: 1
 ---
 
-**Introduction**
+### Introduction
 "How many circular primes are there below one million?"
 
 The first step in solving this puzzle, is to steal `is_prime` from many a previous Euler exercise. The next step is to write a method to test if a prime number is also a rotary prime number, my first iteration goes something like this:

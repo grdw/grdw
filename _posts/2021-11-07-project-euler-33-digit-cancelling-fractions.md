@@ -6,7 +6,7 @@ problem: 33
 complexity: 2
 ---
 
-**Introduction**
+### Introduction
 The puzzle starts out by explaining that 49/98th is a curious fraction, as it can simplify to 4/8th (or 1/2). The puzzle specifies that 4/8th can be obtained by "cancelling" out the 9's. There are four fractions with two digits in the numerator and denominator, all less than one in value, that follow that "cancelling rule". It then continues with: "If the product of these four fractions is given in its lowest common terms, find the value of the denominator.". I'm not sure what that means entirely, but let's start with simplifying fractions! The first step is to simplify fully:
 
 ```rust
@@ -186,7 +186,7 @@ One tricky part I forgot to mention is that only the insides of the full fractio
 
 ---
 
-**Improvements**
+### Improvements
 `cancelled_simplified()` can be reduced further to:
 
 ```rust

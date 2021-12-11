@@ -6,7 +6,7 @@ problem: 17
 complexity: 1
 ---
 
-**Introduction**
+### Introduction
 The puzzle is simple enough: count the amount of characters it takes to write out 1 till 1000 in the British English language.
 
 The first thing I need is a mapping of all the possible unique words. Now the puzzle states its only interested in the length of each word, so the word itself can be ditched in favor of the length of each term (f.e. one = 3 letters). However, for readability I'll keep the `str` representation in the code.

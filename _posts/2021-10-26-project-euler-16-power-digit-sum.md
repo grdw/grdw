@@ -6,7 +6,7 @@ problem: 16
 complexity: 3
 ---
 
-**Introduction**
+### Introduction
 2^16 = 32768. Summing up all individual digits (3 + 2 + 7 + 6 + 8) results in 26. What is the sum of the digits to 2^1000?
 
 In Ruby this answer is super easy to acquire:
@@ -17,7 +17,7 @@ In Ruby this answer is super easy to acquire:
 
 There's probably a similar answer in Python I imagine. However, considering that I'm doing all these puzzles in Rust, I have to come up with something a bit more clever, knowing that Rust has no way to fit 2^1000 in any of its integers.
 
-**Which power does fit?**
+### Which power does fit?
 In the previous puzzle I found out Rust has a `u128` type which has a max value of 2^128 - 1. This means I can represent 2^1000 as (2^100)^10. But how are we going to multiply these large numbers without overflowing? A way of doing this is by using a vector. Combining that knowledge with my knowledge from my primary school days I should be able to solve it.
 
 ```
@@ -39,7 +39,7 @@ I'll explain this program a little bit more in steps, but the way I approached i
 2. Next up build a way to multiply these values.
 3. Resolve the original puzzle.
 
-**Step 1: converting a number to a vector**
+### Step 1: converting a number to a vector
 For step 1 I wrote the following code:
 
 ```rust
@@ -65,7 +65,7 @@ fn test_int_to_vec() {
 
 Nothing to out of the ordinary. Take a large number and turn it into an array of its bases. The reason why the result is reversed, is because it's easier to get to the base10 value by using the index of the vector.
 
-**Step 2: multiplying factors**
+### Step 2: multiplying factors
 The next step is writing code to multiply `[6, 1]` times `[2, 1]` or in normal human speak: 16 x 12. The full code goes something like this:
 
 ```rust
@@ -172,7 +172,7 @@ much like in the primary school days:
 
 There's some trickery required with summing values in arrays this way. Namely if two values have a remainder. I solved it by reusing `int_to_vec()` again and adding that array on top of the other. I know the max value will be `9 + 9 = 18` so I do see a potential area of improvement.
 
-**Step 3: Actually resolving problem 16**
+### Step 3: Actually resolving problem 16
 Using `int_to_vec()` and `multiply()` from the previous code I can resolve the puzzle like such:
 
 ```rust
@@ -204,7 +204,7 @@ fn test_problem_16() {
 
 It is not the fastest code in the world but it does result in the correct answer!
 
-**The clean up**
+### The clean up
 I'm not going to lie but the code parts that make up this puzzle look pretty rough. Let's start cleaning it up now that we have a working solution. Let's start with this method:
 
 ```rust
@@ -605,7 +605,7 @@ It's a little bit longer than the Ruby method.
 
 ---
 
-**Improvement of the answer**
+### Improvement of the answer
 I made some improvements to the original answer, namely in the `sum_arrays` method and `multiply` method. It turns out I can simply do an inline update on the first array, supplied as an argument to those methods, in both cases. I also decided to update the naming of the variables a little bit and moving them into a `Trait`.
 
 ```rust
@@ -666,6 +666,6 @@ vector.sum_vec(int_to_vec(2)) // => [2, 3]
 
 This is not only nicer, but because of the borrowing and inline updating of `vector` this saves quite a lot of memory to get to the final answer.
 
-**Sources**
+### Sources
 
 \[1\] [Stackoverflow: iterate two vectors with different lengths](https://stackoverflow.com/a/38168890/1694362){:target="_blank"}

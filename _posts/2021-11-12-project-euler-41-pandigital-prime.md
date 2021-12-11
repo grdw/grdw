@@ -6,12 +6,12 @@ problem: 41
 complexity: 2
 ---
 
-**Introduction**
+### Introduction
 "We shall say that an n-digit number is pandigital if it makes use of all the digits 1 to n exactly once. For example, 2143 is a 4-digit pandigital and is also prime.
 
 What is the largest n-digit pandigital prime that exists?"
 
-**is_prime() and is_pandigital()**
+### is_prime() and is_pandigital()
 We'll reuse the `is_prime()` method from previous Euler exercises and add another method, `is_pandigital()` to the mix. The idea here is to brute-force the solution. The `is_pandigital()` method will look something like this:
 
 ```rust
@@ -32,7 +32,7 @@ fn test_is_pandigital() {
 }
 ```
 
-**Commence the brute-forcing!**
+### Commence the brute-forcing!
 The highest possible pandigital number you can make is `987654321` so if we start from there and go backwards by one, we only need to stop once we find the first prime pandigital number that matches. While starting to work towards the solution, I figured `0` is not allowed as a digit and my `is_pandigital()` method isn't accounting for that situation. After tweaking it, this is the brute-forcing attempt:
 
 ```rust
@@ -51,7 +51,7 @@ fn problem_41() -> u64 {
 
 *COUGH COUGH*, this isn't a success, let me tell you. It's painfully slow and after running this loop for over 5 minutes there still is no answer. I probably need to use a different method of generating prime numbers or I need to always make pandigital numbers. Let's try the last method.
 
-**Always making pandigital numbers**
+### Always making pandigital numbers
 A pandigital number is a number from 1 till n with only unique digits. If we are to count them from low to high, it goes something like this:
 
 ```

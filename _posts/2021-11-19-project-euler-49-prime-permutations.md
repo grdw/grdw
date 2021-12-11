@@ -6,15 +6,15 @@ problem: 49
 complexity: 3
 ---
 
-**Introduction**
+### Introduction
 "The arithmetic sequence, 1487, 4817, 8147, in which each of the terms increases by 3330, is unusual in two ways: (i) each of the three terms are prime, and, (ii) each of the 4-digit numbers are permutations of one another.
 
 There are no arithmetic sequences made up of three 1-, 2-, or 3-digit primes, exhibiting this property, but there is one other 4-digit increasing sequence.
 
 What 12-digit number do you form by concatenating the three terms in this sequence?"
 
-**Rabbit hole #1**
-**Algorithm shopping**
+### Rabbit hole #1
+### Algorithm shopping
 I need one permutation algorithm and one combination algorithm. One that takes all possible unique combinations of `{0,1,2,3,4,5,6,7,8,9}` but in subsets of 4 [1], and another that takes these groups of 4 and generates all permutations. The code for permutations already exists in ["Lexicographic permutations"](/2021/10/30/project-euler-24-lexicographic-permutations.html). After some fiddling, the code looks like this:
 
 ```rust
@@ -35,7 +35,7 @@ fn problem_49() -> u64 {
 
 The `heap` method only returns permutations that are prime numbers.
 
-**Advanced gap detection**
+### Advanced gap detection
 The next step is quite tricky, but bear with me. The `heap()` method in our previous example returns a series of sorted prime numbers, so f.e.:
 
 ```
@@ -141,7 +141,7 @@ fn test_problem_49() {
 
 However, the problem statement specifies that it needs to find a 12-digit number, mine is clearly 11 digits. Upon checking the answer (`[2969, 6299, 9629]`), I see what I did wrong. The combination algorithm only generates combinations of unique digits, not combinations with repeating digits.
 
-**Idea #2**
+### Idea #2
 The first idea was clearly a rabbit hole and didn't work, my next approach is to generate all prime numbers from 1000 till 9999 and see which one's belong to each other. There are only 1061 prime numbers in that range, so that shouldn't be too bad to do. Also, this is probably way nicer than having combination and permutation algorithms all over the place.
 
 ```rust
@@ -189,6 +189,6 @@ result // [2969, 6299, 9629]
 
 Done!
 
-**Sources**
+### Sources
 
 \[1\] [Combinations#rust](https://rosettacode.org/wiki/Combinations#Rust)

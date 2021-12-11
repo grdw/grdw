@@ -6,12 +6,12 @@ problem: 53
 complexity: 3
 ---
 
-**Introduction**
+### Introduction
 I am shown the binomial coefficient. The puzzle asks which variations of N choose R, where 1 ≤ N ≤ 100, results in more than 1.000.000 combinations.
 
 The main issue of this coding puzzle is the factorial, which lies at the heart of the binomial coefficient. Doing the factorial of 35 f.e. will not work because it's too big for Rust.
 
-**Rabbit hole #1**
+### Rabbit hole #1
 There is a way of working around that problem, namely by using vector multiplication. Vector multiplication is something we have done a lot already, namely in ["Power digit sum"](/2021/10/26/project-euler-16-power-digit-sum.html). By reusing most of the methods from "Power digit sum", I can make factorials which are quite sizeable:
 
 ```rust
@@ -88,7 +88,7 @@ The above code is painfully slow, but after a whopping 213.21s it gives back 409
 
 I'm officially stuck again, and I probably shouldn't have to do a factorial of a 100, 100 times. After some searching, I found a Stackexchange forum question about the binomial coefficient, which had one comment with only a Wikipedia link to "Pascal's rule" [1]. Don't you hate it, when it is just a link and nothing more than that, no explanation whatsoever as to how it can be used? As far as I can conclude from Wikipedia, it seems that I have to do calculate the binomial coefficient twice and sum both of those numbers, which is probably going to make my code even slower.
 
-**Back to the code:**
+### Back to the code:
 Ideally in my code I'd only have to calculate the factorials from 1 till a 100, once. Like this:
 
 ```rust
@@ -126,7 +126,7 @@ counts
 
 However, this still takes 30.68 seconds, which is not fast.
 
-**Back to the drawing board:**
+### Back to the drawing board:
 I need to know the _length_ of a binomial coefficient. I don't need to know the actual coefficient itself, I couldn't care a thing about it. I only need to know if it exceeds 1m.
 
 Let's first see if we can optimize the loop:
@@ -194,7 +194,7 @@ This can be reduced quite heavily to:
 
 In this particular case, I'm crossing off `n - r`, because that's the biggest group in this example. This means that depending on if `n - r > r`, we should pick `n - r` or `r` as a break point for the `fact()` function. We'll divide by the lowest `n - r` or `r` factorial. After fiddling a bit with the code, it seems that the longest number has 94 digits, meaning that we can't exactly use a `u128`, but it was worth a shot to see if it were possible.
 
-**Resolving the division in the binomial coefficient**
+### Resolving the division in the binomial coefficient
 If I take any N choose R, the amount of products at the top and the bottom (including 1, for the bottom case), will be the same. Let's take 100 choose 3 for example:
 
 ```
@@ -280,6 +280,6 @@ fn test_problem_53() {
 
 Voila! Done in 0.00s.
 
-**Sources**
+### Sources
 
 \[1\] [en.wikipedia.org/wiki/Pascal%27s_rule](https://en.wikipedia.org/wiki/Pascal%27s_rule){:target="_blank"}

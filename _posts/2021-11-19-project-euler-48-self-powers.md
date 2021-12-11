@@ -6,7 +6,7 @@ problem: 48
 complexity: 2
 ---
 
-**Introduction**
+### Introduction
 
 "The series, 1^1 + 2^2 + 3^3 + ... + 10^10 = 10405071317.
 
@@ -24,10 +24,10 @@ Solved!
 
 However, in Rust we have to do something a bit more clever.
 
-**int_to_vec() and 10 digits**
+### int_to_vec() and 10 digits
 In the past, to fit huge numbers I used `int_to_vec()` and I think we're going with the same approach here. The last time I used these methods was for the ["1000-digit Fibonacci number"](/2021/10/31/project-euler-25-1000-digit-fibonacci-number.html) problem. The first issue we have is, that within this trait we only made a method called `sum_vec()` and `multiply_vec()`, but no `power_vec()`. Before I'm going to implement `power_vec()`, I am aware of the 10 digits limitation. We need to train our methods to only take vectors of max length 11, the rest of the remainders don't matter.
 
-**Adjusting multiply_vec()**
+### Adjusting multiply_vec()
 A reminder: `multiply_vec()` currently works something like this:
 
 ```
@@ -61,7 +61,7 @@ fn test_vector_methods() {
 
 This would generate 11 0's.
 
-**Writing power_vec()**
+### Writing power_vec()
 Writing `power_vec()` is fairly straight forward, it's basically multiplying with yourself n-times.
 
 ```rust
@@ -86,7 +86,7 @@ fn test_power_vec() {
 }
 ```
 
-**Resolving problem_48**
+### Resolving problem_48
 To resolve this problem, the code will look something like this:
 
 ```rust
@@ -120,7 +120,7 @@ Solved ... in 19.15 seconds. I'll come back to optimize it later.
 
 ---
 
-**Improvements**
+### Improvements
 This can be done way faster, by writing a little algorithm. The algorithm goes something like this:
 
 ```rust

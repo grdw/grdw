@@ -6,7 +6,7 @@ problem: 51
 complexity: 2
 ---
 
-**Introduction**
+### Introduction
 "Find the smallest prime which, by replacing part of the number (not necessarily adjacent digits) with the same digit, is part of an eight prime value family."
 
 The idea is to take a prime number, like 13 and turn them into "families" which means:
@@ -18,7 +18,7 @@ The idea is to take a prime number, like 13 and turn them into "families" which 
 ...
 
 113 is also part of 2 families:
-**3 {113, 223, 773, 883}
+### 3 {113, 223, 773, 883}
 11* {113}
 
 ...
@@ -31,10 +31,10 @@ The idea is to take a prime number, like 13 and turn them into "families" which 
 
 The trick is to find the lowest number with a family count of 8.
 
-**Brute forcing**
+### Brute forcing
 With many of these challenges, I usually take a brute force approach. Using the Sieve of Eratosthenes, I can easily generate all prime numbers under 1.000.000. If that proves to be too little, we'll increase the group size.
 
-**max_family_group()**
+### max_family_group()
 My first idea for a method is to take a prime number, and return the highest family group count. My method looks something like this:
 
 ```rust
@@ -82,7 +82,7 @@ fn test_max_family_count() {
 
 This time around, I tried to by as memory efficient as possible by using `str` as much as possible. The only hardship this code has is the `to_string()` method at the top. That's the only part I believe which is going to be heap allocated. I believe this method can do without the `to_string()`, but perhaps that optimization is not even needed.
 
-**Solving problem 51**
+### Solving problem 51
 My first attempt at a solution looks like this:
 
 ```rust
@@ -111,7 +111,7 @@ fn test_problem_51() {
 
 However, this proves to be incorrect, because the actual answer is `121313`. My `max_family_count()` method probably has some bugs.
 
-**Debugging with 111857**
+### Debugging with 111857
 I spot where my bug is quite easily. If we take a look at the replacements for 111857, this is what happens:
 
 ```
@@ -150,7 +150,7 @@ That 857 shouldn't be there! After extending the filtering on the `max_family_gr
 
 However, these form a group of 7, meaning that either 727373 or 929393 are also prime numbers, but aren't being treated like such. It turns out 929393 is indeed a prime number, and I also spot my mistake in the code. Instead of writing `b'0'..b'9'` I should've written `b'0'..=b'9'`; classic.
 
-**Full solution**
+### Full solution
 The first step in my solution is to take any number and turn them into their unique digits:
 
 ```rust
@@ -216,7 +216,7 @@ fn test_max_family_count() {
 
 The code starts by using the `unique_digits()` method I described earlier. The code loops over them and starts replacing digits from the `String`-version of the original number. It then proceeds to filter out all the primes and count them. The biggest group is eventually returned, or a 0 when no groups can be made.
 
-**The hackery in `replace_digit()`**
+### The hackery in `replace_digit()`
 The `replace_digit()` method works by passing actual integers; which is possible by casting these to UTF-8 string slices directly. The way this works is as follows:
 
 ```rust

@@ -6,7 +6,7 @@ problem: 15
 complexity: 2
 ---
 
-**Introduction**
+### Introduction
 This puzzle is called "Lattice paths" (no, not lettuce paths). The puzzle talks about a grid of 2x2 and how there are only 6 distinct ways of moving from the top left to the bottom right. How many ways are there for a 20x20 grid?
 
 To draw out the example a bit more:
@@ -149,7 +149,7 @@ There's a pretty clear pattern here, namely `((size + 1) * 2) * size` gives me t
 
 Now, another pattern that emerges here is that the previous amount of gridlines + (`2*4`) happens to result in 20. Is it really that easy? Let's find out.
 
-**Rabbit hole number #1**
+### Rabbit hole number #1
 I start with a while loop that counts back from the given grid size `n` to a minimum of 2. Using the TDD approach my code looks like this:
 
 ```rust
@@ -187,7 +187,7 @@ fn test_problem_15() {
 
 After executing the code, the answer is right there. There are 870 possible routes for a 20x20 matrix. To validate if that's correct I'll check the answer with the sheet and it seems that this is super incorrect. I'm off by quite a lot actually. The actual correct answer seems to be 137846528820.
 
-**Rabbit hole number #2**
+### Rabbit hole number #2
 Judging by the number I'm assuming factorials come into play one way or the other but I can't really see it yet. Knowing the answer to the problem, I can at least update my test:
 
 ```rust
@@ -345,12 +345,12 @@ fn test_problem_15() {
 }
 ```
 
-**Conclusion**
+### Conclusion
 I really started off the wrong foot, and I should've just started by reading the Wikipedia article about Lattice paths. That would've probably saved me a lot of time on actually trying to figure this out in my head. I did learn some new things though, and I'm glad that rust actually does have a 128-bit integer which will probably become useful in future Euler exercises or any other coding challenges.
 
 ---
 
-**Small improvement on my answer**
+### Small improvement on my answer
 
 For a grid where size equals 3, the way to calculate the number of routes is done like this:
 
@@ -398,7 +398,7 @@ fn test_problem_15() {
 
 It still won't fit on a 64-bit integer, but it's a tiny bit faster.
 
-**Sources**
+### Sources
 
 \[1\] [Wikipedia/Lattice path](https://en.wikipedia.orgi/wiki/Lattice_path){:target="_blank"}
 

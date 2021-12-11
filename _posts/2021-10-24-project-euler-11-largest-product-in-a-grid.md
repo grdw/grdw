@@ -118,7 +118,7 @@ fn test_problem_11() {
 
 ---
 
-**Improvements**
+### Improvements
 I figured I can make `factor_points()` a little smaller, namely because I can use `fold()` on the range `(0..=SPOTS)` like this:
 
 ```rust

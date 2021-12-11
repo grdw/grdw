@@ -6,7 +6,7 @@ problem: 24
 complexity: 2
 ---
 
-**Introduction**
+### Introduction
 The lexicographic permutations of 0, 1 and 2 are:
 
 012   021   102   120   201   210
@@ -141,7 +141,7 @@ Another way of maybe looking at this problem is by turning it into a tree:
 
 If I were to say move from {0,1,2} -> {2,1,0} I'd know it will take 5 rotations to get there because it's the amount of edges at the end minus 1.Let's stop right here, and maybe there's some existing algorithm that might prove itself to be useful.
 
-**Displaying all possible permutations**
+### Displaying all possible permutations
 To display all possible permutations of a group there's Heap's algorithm [1]. Implementing the pseudo-code from Wikipedia this looks like:
 
 ```rust
@@ -308,7 +308,7 @@ fn test_next_perm() {
 }
 ```
 
-**Sources**
+### Sources
 
 \[1\] [Wikipedia/heap's algorithm](https://en.wikipedia.org/wiki/Heap%27s_algorithm){:target="_blank"}
 

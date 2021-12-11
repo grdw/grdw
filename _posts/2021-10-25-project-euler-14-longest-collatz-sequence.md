@@ -6,7 +6,7 @@ problem: 14
 complexity: 1
 ---
 
-**Introduction**
+### Introduction
 The puzzle is called "Longest Collatz sequence" which starts off by stating that it's a sequence of positive integers. To build up such a sequence, we take any number. If it's an even number, we divide the number by 2. If the number is an uneven number we multiply by 3 and add 1. The result of that we loop back into the sequence until we are left with the final number, which is always 1. It also gives me an example to create such a sequence for the number 13.
 
 13 is an odd number so following the rules it will give us this sequence:
@@ -24,7 +24,7 @@ etc.
 
 This produces a chain of 10 numbers. The idea is to write a program that tests which number, up to 1.000.000, produces the longest chain.
 
-**How to determine the length of a chain?**
+### How to determine the length of a chain?
 The first step in this problem is to determine the length of a chain. I'm using a TDD approach, so the first thing I write is this:
 
 ```rust
@@ -61,7 +61,7 @@ fn test_chain_length() {
 ```
 It's not the most elegant looking code in the world, but the only other solutions I can come up with is using either recursion or using an infinite loop, which all come with their own complexities. As far as I see, this is the simplest approach.
 
-**The answer**
+### The answer
  Let's actually check all the numbers from 2 up to 1.000.000. The reason I'm saying 2 is because that's the first positive number that will make the while-loop even trigger in the first place.
 
 ```rust
@@ -127,7 +127,7 @@ fn test_chain_length() {
 }
 ```
 
-**Improvements on the answer**
+### Improvements on the answer
 The first question I always have when writing any first version of code is: can this be done more elegantly? Because I use TDD, I can actually refactor some of this code and make it look a lot nicer. The only area of improvement I see is the `problem_14` method. My first idea here is to make use of some iterator methods that Rust gives us, which made me come up with this:
 
 ```rust

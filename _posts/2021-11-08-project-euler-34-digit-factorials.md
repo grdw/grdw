@@ -6,10 +6,10 @@ problem: 34
 complexity: 1
 ---
 
-**Introduction**
+### Introduction
 Find the sum of all numbers which are equal to the sum of the factorial of their digits. You can skip 1 and 2, because they aren't sums.
 
-**Part 1: factorial**
+### Part 1: factorial
 Because Rust doesn't have a factorial method we have to implement our own. Luckily this is fairly easy:
 
 ```rust
@@ -29,7 +29,7 @@ fn test_fact() {
 }
 ```
 
-**Part 2: Recycling int_to_vec()**
+### Part 2: Recycling int_to_vec()
 It's time to use `int_to_vec()` again from ["Power digit sum"](/2021/10/26/project-euler-16-power-digit-sum.html) and sum the factorials of the individual digits. My first attempt looks like this:
 
 ```rust
@@ -57,7 +57,7 @@ fn test_problem_34() {
 ```
 However, it prints out 2 numbers (145 and 40585) and then it freezes. When do I stop? I don't believe the answer is 40585 + 145 = 40730 or is it?
 
-**Part 3: When to stop the loop?**
+### Part 3: When to stop the loop?
 We know that numbers can be formed from the digits 0-9. All their individual factorials are as follows:
 
 ```
@@ -83,5 +83,5 @@ For now I'll loop until 40585, knowing that there is a smarter way of approachin
 
 ---
 
-**The upper bound**
+### The upper bound
 The clear mystery to this Euler puzzle is the upper bound. What is the upper bound? I've looked online at other answers and I see a lot of people simply using 9!7 (2.540.160) as the upper bound, but I fail to see why that's a reasonable upper bound. The reason why I'm questioning this, is because 2.540.160 is going to be turned into factorials again, which will result in 869. It just so happens to be that 145 and 40585 are lower than 9!7. My initial understanding is that 9.999.999 is the upper bound, because the length of digits (7) will not exceed the length of the _sum_ of its factorials. Perhaps a more "reasonable upper bound" is the _first number_ where the sum of its factorials and the initial number both equal to the length of 7 digits? By taking a calculator, the first number for which this is true is: 1.000.999. 9!3 is equal to 1.088.640 and the rest are all 1's. It's not bullet proof, but it does feel like a more reasonable approach?
