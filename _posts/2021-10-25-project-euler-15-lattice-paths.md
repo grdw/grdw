@@ -80,7 +80,9 @@ A   E   I
 
 That's interesting, so it looks like a diamond. I'm not sure what that even means, and I'm sure there are some math geniuses out there that will immediately see the answer, however I don't see it quite yet. Is it as easy as: from the root node A, it can only pick two routes B and D which themselves only have two routes, so 3 x 2 = 6?
 
-Let's check how many routes there are for the 3x3 grid using a tree:```
+Let's check how many routes there are for the 3x3 grid using a tree:
+
+```
 A 3x3 plane which has 16 grid points:
 
 A B C D
