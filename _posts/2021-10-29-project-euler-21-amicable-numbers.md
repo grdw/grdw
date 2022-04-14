@@ -46,7 +46,9 @@ fn problem_21() -> u16 {
 }
 ```
 
-The code returns 40279 and upon checking the answer (31626), it seems like I did something wrong. I'm 8653 off, which is quite a lot. I believe I'm missing the part where a != b. Let's be actually correct this time about what amicable means and abstract it to a function returning a boolean:```rust
+The code returns 40279 and upon checking the answer (31626), it seems like I did something wrong. I'm 8653 off, which is quite a lot. I believe I'm missing the part where a != b. Let's be actually correct this time about what amicable means and abstract it to a function returning a boolean:
+
+```rust
 fn amicable(i: u16) -> bool {
     let n = sum_divisors(i);
 
