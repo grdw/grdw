@@ -170,4 +170,81 @@ This produced a result of 98003.
 
 Like I described earlier, this can be the highest possible value for a starting value of 3. But perhaps for 5 it will give us a lower value. Now that I know that the maximum is below 100K I'll set the limit to 100K to make it a lot faster. Still with 100K as the upper bound, finding the first group takes a whopping 16.42 seconds, which is rather painful. I let the code run for another while until the first value of the group goes over the `max`. This doesn't exactly run in a timely fashion.... so perhaps 98003 is the answer? Spoiler alert: it isn't.
 
-There's definitely another group of 5, starting with 13 as the prime number, which produces a lower upper bound. However, considering this is such a slow route. I decide to go with my first idea, and see if that will be any faster.
+After letting the newer code run for a while, I'm seeing that there's definitely another group of 5, starting with 13 as the prime number, which produces a lower upper bound. In the mean time I'm using a sieving function to determine the next prime in the series a bit faster. However, this is still painfully slow because of the height of the prime numbers it needs to validate. The highest can be a concatenation of 99.999 and 99.9999 because of my forced upper bound.
+
+After 13 a value appears of 26033, which is high likely the correct answer. I stop the code because it has to run for 15-20 minutes to get to this bus stop. The full code now looks like this:
+
+```rust
+fn problem_60(size: usize) -> u64 {
+    let primes = sieve_of_erato(1_000_000);
+    let mut upper_bound = 100_000;
+    let mut group = vec![];
+    let mut index = 0;
+    let mut start = 0;
+
+    loop {
+        match group.get(index) {
+            Some(_) => {
+                group[index] = find_next(group[index], &primes)
+            }
+            None => {
+                let value = if index > 0 {
+                    group[index - 1]
+                } else {
+                    start
+                };
+
+                group.push(find_next(value, &primes))
+            }
+        }
+
+        let total = group.iter().sum();
+
+        if is_prime_pair_set(&group) {
+            if group.len() == size {
+                if total < upper_bound {
+                    println!("🥁 {}", total);
+                    group.truncate(1);
+                    index = 0;
+                    start = find_next(start, &primes);
+                    upper_bound = total;
+                }
+                continue;
+            }
+
+            index += 1;
+        }
+
+        if group[0] > upper_bound {
+            break;
+        }
+
+        // Piss poor reset function
+        if total > upper_bound {
+            if index < 3 {
+                group.truncate(1);
+                index = 0;
+            } else {
+                println!("{} {:?}", index, group);
+                group.truncate(2);
+                index = 1;
+            }
+
+        }
+    }
+
+    upper_bound
+}
+```
+
+I'm not proud of it either, but it does give a result at some point. I'm kind of curious if extending the sieve till `10_000_000_000` will have a negative effect.
+
+### The 10_000_000_000 length array
+
+Considering that these are all booleans, I'm kind of curious how much memory this will slurp. Turns out, this doesn't even want to start. Next idea!
+
+### Caching the primes
+
+I'm probably checking a lot of primes that I've already seen before in one shape or another, so it might be an idea to cache the known values.
+
+With a simple `HashSet` as my cache, the code resolves in 121.41s, which is still a tad slow but it does actually work.
