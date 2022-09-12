@@ -10,6 +10,12 @@ body {
   font-family: Georgia, Halvetica, serif;
 }
 
+blockquote {
+  padding-left: 13px;
+  margin-left: 1px;
+  border-left: 3px solid #BBB;
+}
+
 .pg {
   max-width: 800px;
   margin: 0 auto;
