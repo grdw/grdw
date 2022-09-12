@@ -223,6 +223,31 @@ impl Iterator for Password {
 
 Instead of passing three individual integers to Password, I can add a vector of integers. The `Iterator` took a little bit of trouble to implement, but the idea is to keep adding values from right &rarr; left. This simple algorithm will add 1 to the right-most value as long as it stays under 122. If it goes over, it will reset the value at that position back to the original value and increments the next right-most value. If all the values equal to 122, it will return a `None`. The loop will break if a value got added, because at most `next()` should increment a single value in the vector, and not do anything more.
 
+I could of course further improve this and not need the `.clone()`, to save some memory. This would work like such:
+
+```rust
+fn next(vec: &mut Vec<u8>) -> Option<&mut Vec<u8>> {
+    if vec.iter().all(|&n| n == ASCII_MAX) {
+        return None
+    }
+
+    let max = vec.len();
+
+    for i in (0..max).rev() {
+        if vec[i] < ASCII_MAX {
+            vec[i] += 1;
+            break;
+        } else {
+            vec[i] = ASCII_MIN;
+        }
+    }
+
+    Some(vec)
+}
+```
+
+We just tweak `vec` directly in the `next()` method and move it to the returned `Option`. This saves an entire `.clone()`. When it comes down to speed or memory, the impact is negligible, especially since the vector only has three elements, but considering this is my own little code, I can optimize it to oblivion.
+
 ### Sources
 
 \[1\] [reddit.com/r/rust/u8_to_char_using_ascii_encoding](https://www.reddit.com/r/rust/comments/2veszg/u8_to_char_using_ascii_encoding/)
