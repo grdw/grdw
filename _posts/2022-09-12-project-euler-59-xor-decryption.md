@@ -3,7 +3,7 @@ layout: post
 title: "Project Euler #59: XOR decryption"
 problem_type: euler
 problem: 59
-complexity: 1
+complexity: 2
 ---
 
 ### Introduction
