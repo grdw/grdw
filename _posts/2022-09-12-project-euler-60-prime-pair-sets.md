@@ -247,4 +247,4 @@ Considering that these are all booleans, I'm kind of curious how much memory thi
 
 I'm probably checking a lot of primes that I've already seen before in one shape or another, so it might be an idea to cache the known values.
 
-With a simple `HashSet` as my cache, the code resolves in 121.41s, which is still a tad slow but it does actually work.
+With a simple `HashSet` as my cache, the code resolves in 121.41s, which is still a tad slow but it does actually resolve in a reasonable time. That's to say it performs better than > 60 minutes.
