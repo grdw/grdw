@@ -16,7 +16,7 @@ This is the full description of the puzzle:
 
 ### Firstly ...
 
-I'll write a method that confirms the above, and can do that rather faster. I have no idea how to resolve this, but I have to start somewhere. I'll take an `is_prime()` method from many a previous euler assignment, and write my own `is_prime_pair_set()` method. This method looks like:
+... I'll write a method that confirms the above predicate, and which can do that rather fast. I have no idea how to resolve this, but I have to start somewhere. Furthermore, I'll take an `is_prime()` method from many a previous Euler assignment, and write my own `is_prime_pair_set()` method. My first attempt looks like such:
 
 ```rust
 fn is_prime_pair_set(primes: Vec<u64>) -> bool {
@@ -54,7 +54,7 @@ fn test_prime_pair_set() {
 }
 ```
 
-Obviously, we can make this a bit faster because the pairs of "3 and 11" are "311" and "113" which are the same pairs as "11 and 3" but in a different order. Both look the same, and don't have to be checked again. To make it slighty more optimal:
+Obviously, we can make this a bit faster because the pairs of "3 and 11" are "311" and "113" which are the same pairs as "11 and 3" but in a different order. Both look the same, and don't have to be checked again. To make it slightly more optimal:
 
 ```rust
 for i in 0..primes.len() {
@@ -84,17 +84,17 @@ Now that the easy part is out of the way, let's figure out the rest. Which five 
 {2, 3, 5, 7, 11}
 ```
 
-These are obviously not a "prime pair set". Also, the only possible prime value that we can change here in order to keep the prime group unique, is the last value. We can change that to 13, and keep on making the smallest possible increase to the numbers in the group until we find our solution. However, what is the smallest possible increase?
+We could keep on increasing the right-most prime numbers, until a small "prime pair set" group starts to form. The initial group obviously isn't a "prime pair set". Also, the only possible prime value that we can change here in order to keep the prime group unique, is the last value. We can change that to 13, and keep on making the smallest possible increase to the numbers in the group until we find our solution. However, what is the smallest possible increase?
 
-Another possible tactic is starting out with a group that looks like:
+Another possible tactic is starting out with a group that looks like this:
 
 ```
 {2, X1, X2, X3, X4}
 ```
 
-We keep on changing `X1` until the prime pair set predicate holds true, and do the same for `X2`, `X3` and `X4`. The downside here is that we can get a group of primes which aren't necessarily the lowest sum. It could very well be that starting out with 3 or 5 or 7 or 11, instead of 2, gives us a range of prime numbers that sum up to something lower. Starting out with 2, does give us an upper bound. If any of the primes we pick exceed the previous upper bound, we can already quit and continue on with another prime number as the starting value. If we find anything lower, we save that value and use that as the "new upper bound". If our starting prime number (the first one of the group) equals to the dynamic upper bound, we can reasonably quit and assume that must be the lowest sum.
+We keep on changing `X1` until the prime pair set predicate holds true, and do the same for `X2`, `X3` and `X4`. The downside here is that we can get a group of primes which aren't necessarily the lowest sum. It could very well be that starting out with 3 or 5 or 7 or 11, instead of 2, gives us a range of prime numbers that sum up to something lower. Starting out with f.e. 2, can produce an upper bound. If any of the primes we pick exceed the previous upper bound, we can already quit and continue on with another prime number as the starting value. If we find anything lower, we save that value and use that as the "new upper bound". If our starting prime number (the first one of the group) equals to the dynamic upper bound, we can reasonably quit and assume that must be the lowest sum.
 
-One little side note, we have to probably start from 3. Because starting from 2 will always make a number divisible by 2 and itself, which makes it a non-prime per definition.
+One little side note, we have to probably start from 3. Because starting from 2 will always make a number divisible by 2 and itself, which makes it a non-prime per definition. Another problematic prime number is 5, since the division rule of 5 prevents any of the concatenated groups from ever becoming a prime.
 
 My first attempt looks like this:
 
@@ -125,11 +125,11 @@ fn problem_60(size: usize) -> u64 {
 #[test]
 fn test_problem_60() {
     assert_eq!(problem_60(4), 792);
-    assert_eq!(problem_60(5), 792);
+    assert_eq!(problem_60(5), 1); // I don't know the result
 }
 ```
 
-This resolves pretty quickly for a group of 4, and I actually get the correct value as described in the puzzle. But it takes a horrible amount of time to find a fifth number; high-likely because there isn't one. To prevent it from looking forever, I'm setting a static upper bound of `1_000_000`. Obviously this is completely baseless, but it will prevent the code from looking till infinity and beyond for another prime number. After implementing this, the code looked like such:
+This resolves pretty quickly for a group of 4, and I actually get the correct value as described in the puzzle. But it takes a horrible amount of time to find a fifth number; high-likely because there isn't one. To prevent it from looking forever, I'm setting a static upper bound of `1_000_000`. Obviously, this is completely baseless, but it will prevent the code from looking till infinity and beyond for another prime number. If it hits the upper bound, I will reset the index to 1 and drop the rest of the values (where index > 1) from the group. The code should change `[3, 7, X2, X3, X4]`, to `[3, 11]` and continue from this new starting group. After implementing this, the code looks like this:
 
 ```rust
 let mut max = 1_000_000;
@@ -166,13 +166,13 @@ loop {
 max
 ```
 
-This produced a result of 98003.
+After leaving this running, it produced a result of 98003.
 
-Like I described earlier, this can be the highest possible value for a starting value of 3. But perhaps for 5 it will give us a lower value. Now that I know that the maximum is below 100K I'll set the limit to 100K to make it a lot faster. Still with 100K as the upper bound, finding the first group takes a whopping 16.42 seconds, which is rather painful. I let the code run for another while until the first value of the group goes over the `max`. This doesn't exactly run in a timely fashion.... so perhaps 98003 is the answer? Spoiler alert: it isn't.
+However, like I described earlier, this can be the highest possible value for a starting value of 3. But perhaps for 7 it will give us a lower value. Now that I know that the maximum is below 100K, I'll set the limit to 100K to make the algorithm a lot faster. Still with 100K as the upper bound, finding the first group takes a whopping 16.42 seconds, which is rather painful. I let the code run for another while until the first value of the group goes over the upper bound. Running this code, however, becomes rather painful performance wise, so perhaps 98003 is the answer? Spoiler alert: it isn't.
 
-After letting the newer code run for a while, I'm seeing that there's definitely another group of 5, starting with 13 as the prime number, which produces a lower upper bound. In the mean time I'm using a sieving function to determine the next prime in the series a bit faster. However, this is still painfully slow because of the height of the prime numbers it needs to validate. The highest can be a concatenation of 99.999 and 99.9999 because of my forced upper bound.
+After letting this newer code run for a while, I'm seeing that there's definitely another group of 5 primes, starting with 13, which produces a lower upper bound. In the meantime, instead of calculating the next prime, I'll be using a sieving function to determine the next prime. This should be quite a bit faster. However, this is still painfully slow because of the height of the prime numbers it needs to validate. The highest can be a concatenation of 99.999 and 99.9999 because of my initial upper bound. Still, I'll use it to determine the next prime in the group, but I won't be using it to validate if a prime number is actually a prime number for my prime pair set function I wrote earlier.
 
-After 13 a value appears of 26033, which is high likely the correct answer. I stop the code because it has to run for 15-20 minutes to get to this bus stop. The full code now looks like this:
+With 13 as the initial prime in the group, a value appears of 26033, which is high likely the correct answer. I stop the code because it has to run for 15-20 minutes to even resolve all the possible prime groups with 13, that sum up to below 98003. The full code now looks like this:
 
 ```rust
 fn problem_60(size: usize) -> u64 {
@@ -237,14 +237,21 @@ fn problem_60(size: usize) -> u64 {
 }
 ```
 
-I'm not proud of it either, but it does give a result at some point. I'm kind of curious if extending the sieve till `10_000_000_000` will have a negative effect.
+It's not the best looking code, and I'm not proud of it either, but it does give a result at some point. I'm kind of curious if extending the sieve till `10_000_000_000` will have a negative effect (to make the test for `is_prime` a bit faster).
 
 ### The 10_000_000_000 length array
 
-Considering that these are all booleans, I'm kind of curious how much memory this will slurp. Turns out, this doesn't even want to start. Next idea!
+Considering that these are all booleans, I'm kind of curious how much memory this will slurp. However, running this blurb of code ...
+
+```rust
+let sieve = sieve_of_erato(10_000_000_000);
+```
+... will for sure break your computer, and dumping this in some variable is going to eat way too much memory. Next idea!
 
 ### Caching the primes
 
-I'm probably checking a lot of primes that I've already seen before in one shape or another, so it might be an idea to cache the known values.
+I'm probably checking a lot of primes that I've already seen before in one shape or another, so it might be an idea to cache the known culprits.
 
-With a simple `HashSet` as my cache, the code resolves in 121.41s, which is still a tad slow but it does actually resolve in a reasonable time. That's to say it performs better than > 60 minutes.
+With a simple `HashSet` as my cache, the code resolves in 121.41s, which is still a tad slow, but it does actually resolve in a reasonable time. That's to say, it performs better than > 60 minutes (I have no idea how slow the code above is, because I've been way to impatient to let it finish). The full code including the caching can be seen in the GitHub link below. On another machine, which has better specs, it finishes in 64.08s.
+
+If I however compile the actual project with `cargo build --release` and run the optimized release binary, it manages to resolve in 5.01s. This is fast enough for my taste, but perhaps it can be done faster in some other shape or way. I will return to this one, because it is actually quite an interesting challenge. To be continued ...
