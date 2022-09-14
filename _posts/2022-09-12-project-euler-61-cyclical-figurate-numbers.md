@@ -167,4 +167,4 @@ for route in &routes {
 
 The solution ends up being 28684, which is the correct answer!
 
-It resolves in 0.05 seconds which is fast enough for me.
+It resolves in 0.05 seconds, which is fast enough for me.
