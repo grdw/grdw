@@ -3,7 +3,7 @@ layout: post
 title: "Project Euler #61: Cyclical figurate numbers"
 problem_type: euler
 problem: 61
-complexity: 1
+complexity: 3
 ---
 
 ### Introduction
@@ -18,11 +18,9 @@ complexity: 1
 
 ### To start
 
-The scope of this problem is rather small. There are only 8999 (1000 till 9999) numbers that are four digits in length. However, there are some special cases which can already be discarded f.e. the number 1000. There's no four digit number out there that starts with two 00's. When we filter off all the numbers that are divisible by 100, we are left with 8910 numbers.
+The scope of this problem is rather small. There are only 8999 (1000 till 9999) numbers that are four digits in length. However, there are some special cases which can already be discarded, f.e. the number 1000. There's no four-digit number out there that starts with two 00s. When we filter off all the numbers that are divisible by 100, we are left with 8910 numbers.
 
-To resolve the issue at hand though, we have to start with the smallest four digit triangle number, and find a square number which first two digits match with the last two digits of the smallest triangle number. If there's no such number, go onward to the next triangle number. If at any point we can't find the next pentagonal, hexagonal, etc. number, we have to start with a new triangle number. There's only one matching range of four digit numbers, which is the reason why.
-
-The puzzle gives the functions to calculate the next range of triangle, square etc. numbers. First let's generate all the lists of four digit numbers that fall into each category. After writing some rust, my very basic Rust looks like such:
+The puzzle gives the functions to calculate the ranges of triangle- , square- etc. numbers. First, let's generate all the lists of four-digit numbers that fall into each category. After writing some Rust, my very basic code looks like such:
 
 ```rust
 const MIN: u32 = 1000;
@@ -77,13 +75,96 @@ fn octagonal(n: u32) -> u32 {
 }
 ```
 
-I can call `create_list` with any of the 6 functions to create a group of four digit numbers that are either triangle, square, pentagonal, etc. What catches my attention is that the group of numbers becomes smaller and smaller the further you go. There are 96 triangle numbers with four digits, but only 38 octagonal numbers.
-
-Regardless we have six lists all with n digits, and my original plan still stays the same more or less. We start with a group of:
+I can call `create_list` with any of the 6 functions to create a group of four-digit numbers that are either triangle, square, pentagonal, etc. What catches my attention is that the group of numbers become smaller the further you go. There are 96 triangle numbers with four digits, but only 38 octagonal numbers.
 
 ```
 {Tr, Sq, Pe, Hex, Hep, Oct}
 ```
-We'll start from the lowest `Tr` and find the next matching `Sq`. If none is available move to the next `Tr`, until the group is complete. We have to look out that whatever number we pick, it has to be unique to the group and have matching digits.
 
-While starting to write some code I find my first bug. It seems like doing `n % 100 != 0` doesn't filter off any garbage four digit numbers. Number like 9801 are also false, because a four digit number can't start with "01". The correct way to filter these off is of course to check if the tens-value is higher than 9 (so `n % 100 > 9`).
+We'll start from the lowest `Tr` and find the next matching `Sq`. If no `Sq` can be found, move to the next `Tr` etc. until the group is complete. We have to look out that whatever number we pick, it has to be unique to the group and have matching digits.
+
+While starting to write some code, I find my first bug. It seems like doing `n % 100 != 0` doesn't filter off any garbage four-digit numbers. Numbers like 9801 are also false, because a four-digit number can't start with "01". The correct way to filter these off is of course to check if the tens-value is higher than 9 (so `n % 100 > 9`).
+
+### My approach
+
+As you might have guess from the above; at first I misread this puzzle, and thought that the set was ordered. This is _not_ the case, and I lost quite a bit of time only to realize there's no group of numbers out there in an ordered sequence of `{Tr, Sq, Pe, Hex, Hep, Oct}`. The group can be in _any_ order, as long as it uses one number from each of the groups.
+
+```rust
+let list = vec![
+    create_list(&triangle),
+    create_list(&square),
+    create_list(&pentagonal),
+    create_list(&hexagonal),
+    create_list(&heptagonal),
+    create_list(&octagonal)
+]
+```
+
+The way I resolved it is to first make a list of all the 6 possible groups of 4 digits numbers (as seen above). I decided to start from the triangle numbers, but you can start from any of the lists in reality, considering the group is "circular". Imagine the list is `[1010, 2010, 3010]`, I'll turn this into `[[(1010, 0)], [(2010, 0)], [(3010, 0)]]`. The 0 here denotes the list, and each individual 'array' is the start of a 'route'.
+
+The idea is to append a matching route from one of the other lists (which hasn't already been picked) to every other route. If multiple options are possible, we duplicate the route with the matched route added.
+
+The next step is to filter off any of the routes which didn't end up having any next route. We keep on repeating this process until all the routes are at the length of 6.
+
+The final step is to check which route "digit matches" between the first and last digit (to make it fully circular).
+
+The full code looks like:
+
+```rust
+let mut length = 1;
+let mut routes: Vec<Vec<(u32, usize)>> = list[0]
+    .iter()
+    .map(|v| vec![(*v, 0)] )
+    .collect();
+
+loop {
+    for route_index in 0..routes.len() {
+        let route = &routes[route_index];
+        let last_el = route[route.len() - 1].0;
+        let skipped_indexes: Vec<usize> = route
+            .iter()
+            .map(|(_, li)| *li)
+            .collect();
+
+        for li in 0..list.len() {
+            if skipped_indexes.contains(&li) {
+                continue;
+            }
+
+            for n in &list[li] {
+                if digit_match(&last_el, n) {
+                    let mut new_route = routes[route_index].clone();
+                    new_route.push((*n, li));
+
+                    routes.push(new_route);
+                }
+            }
+        }
+    }
+
+    routes.retain(|v| v.len() > length - 1);
+    length += 1;
+
+    if length > list.len() {
+        break;
+    }
+}
+```
+
+And the final step:
+
+```rust
+// Test if there's a route that's circular
+for route in &routes {
+    if digit_match(&route[5].0, &route[0].0) {
+        return route
+            .iter()
+            .map(|(n, _)| n)
+            .sum::<u32>()
+    }
+}
+```
+
+The solution ends up being 28684, which is the correct answer!
+
+It resolves in 0.05 seconds which is fast enough for me.
