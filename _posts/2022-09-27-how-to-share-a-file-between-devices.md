@@ -193,6 +193,7 @@ The previous blob took 16 lines of code. This almost doubles that amount + I hav
 ### Websockets, a love story
 We'll explore websockets next. I can make a simple little backend that can handle websockets. Web clients have websocket [4] functionality these days. We'll have to host the socket handler (or socket server) somewhere within my own network, since I'll only allow it to run from within my own network.
 
+<<<<<<< HEAD
 Each client will be able to connect to it from their respected devices, and are able to communicate to each other, and send bytes from one to the other. A socket handler in Go looks roughly like this:
 
 ```go
@@ -225,6 +226,7 @@ func main() {
 I'm using two frameworks here, meaning I've officialy been cancelled from the Go community. In my defense, I didn't want to be going through the whole pain of implementing a websocket server from scratch, purely for trying something out.
 
 The client-side code is where most of the magic recides at.
+Each client will be able to connect their respected devices and are able to communicate to each other, and send bytes from one to the other.
 
 ### Combining multiple of the above
 
