@@ -280,41 +280,45 @@ In the demo below I'm combining both the code snippets from above (feel free to 
 </pre>
 
 <script language="javascript" type="text/javascript">
-    const chunkSize = 5 * 1024 * 1024;
-    const form = document.getElementById("demo1-form");
-    const input = document.getElementById("demo1-input");
-    const result = document.getElementById("demo1-result");
+    (function(){
+        "use strict";
 
-    function readChunk(name, blob, part) {
-        const fr = new FileReader();
+        const chunkSize = 5 * 1024 * 1024;
+        const form = document.getElementById("demo1-form");
+        const input = document.getElementById("demo1-input");
+        const result = document.getElementById("demo1-result");
 
-        fr.readAsArrayBuffer(blob);
-        fr.addEventListener("load", function() {
-            const buffer = fr.result;
-            result.innerHTML += "- Part #" + part + " of: " +
-                buffer.byteLength +
-                " bytes, from file: " +
-                name +
-                "\n";
-        });
-    }
+        function readChunk(name, blob, part) {
+            const fr = new FileReader();
 
-    form.addEventListener("submit", function (e) {
-        e.preventDefault();
-
-        for (const file of input.files) {
-            let pointer = 0;
-            let part = 1;
-            result.innerHTML += "File: " + file.name + "\n";
-
-            while (pointer < file.size) {
-                const slice = file.slice(pointer, pointer + chunkSize);
-                readChunk(file.name, slice, part);
-                pointer += chunkSize;
-                part += 1;
-            }
+            fr.readAsArrayBuffer(blob);
+            fr.addEventListener("load", function() {
+                const buffer = fr.result;
+                result.innerHTML += "- Part #" + part + " of: " +
+                    buffer.byteLength +
+                    " bytes, from file: " +
+                    name +
+                    "\n";
+            });
         }
-  });
+
+        form.addEventListener("submit", function (e) {
+            e.preventDefault();
+
+            for (const file of input.files) {
+                let pointer = 0;
+                let part = 1;
+                result.innerHTML += "File: " + file.name + "\n";
+
+                while (pointer < file.size) {
+                    const slice = file.slice(pointer, pointer + chunkSize);
+                    readChunk(file.name, slice, part);
+                    pointer += chunkSize;
+                    part += 1;
+                }
+            }
+      });
+  })();
 </script>
 
 You can add some files and see the result of the chunking. As you can see it reads the chunks in a random fashion (unless you added a file that's below 5MB).
@@ -337,41 +341,55 @@ mv file.xyz ~/Downloads
 </pre>
 
 <script language="javascript" type="text/javascript">
-    const chunkSize = 5 * 1024 * 1024;
-    const form = document.getElementById("demo2-form");
-    const input = document.getElementById("demo2-input");
-    const result = document.getElementById("demo2-result");
-    let files = {};
+    (function(){
+        const chunkSize = 5 * 1024 * 1024;
+        const form = document.getElementById("demo2-form");
+        const input = document.getElementById("demo2-input");
+        const result = document.getElementById("demo2-result");
+        let files = {};
 
-    function readChunk(name, blob, part) {
-        const fr = new FileReader();
-
-        fr.readAsArrayBuffer(blob);
-        fr.addEventListener("load", function() {
-            const buffer = fr.result;
-            result.innerHTML += "- Part #" + (part + 1) + " of: " +
-                buffer.byteLength +
-                " bytes, from file: " +
-                name +
-                "\n";
-        });
-    }
-
-    form.addEventListener("submit", function (e) {
-        e.preventDefault();
-
-        for (const file of input.files) {
-            let pointer = 0;
-            let part = 0;
-            result.innerHTML += "File: " + file.name + "\n";
-
-            while (pointer < file.size) {
-                const slice = file.slice(pointer, pointer + chunkSize);
-                readChunk(file.name, slice, part);
-                pointer += chunkSize;
-                part += 1;
-            }
+        function complete(file) {
+            // stitch and serve
         }
+
+        function readChunk(name, blob, part) {
+            const fr = new FileReader();
+
+            fr.readAsArrayBuffer(blob);
+            fr.addEventListener("load", function() {
+                const buffer = fr.result;
+
+                if (!files.hasOwnProperty(name) {
+                    files[name] = [];
+                }
+
+                files[name][part] = Array.from(new Uint8Array(buffer));
+                complete(files[name]);
+
+                result.innerHTML += "- Part #" + (part + 1) + " of: " +
+                    buffer.byteLength +
+                    " bytes, from file: " +
+                    name +
+                    "\n";
+            });
+        }
+
+        form.addEventListener("submit", function (e) {
+            e.preventDefault();
+
+            for (const file of input.files) {
+                let pointer = 0;
+                let part = 0;
+                result.innerHTML += "File: " + file.name + "\n";
+
+                while (pointer < file.size) {
+                    const slice = file.slice(pointer, pointer + chunkSize);
+                    readChunk(file.name, slice, part);
+                    pointer += chunkSize;
+                    part += 1;
+                }
+            }
+      });
   });
 </script>
 
