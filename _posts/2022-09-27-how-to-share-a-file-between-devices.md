@@ -329,7 +329,7 @@ Receiving files and stitching them back together is another ballgame entirely. A
 See it as a really expensive way of doing:
 
 ```bash
-mv file.xyz ~/Downloads
+cp file.xyz ~/Downloads
 ```
 
 <form id="demo2-form">
