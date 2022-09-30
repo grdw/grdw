@@ -6,7 +6,7 @@ title: "How to share a file between devices?"
 ### Introduction
 Sharing a file accross devices is painful. You're on your phone but you want to access a file that's on your laptop, how do you do it? What about the other way around? Obviously if I were to ask my dad this question he would say: "through Google Drive". Or if you would've asked me 5 years ago, I would've said: "through Dropbox". To make this article a little harder, I'll be looking for the easiest and laziest way, to transfer a file from my phone to my laptop, and the other way around. I'll start out with a couple of rules:
 
-1. You can't use an account from an existing online service (like Dropbox, Google Drive, WeTransfer, email drafts, etc.).
+1. I can't use an account from an existing online service (like Dropbox, Google Drive, WeTransfer, email drafts, etc.).
 2. It needs to be useable for a non-technical person
 3. It has to be consistent accross platforms
 
@@ -32,6 +32,8 @@ scp file.jpg user@device:~
 # From any device to laptop
 scp user@device:file.jpg .
 ```
+
+There's also the meriad of remote file systems, like NFS, SSHFS, etc. We might even consider FTP here at some point, but that all is going to be out of scope in this post.
 
 ### In an ideal world ...
 ... I would've been able to open op my phone, tap on a file from the file explorer, hit share and a device would be visible to which I can share said file. Again, opening up the "Files" app from an Android phone means opening up "Google Files", and naturally they want you to use Google Drive, which breaks rule number 1. Also, if we start out from my Ubuntu laptop there's no share button, and no Google Drive.
@@ -193,8 +195,7 @@ The previous blob took 16 lines of code. This almost doubles that amount + I hav
 ### Websockets, a love story
 We'll explore websockets next. I can make a simple little backend that can handle websockets. Web clients have websocket [4] functionality these days. We'll have to host the socket handler (or socket server) somewhere within my own network, since I'll only allow it to run from within my own network.
 
-<<<<<<< HEAD
-Each client will be able to connect to it from their respected devices, and are able to communicate to each other, and send bytes from one to the other. A socket handler in Go looks roughly like this:
+Each client will be able to connect to the websocket server from their respected devices, and are able to communicate to each other. In other words  send bytes from one to the other. A socket handler in Go looks roughly like this:
 
 ```go
 package main
@@ -225,10 +226,154 @@ func main() {
 
 I'm using two frameworks here, meaning I've officialy been cancelled from the Go community. In my defense, I didn't want to be going through the whole pain of implementing a websocket server from scratch, purely for trying something out.
 
-The client-side code is where most of the magic recides at.
-Each client will be able to connect their respected devices and are able to communicate to each other, and send bytes from one to the other.
+The client-side code is where most of the magic recides at. Each client will be able to connect their respected devices and are able to communicate to each other, and send bytes from one to the other. However, to make this work a couple of things need to be kept in mind:
 
-### Combining multiple of the above
+- I can't send a lot of data over the websocket server above, so each file needs to be sliced into pieces.
+- The file pieces need to be stitched back together on the receiving end.
+
+### _Sending files_
+Sending a file over a websocket is not that complicated. Ever since JavaScript has introduced the `slice()` function to `File`, and the `FileReader()` API. We are pretty much on our merry way. Firstly we need to make sure to chunk the file into pieces:
+
+```javascript
+// To chunk a file into pieces:
+// Assuming there's a multipart input element in the html body:
+const chunkSize = 5 * 1024 * 1024;
+
+for (const file of input.files) {
+    let pointer = 0;
+
+    while (pointer < file.size) {
+        const slice = file.slice(pointer, pointer + chunkSize);
+        // Do something with slice
+
+        pointer += chunkSize;
+    }
+}
+```
+
+If I have, for example, a file that's 7MB, this code will chunk it into slices of 5MB and 2MB. The slice method will try to take 5MB of the end for the 2nd part, but it will read until the end (there's no need to recalculate the offset).
+
+Secondly, we can read the slice into memory like such:
+
+```javascript
+function readChunk(blob) {
+    const fr = new FileReader();
+
+    fr.readAsArrayBuffer(blob);
+    fr.addEventListener("load", function() {
+        const buffer = fr.result;
+        console.log(Array.from(new Uint8Array(buffer)));
+    });
+}
+```
+
+The reason why I'm converting it into an array is because I'll be sending it over a websocket later on, and this makes it a bit easier when converting it to JSON, and reading it back.
+
+In the demo below I'm combining both the code snippets from above (feel free to inspect the source).
+
+<form id="demo1-form">
+  <input id="demo1-input" type="file" multiple/>
+  <input type="submit" value="Send"/>
+</form>
+
+<pre id="demo1-result">
+</pre>
+
+<script language="javascript" type="text/javascript">
+    const chunkSize = 5 * 1024 * 1024;
+    const form = document.getElementById("demo1-form");
+    const input = document.getElementById("demo1-input");
+    const result = document.getElementById("demo1-result");
+
+    function readChunk(name, blob, part) {
+        const fr = new FileReader();
+
+        fr.readAsArrayBuffer(blob);
+        fr.addEventListener("load", function() {
+            const buffer = fr.result;
+            result.innerHTML += "- Part #" + part + " of: " +
+                buffer.byteLength +
+                " bytes, from file: " +
+                name +
+                "\n";
+        });
+    }
+
+    form.addEventListener("submit", function (e) {
+        e.preventDefault();
+
+        for (const file of input.files) {
+            let pointer = 0;
+            let part = 1;
+            result.innerHTML += "File: " + file.name + "\n";
+
+            while (pointer < file.size) {
+                const slice = file.slice(pointer, pointer + chunkSize);
+                readChunk(file.name, slice, part);
+                pointer += chunkSize;
+                part += 1;
+            }
+        }
+  });
+</script>
+
+You can add some files and see the result of the chunking. As you can see it reads the chunks in a random fashion (unless you added a file that's below 5MB).
+
+### _Receiving files_
+Receiving files and stitching them back together is another ballgame entirely. As you can see from the demo above, file parts are chunked in a random way. Because of this, when stitching the parts back together you have to retain the order. The next demo is going to look a bit odd, but all this does is echo a file you upload back to yourself, all from within JavaScript.
+
+See it as a really expensive way of doing:
+
+```bash
+mv file.xyz ~/Downloads
+```
+
+<form id="demo2-form">
+  <input id="demo2-input" type="file" multiple/>
+  <input type="submit" value="Send"/>
+</form>
+
+<pre id="demo2-result">
+</pre>
+
+<script language="javascript" type="text/javascript">
+    const chunkSize = 5 * 1024 * 1024;
+    const form = document.getElementById("demo2-form");
+    const input = document.getElementById("demo2-input");
+    const result = document.getElementById("demo2-result");
+    let files = {};
+
+    function readChunk(name, blob, part) {
+        const fr = new FileReader();
+
+        fr.readAsArrayBuffer(blob);
+        fr.addEventListener("load", function() {
+            const buffer = fr.result;
+            result.innerHTML += "- Part #" + (part + 1) + " of: " +
+                buffer.byteLength +
+                " bytes, from file: " +
+                name +
+                "\n";
+        });
+    }
+
+    form.addEventListener("submit", function (e) {
+        e.preventDefault();
+
+        for (const file of input.files) {
+            let pointer = 0;
+            let part = 0;
+            result.innerHTML += "File: " + file.name + "\n";
+
+            while (pointer < file.size) {
+                const slice = file.slice(pointer, pointer + chunkSize);
+                readChunk(file.name, slice, part);
+                pointer += chunkSize;
+                part += 1;
+            }
+        }
+  });
+</script>
 
 ### Concluding
 
