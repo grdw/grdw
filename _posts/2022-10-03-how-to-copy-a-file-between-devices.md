@@ -260,7 +260,7 @@ In the demo below I'm combining both the code snippets from above (feel free to 
 You can add some files and see the result of the chunking. As you can see, it reads the chunks randomly (unless you added a file that's below 5 MB).
 
 ### _Receiving files_
-Receiving files and stitching them back together is a bit strange in JavaScript. As you can see from the demo above, file parts are chunked randomly. Because of this, when stitching the parts back together, you have to retain the order. The next demo is going to look a bit odd, but all this does is echo a file you upload back to yourself, all from within JavaScript.
+Receiving files and stitching them back together is a bit strange in JavaScript. As you can see from the demo above, file parts are chunked randomly. Because of this, when stitching the parts back together, you have to retain the order, else the file ends up corrupted on the other side. The next demo is going to look a bit odd, but all this does is echo a file you upload back to yourself, all from within JavaScript.
 
 See it as a really expensive way of doing:
 
