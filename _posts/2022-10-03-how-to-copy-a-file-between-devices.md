@@ -4,7 +4,7 @@ title: "How to copy a file between devices?"
 ---
 
 ### Introduction
-Sharing a file across devices is painful. You're on your phone, but you want to access a file that's on your laptop. How do you do it? What about the other way around? What about copying any file between any of your devices? I asked my dad how he copies a file from his phone to his computer, and he replied with: "through mail attachments, or I use WeTransfer if it's too big.". If you had asked me 5 years ago, I would've said: "through Dropbox". Obviously, all fair solutions to this common problem, but I want to make it a little harder. Instead, I'll be looking for the easiest and laziest way, to copy a file between devices. On top of that, I'll add a couple of rules:
+Copying a file across devices is painful. You're on your phone, but you want to access a file that's on your laptop. How do you do it? What about the other way around? What about copying any file between any of your devices? I asked my dad how he copies a file from his phone to his computer, and he replied with: "through mail attachments, or I use WeTransfer if it's too big.". If you had asked me 5 years ago, I would've said: "through Dropbox". Obviously, all fair solutions to this common problem, but I want to make it a little harder. Instead, I'll be looking for the easiest and laziest way, to copy a file between devices. On top of that, I'll add a couple of rules:
 
 1. I can't use an account from an existing online service (like Dropbox, Google Drive, WeTransfer, email drafts, etc.).
 2. It needs to be useable for a non-technical person
