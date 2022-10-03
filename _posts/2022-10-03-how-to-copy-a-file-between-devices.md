@@ -162,7 +162,7 @@ func main() {
 }
 ```
 
-I'm using two frameworks in the example above, Gin and Melody, meaning I've officially been cancelled from the Go community. In my defense, I didn't want to be going through the whole pain of implementing a websocket server from scratch, purely for trying something out. There are tons of other websocket servers out there, but because I'm currently learning Go, this was the one I picked.
+I'm using two frameworks in the example above, Gin and Melody, meaning I've officially been cancelled from the Go community. In my defense, I didn't want to be going through the whole pain of implementing a websocket server from scratch, purely for trying something out. There are tons of other websocket servers out there, but because I'm currently learning Go, this is the one I picked.
 
 The client-side code is where it gets rather complicated, because to make this work a couple of things need to be kept in mind:
 
