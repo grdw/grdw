@@ -170,7 +170,7 @@ The client-side code is where it gets rather complicated, because to make this w
 - The file pieces need to be stitched back together on the receiving end.
 
 ### _Sending files_
-Sending a file over a websocket is not that complicated. Ever since JavaScript has introduced the `slice()` function to `File`, and the `FileReader()` API, I am pretty much on our merry way. Firstly, we need to make sure to chunk the file into pieces:
+Sending a file over a websocket is not that complicated if we have to stick to the aforementioned rules. JavaScript has introduced the `slice()` function to `File`, and there's `FileReader()` API I can make use of. Firstly, I need to make sure to chunk the file into pieces:
 
 ```javascript
 // Assuming there's a multipart input element in the html body:
@@ -189,7 +189,7 @@ for (const file of input.files) {
 
 If I have, for example, a file that's 7 MB, this code will chunk it into slices of 5 MB and 2 MB. The slice method will try to take 5 MB of the end for the 2nd part, but it will read until the end (there's no need to recalculate the offset).
 
-Secondly, we can read the slice into memory like such:
+Secondly, I can read the slice into memory like such:
 
 ```javascript
 function readChunk(blob) {
