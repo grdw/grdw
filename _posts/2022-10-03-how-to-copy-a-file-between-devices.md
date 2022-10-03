@@ -170,7 +170,7 @@ The client-side code is where it gets rather complicated, because to make this w
 - The file pieces need to be stitched back together on the receiving end.
 
 ### _Sending files_
-Sending a file over a websocket is not that complicated. Ever since JavaScript has introduced the `slice()` function to `File`, and the `FileReader()` API. We are pretty much on our merry way. Firstly, we need to make sure to chunk the file into pieces:
+Sending a file over a websocket is not that complicated. Ever since JavaScript has introduced the `slice()` function to `File`, and the `FileReader()` API, I am pretty much on our merry way. Firstly, we need to make sure to chunk the file into pieces:
 
 ```javascript
 // Assuming there's a multipart input element in the html body:
