@@ -48,7 +48,7 @@ If I made an overview of some of the most popular file-sharing technologies out 
 I could obviously suck it up and install Google Drive, but for this particular use case I don't want to. Which brings me to the following issue:
 
 ### No junk in the middle
-Another rule I want to add is: "no junk in the middle". The problem with most file sharing services is that they leave junk behind. Especially the online services like Dropbox, WeTransfer and Google Drive, use storage servers to temporarily or permanently store files. For a use-case which merely revolves around sharing files from one of _your_ devices to another one of your devices, it feels redundant to also have that file stored in the "middle". Or in other words: leave junk behind.
+Another rule I want to add is: "no junk in the middle". The problem with most file sharing services is that they leave junk behind. Especially the online services like Dropbox, WeTransfer and Google Drive. All of them use storage servers to temporarily or permanently store files. For a use-case which merely revolves around sharing files from one of _your_ devices to another one of your devices, it feels redundant to also have that file stored in the "middle". Or in other words: leave junk behind.
 
 F.e.: if I were to use Dropbox, the flow would be as such:
 
