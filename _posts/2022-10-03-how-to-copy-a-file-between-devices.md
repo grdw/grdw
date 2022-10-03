@@ -482,7 +482,7 @@ After some tweaking I ended up with a solution that works for me, but how does i
 At this point, it is impossible to use for a non-technical person. I can spend quite some time on designing a really nice interface, but the key issue here is that the backend needs to be self-hosted, which are solutions normal users never ever want to think about. I can however think about using a tool like Socketsbay [4] or Postman Websockets [5] to act as the socket server. Likewise, there are probably other paid and non-paid alternatives out there.
 
 ### Concluding
-Copying a file across your own personal devices is still painful. The flow is inconsistent between devices, some tools aren't available on one device and not the other, and most of them leave junk behind. Web browsers become like cross-platform Swiss army knives, and the file API's I explored that are available are honestly fascinating. Websockets proved a good enough solution for my own personal pain. However, time-wise it might have been faster to rummage through that one kitchen drawer to find a USB-stick, SD-card or USB-cable.
+Copying a file across your own personal devices is still painful. The flow is inconsistent between devices, some tools are available on one device and not the other, and most of them leave junk behind. Web browsers become like cross-platform Swiss army knives, and the file API's I explored that are available are honestly fascinating. Websockets proved a good enough solution for my own personal pain. However, time-wise it might have been faster to rummage through that one kitchen drawer to find a USB-stick, SD-card or USB-cable.
 
 ### Sources
 
