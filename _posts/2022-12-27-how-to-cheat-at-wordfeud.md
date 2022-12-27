@@ -814,7 +814,7 @@ AS.....N..I....
 K..ECHODE.D....
 ```
 
-Configuring this is a bit painful, but it's not too bad. I mean, cheating doesn't have to become too easy. The output of my code would be all the words I can put to the current game with all their total points and where they can be put, obviously sorted by highest points first.
+Configuring this is a bit painful, but it's not too bad. I mean, cheating doesn't need to become too easy. The output of my code would be all the words I can put to the current game with all their total points and where they can be put, obviously sorted by highest points first.
 
 ### Forming matching words
 ILB
