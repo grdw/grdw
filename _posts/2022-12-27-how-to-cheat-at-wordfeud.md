@@ -318,9 +318,7 @@ Wordfeud is a turn-based game like scrabble but it works a bit different than sc
 Players, at the start of the game, are each given 7 letters, and take turns to lay a word to the table. The first player to start, lays a word that either horizontally or vertically overlays to the starting position **S** (in the actual game, the spot is marked with a star). In all consecutive turns players have to try and put words adjecant to the letters of the other words that already have been put to the table. If a player can't make a word, they're allowed to skip a turn, or exchange all or some of their letters. For each play, the player is rewarded with points. The player who lays the best words once the board is filled with a certain amount of letters, wins the game.
 
 ### What is the best word?
-Scoring a word in Wordfeud works a little different than in scrabble. In regular scrabble there are only 'double letter' or 'tripple letter' tiles. In Wordfeud there are also 'double word' and 'tripple word' tiles. Also, it's allowed to lay words on the same axis, if the subsequent two-letter words form correct words as well. Next up, I'll go over some examples, to explain how the words are scored. The letter-values are taken from the way its counted in Dutch, which is different then in English [3].
-
-I'll be using the letter values from the second column, which are different then the third column.
+Scoring a word in Wordfeud works a little different than in scrabble. In regular scrabble there are only 'double letter' or 'tripple letter' tiles. In Wordfeud there are also 'double word' and 'tripple word' tiles. Also, it's allowed to lay words on the same axis, if the subsequent two-letter words form correct words as well. Next up, I'll go over some examples, to explain how the words are scored. The letter-values are taken from the way its counted in Dutch, which is different then in English [3]. To be clear; I'll be using the letter values from the second column, which are different then the third column.
 
 Letter | Value NL | Value EN
 -------|----------|---------
@@ -730,11 +728,91 @@ An additional 40 points are awarded for placing all 7 tiles [3]:
 
 There's one other moment where extra points are awarded and it's when a player clears its board at the end of the game. If that happens, the remaining letter scores from the other player are added to the player who clears its board [3]. For the thing I'm planning to build we'll ignore this case.
 
-### The dictionary
-ILB
+### Finding a Dutch dictionary
+Because I've been playing Wordfeud so much with my dad, I am aware that some Dutch words aren't valid plays and some of them are. For example, a lot of abbreviations aren't playable words like CD or WC (watercloset or toilet). However, some strange 2 letter words are allowed like "ST" (which is what you say to silence somebody or it could be short for "Saint") or "MN" which I have no idea what that means, but I know Wordfeud thinks that's fine. My best guess is that it means "hmmm"; the noise you make when you're thinking, or it could be short for "mijn".
 
-### Letter points
-ILB
+Regardless, the Dutch dictionary can be found from the Wordfeud website [5], which links to a company called "Taaltik" which provides the official Wordfeud word list for the Dutch language. There I was able to validate that "MN" is short for "mijn"; finally some relieve. However, I'm trying to get a CSV/JSON/SQLITE list, but I'm not able to find anything on their website [6]. The website from Taaltik also hasn't been updated since 2014 (or the copyright year hasn't been adjusted at least). So, I have no clue where to find it.
+
+As an alternative I did find the wordlist from "OpenTaal [7]" which is a giant ~5MB txt document. I imagine this will be fine for now, but getting the official Wordfeud words would be better of course.
+
+### Setting up the project
+I start out with a Rust project. In it there will be a data folder which will look like such:
+
+```
+data
+└── nl
+    ├── letterpoints.json
+    └── wordlist.txt
+```
+
+The `letterpoints.json` will just be a simple JSON blob containing all the points to each letter. The `wordlist.txt` is a list of words. For now it's a txt file, but I imagine it will become a SQLite database while I continue on with this project, and this article. The program can be run as:
+
+```
+cargo run nl "ABCDEFG"
+```
+
+The first argument `nl` is the language, the second argument will be the letters on the board. The board configuration will be the standard configuration, but knowing that a random configuration is possible, we should allow users to configure it as such. For the current board and the layout of the board I'll use two files: `layout.default.board` and `current.board`. The layout file will look like such:
+
+```
+3...5..2..5...3
+.2...3...3...2.
+..4...2.2...4..
+...3...2...3...
+5...4.2.2.4...5
+.3...3...3...3.
+..2.2.....2.2..
+2..4...1...4..2
+..2.2.....2.2..
+.3...3...3...3.
+5...4.2.2.4...5
+...3...2...3...
+..4...2.2...4..
+.2...3...3...2.
+3...5..2..5...3
+```
+
+And the start board (which will contain the actual letters) will be something like this:
+
+```
+...............
+...............
+...............
+...............
+...............
+...............
+...............
+...............
+...............
+...............
+...............
+...............
+...............
+...............
+...............
+```
+
+At the start of the game the grid is obviously empty. Adding the most recent game I'm playing against my dad, which I'm losing pretty badly (151 points vs 256 points), it would look something like this:
+
+
+```
+...............
+...............
+...............
+...............
+...............
+...............
+...............
+.....MUFS......
+.....N.I.......
+....D.EX.V.....
+G..LENTEDAG....
+EN..S.ER..E....
+BAROK.NEVELEN..
+AS.....N..I....
+K..ECHODE.D....
+```
+
+Configuring this is a bit painful, but it's not too bad. I mean, cheating doesn't have to become too easy. The output of my code would be all the words I can put to the current game with all their total points and where they can be put, obviously sorted by highest points first.
 
 ### Forming matching words
 ILB
@@ -752,3 +830,8 @@ ILB
 
 \[4\] [Betekenis "Steps"](https://www.vandale.nl/gratis-woordenboek/nederlands/betekenis/steps)
 
+\[5\] [Wordfeud dictionaries](https://wordfeud.com/dictionaries/)
+
+\[6\] [Taaltik Wordfeud site](http://taaltik-wordfeud.keesing.com/)
+
+\[7\] [OpenTaal wordlist](https://github.com/OpenTaal/opentaal-wordlist)
