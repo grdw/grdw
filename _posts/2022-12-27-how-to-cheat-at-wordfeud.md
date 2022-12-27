@@ -8,13 +8,13 @@ title: "How to cheat at Wordfeud?"
     table-layout: fixed;
     font-size: 70%;
     border-collapse: separate;
-    border-spacing: 2px;
+    border-spacing: 3px;
     background-color: #212020;
   }
   table.wordfeud td {
     width: 25px;
     height: 25px;
-    padding: 4px 4px;
+    padding: 6px 6px;
     overflow: hidden;
     color: white;
     background-color: #2c2f36;
@@ -22,7 +22,9 @@ title: "How to cheat at Wordfeud?"
     vertical-align: middle;
     position: relative;
     border-radius: 3px;
-    border: none;
+    border-width: 0 0 1px 1px;
+    display: inline-block;
+    white-space: nowrap;
   }
   table.wordfeud td.tl { background-color: #1d8fa0; }
   table.wordfeud td.tw { background-color: #9c471b; }
@@ -37,7 +39,7 @@ title: "How to cheat at Wordfeud?"
   table.wordfeud td.l span {
     position: absolute;
     right: 3px;
-    top: 0px;
+    top: -2px;
     font-size: 60%;
   }
 
