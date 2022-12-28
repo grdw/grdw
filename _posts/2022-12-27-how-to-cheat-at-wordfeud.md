@@ -1114,6 +1114,6 @@ However, in this scenario - assuming the origin (x,y) is at the top-left corner 
 
 ### Project stages
 
-\[I\] [Initial setup]("https://github.com/grdw/wordfeud-cheater/tree/fef463b1bec37c34f40b2589220702952f7bf12a)
+\[I\] [Initial setup](https://github.com/grdw/wordfeud-cheater/tree/fef463b1bec37c34f40b2589220702952f7bf12a)
 
-\[II\] [Made an anagram solver!]("https://github.com/grdw/wordfeud-cheater/tree/27b236cbb600c6252cf033a2707413db9040df2d)
+\[II\] [Made an anagram solver!](https://github.com/grdw/wordfeud-cheater/tree/27b236cbb600c6252cf033a2707413db9040df2d)
