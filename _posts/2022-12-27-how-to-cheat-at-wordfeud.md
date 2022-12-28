@@ -823,7 +823,7 @@ Now that I've laid out a basic structure for my project, it's time to start solv
 - Calculate the prime factorization of each word in the `wordlist.txt`
 - Calculate the prime factor of the letters you have and check which one's match.
 
-Because there are 413.921\* words in the wordlist that's provided by Opentaal, it might be an idea to store all these prime factorizations in a little SQLite database. It's a simple single-table database which looks like such:
+Because there are 413.921 words in the wordlist that's provided by Opentaal, it might be an idea to store all these prime factorizations in a little SQLite database. It's a simple single-table database which looks like such:
 
 ```sql
 CREATE TABLE words (
@@ -834,10 +834,262 @@ CREATE TABLE words (
 CREATE INDEX prime_factor_index ON words (prime_factor);
 ```
 
-\* Not all of them are valid words, f.e. words that contain numbers, whitespace, etc.
+Imagine we have these 8 letters `ESTSREQZ`. We first need to turn this blob of letters into its unique 2- till 8-letter combinations [9]. Combinations which would look like this:
+
+```
+2 letters:
+EE EQ ER ES ET EZ QZ RE
+RQ RZ SE SQ SR SS ST SZ
+TE TQ TR TS TZ
+
+3 letters:
+EEQ EEZ EQZ ERE ERQ ERZ ESE ESQ
+ESR ESS EST ESZ ETE ETQ ETR ETS
+ETZ REQ REZ RQZ SEQ SEZ SQZ SRE
+SRQ SRZ SSE SSQ SSR SSZ STE STQ
+STR STS STZ TEQ TEZ TQZ TRE TRQ
+TRZ TSE TSQ TSR TSZ
+
+4 letters:
+EEQZ EREQ EREZ ERQZ ESEQ
+ESEZ ESQZ ESRE ESRQ ESRZ
+ESSE ESSQ ESSR ESSZ ESTE
+ESTQ ESTR ESTS ESTZ ETEQ
+ETEZ ETQZ ETRE ETRQ ETRZ
+ETSE ETSQ ETSR ETSZ REQZ
+SEQZ SREQ SREZ SRQZ SSEQ
+SSEZ SSQZ SSRE SSRQ SSRZ
+STEQ STEZ STQZ STRE STRQ
+STRZ STSE STSQ STSR STSZ
+TEQZ TREQ TREZ TRQZ TSEQ
+TSEZ TSQZ TSRE TSRQ TSRZ
+
+5 letters:
+EREQZ ESEQZ ESREQ ESREZ
+ESRQZ ESSEQ ESSEZ ESSQZ
+ESSRE ESSRQ ESSRZ ESTEQ
+ESTEZ ESTQZ ESTRE ESTRQ
+ESTRZ ESTSE ESTSQ ESTSR
+ESTSZ ETEQZ ETREQ ETREZ
+ETRQZ ETSEQ ETSEZ ETSQZ
+ETSRE ETSRQ ETSRZ SREQZ
+SSEQZ SSREQ SSREZ SSRQZ
+STEQZ STREQ STREZ STRQZ
+STSEQ STSEZ STSQZ STSRE
+STSRQ STSRZ TREQZ TSEQZ
+TSREQ TSREZ TSRQZ
+
+6 letters:
+ESREQZ ESSEQZ ESSREQ ESSREZ
+ESSRQZ ESTEQZ ESTREQ ESTREZ
+ESTRQZ ESTSEQ ESTSEZ ESTSQZ
+ESTSRE ESTSRQ ESTSRZ ETREQZ
+ETSEQZ ETSREQ ETSREZ ETSRQZ
+SSREQZ STREQZ STSEQZ STSREQ
+STSREZ STSRQZ TSREQZ
+
+7 letters:
+ESSREQZ ESTREQZ ESTSEQZ
+ESTSREQ ESTSREZ ESTSRQZ
+ETSREQZ STSREQZ
+
+8 letters:
+ESTSREQZ
+```
+
+The next step is to get all the possible anagrams for these combinations (if any), which in my current code would return this:
+
+```
+2 letters:
+EE EQ ER ES ET EZ QS RE
+RS SE SS ST TE TS ZE ZS
+
+3 letters:
+EER EES EET ERE EST ETS REE RES
+RET RSS SER SET TEE TER TES TSE
+TSS ZEE ZES ZET
+
+4 letters:
+EERT EEST ERTS ESER ESTS
+ETER REES REET REST RETZ
+SERT SETS SETZ SSER STEE
+STER TEER TEES TERE TESS
+TREE TRES ZEER ZEET ZERE
+
+5 letters:
+EERST ESSER ESTER ESTSE
+ETERS ETSER REEST RESET
+SEZER STEER STRES TEERS
+TREES ZESTE
+
+6 letters:
+ESTERS ETSERS SETERS
+SEZERS TESSER ZEERST
+```
+
+Obviously, there are some non-valid Wordfeud words like `SS`, `QS`, `RSS` or `EE`. But that's the risk I'm accepting for now, having no access to the actual Wordfeud wordlist. I'm assuming there are some scrabble-rules which would filter those words off, but I can also make a very simple filter list later on in the project and discard any words that aren't valid.
+
+At this point in the project I am already quite happy, because this is what most anagram-solvers and wordfeud helpers online are doing. However, I also want to make it return the correct placement on the board. And I still need to take care of the joker-tile.
 
 ### Optimal plays
-ILB
+In the current phase of this project, I can manually determine the most optimal play at the start of the game. My bet would be on the words "ZEERST" and "SEZERS", considering both of them contain a "Z" which is 5 points. In fact both words score an equal 13 points. Placing them on the start of the board I would go and try to hit one of the orange double-word tiles on the left or the right, to score 26 points. For example:
+
+<table class="wordfeud">
+  <tbody>
+    <tr>
+      <td class="dw">DW</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td class="dl">DL</td>
+      <td></td>
+      <td class="dl">DL</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td class="dw">DW</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td class="tl">TL</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td class="dl">DL</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td class="tl">TL</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td></td>
+      <td class="dw">DW</td>
+      <td></td>
+      <td class="dl">DL</td>
+      <td></td>
+      <td class="dl">DL</td>
+      <td></td>
+      <td class="dw">DW</td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td class="tl">TL</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td class="tl">TL</td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td class="dl">DL</td>
+      <td></td>
+      <td class="dl">DL</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td class="dl">DL</td>
+      <td></td>
+      <td class="dl">DL</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td class="dw">DW</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td class="l n">Z<span>5</span></td>
+      <td class="l n">E<span>1</span></td>
+      <td class="l n">E<span>1</span></td>
+      <td class="l n">R<span>2</span></td>
+      <td class="l n">S<span>2</span></td>
+      <td class="l n">T<span>2</span></td>
+    </tr>
+    <tr>
+      <td class="dl">DL</td>
+      <td></td>
+      <td class="dl">DL</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td class="dl">DL</td>
+      <td></td>
+      <td class="dl">DL</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td class="tl">TL</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td class="tl">TL</td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td></td>
+      <td class="dw">DW</td>
+      <td></td>
+      <td class="dl">DL</td>
+      <td></td>
+      <td class="dl">DL</td>
+      <td></td>
+      <td class="dw">DW</td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td class="tl">TL</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td class="dl">DL</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td class="tl">TL</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td class="dw">DW</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td class="dl">DL</td>
+      <td></td>
+      <td class="dl">DL</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td class="dw">DW</td>
+    </tr>
+  </tbody>
+</table>
+
+However, in this scenario - assuming the origin (x,y) is at the top-left corner and knowing that I have to hit a tile at the middle (7,7) - any play starting from the following points would give me 26 points:
+
+```
+{x: 2, y: 7}
+{x: 3, y: 7}
+{x: 6, y: 7}
+{x: 7, y: 7}
+```
 
 ### Sources
 
@@ -856,3 +1108,12 @@ ILB
 \[7\] [OpenTaal wordlist](https://github.com/OpenTaal/opentaal-wordlist)
 
 \[8\] [An Algorithm for Finding Anagrams](https://hackernoon.com/an-algorithm-for-finding-anagrams-2fe7655de85b)
+
+\[9\] [Find distinct combinations of a given length](https://www.techiedelight.com/find-distinct-combinations-of-given-length/
+)
+
+### Project stages
+
+\[I\] [Initial setup]("https://github.com/grdw/wordfeud-cheater/tree/fef463b1bec37c34f40b2589220702952f7bf12a)
+
+\[II\] [Made an anagram solver!]("https://github.com/grdw/wordfeud-cheater/tree/27b236cbb600c6252cf033a2707413db9040df2d)
