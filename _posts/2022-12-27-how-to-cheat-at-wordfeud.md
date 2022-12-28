@@ -743,11 +743,11 @@ I start out with a Rust project. In it there will be a data folder which will lo
 ```
 data
 └── nl
-    ├── letterpoints.json
+    ├── letterpoints.txt
     └── wordlist.txt
 ```
 
-The `letterpoints.json` will just be a simple JSON blob containing all the points to each letter. The `wordlist.txt` is a list of words. For now it's a txt file, but I imagine it will become a SQLite database while I continue on with this project, and this article. The program can be run as:
+The `letterpoints.txt` will just be a simple CSV-like file containing all the points to each letter. The `wordlist.txt` is a list of words. For now it's a txt file, but I imagine it will become a SQLite database while I continue on with this project, and this article. The program can be run as:
 
 ```
 cargo run nl "ABCDEFG"
@@ -817,7 +817,24 @@ K..ECHODE.D....
 Configuring this is a bit painful, but it's not too bad. I mean, cheating doesn't need to become too easy. The output of my code would be all the words I can put to the current game with all their total points and where they can be put, obviously sorted by highest points first.
 
 ### Forming matching words
-ILB
+Now that I've laid out a basic structure for my project, it's time to start solving the first issue. The first issue is: what words can I form with my letters? We'll ignore the letters in the board for a moment and their placement, as that's an entirely different subject. For now, we'll just merely focus on the words we can make with the 7 letters we've been dealt, in other words, how do we solve anagrams? Lucky for me other people on the internet have already solved this [8]. The way to do this is as follows:
+
+- Associate each letter with a prime: A = 1, B = 3, .... Z = 101.
+- Calculate the prime factorization of each word in the `wordlist.txt`
+- Calculate the prime factor of the letters you have and check which one's match.
+
+Because there are 413.921\* words in the wordlist that's provided by Opentaal, it might be an idea to store all these prime factorizations in a little SQLite database. It's a simple single-table database which looks like such:
+
+```sql
+CREATE TABLE words (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    word VARCHAR(15) NOT NULL UNIQUE,
+    prime_factor BIGINT NOT NULL
+);
+CREATE INDEX prime_factor_index ON words (prime_factor);
+```
+
+\* Not all of them are valid words, f.e. words that contain numbers, whitespace, etc.
 
 ### Optimal plays
 ILB
@@ -837,3 +854,5 @@ ILB
 \[6\] [Taaltik Wordfeud site](http://taaltik-wordfeud.keesing.com/)
 
 \[7\] [OpenTaal wordlist](https://github.com/OpenTaal/opentaal-wordlist)
+
+\[8\] [An Algorithm for Finding Anagrams](https://hackernoon.com/an-algorithm-for-finding-anagrams-2fe7655de85b)
