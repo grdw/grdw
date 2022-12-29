@@ -834,7 +834,15 @@ CREATE TABLE words (
 CREATE INDEX prime_factor_index ON words (prime_factor);
 ```
 
-Imagine we have these 8 letters `ESTSREQZ`. We first need to turn this blob of letters into its unique 2- till 8-letter combinations [9]. Combinations which would look like this:
+After writing some code [II] I can setup the database (just on the first run) and only store words that are between 2 and 15 characters, and that contain letters only (no whitespace or numbers). In order to find matching words to my letters, all I need to do is perform a single query to the database. F.e. if I have the letters `TRESE`, this will become the prime factor 35111417. To give me all the anagrams of those letters, I can query the database like such:
+
+```
+SELECT word FROM words WHERE prime_factor = 35111417
+```
+
+This will just give me the anagrams for 5-letters in any order. However, I also have to include all the other lower-count letter combinations.
+
+Imagine we have these 8 letters `ESTSREQZ`. We need to turn this blob of letters into its unique 2- till 8-letter combinations [9]. Combinations which would look like this:
 
 ```
 2 letters:
@@ -897,7 +905,7 @@ ETSREQZ STSREQZ
 ESTSREQZ
 ```
 
-The next step is to get all the possible anagrams for these combinations (if any), which in my current code would return this:
+After we have those combinations, we can easily turn them into all their unique prime factorizations and ask the database which anagrams it returns. At my current code [II] this will return:
 
 ```
 2 letters:
@@ -929,7 +937,77 @@ SEZERS TESSER ZEERST
 
 Obviously, there are some non-valid Wordfeud words like `SS`, `QS`, `RSS` or `EE`. But that's the risk I'm accepting for now, having no access to the actual Wordfeud wordlist. I'm assuming there are some scrabble-rules which would filter those words off, but I can also make a very simple filter list later on in the project and discard any words that aren't valid.
 
-At this point in the project I am already quite happy, because this is what most anagram-solvers and wordfeud helpers online are doing. However, I also want to make it return the correct placement on the board. And I still need to take care of the joker-tile.
+At this point in the project I am already quite happy, because this is what most anagram-solvers and wordfeud helpers online are doing. However, I also have to include the joker-tile. And I still want to make it return the correct placement on the board.
+
+### The Joker-tile
+In Wordfeud players can be dealt a joker-tile or a `?`. This tile is worth 0 points, but you can use it for any letter of the alphabet. If I get the letters: `ST??R`, that means that I have 26<sup>2</sup> combinations of words to test for anagrams. I tried quite hard to find a rotational lock algorithm (to turn each question mark into 'A' till 'Z') but only manage to found some really overly complex solutions which all didn't make sense to me. What I did instead was use some basic math:
+
+```rust
+// The amount of letters in the alphabet
+const LETTER_COUNT: usize = 26;
+
+fn get_prime_factors(strings: &HashSet<String>) -> HashSet<u128> {
+    let mut prime_factors = HashSet::new();
+
+    for string in strings {
+        let base = string.replace("?", "");
+        let factor = self.prime_factor(&base);
+
+        if base.len() < string.len() {
+            let joker_count = string.len() - base.len();
+            let total = LETTER_COUNT.pow(joker_count as u32);
+
+            for i in 0..total {
+                let mut new_factor = factor;
+                for j in 0..joker_count {
+                    let div = LETTER_COUNT.pow(j as u32);
+                    let p = (i / div) % LETTER_COUNT;
+
+                    new_factor *= self.primes[p];
+                }
+                prime_factors.insert(new_factor);
+            }
+        } else {
+            prime_factors.insert(factor);
+        }
+    }
+
+    prime_factors
+}
+```
+
+The `get_prime_factors` method takes a set of strings and loops over all the individual strings. It then replaces all the `?` with nothing, and tests how many joker tiles are in that particular string. If there are none, this is the only factor to find an anagram for. If there is a question mark in the string we do the following:
+
+First, we calculate the amount of factors we'll be generating by taking the power of the amount of letters in the alphabet (26) by the amount of joker tiles we have. 1 joker means 26 factors, 2 jokers means 676 factors, 3 jokers means 17576 factors (the max amount of jokers in the game is 2, but maybe the rules of the game change in the future), and so on. In the 2nd loop, we copy the original factor to a new value called `new_factor` and multiply that factor by the primes at index p. You should see it as follows, imagine we have three joker tiles:
+
+```
+At the first cycle (i = 0):
+  (i / 1) % 26 = 0
+  (i / 26) % 26 = 0
+  (i / 676) % 26 = 0
+
+  ['A', 'A', 'A']
+
+...
+
+At the 26th cycle (i = 25):
+  (i / 1) % 26 = 25
+  (i / 26) % 26 = 0
+  (i / 676) % 26 = 0
+
+  ['Z', 'A', 'A']
+
+At the 27th cycle (i = 26):
+  (i / 1) % 26 = 0
+  (i / 26) % 26 = 1
+  (i / 676) % 26 = 0
+
+  ['A', 'B', 'A']
+
+... and so on
+```
+
+The performance for 2 question marks doesn't quite suffer, but it does result in a very big IN-query to the SQLite database, where it seems it has absolutely no issue with it [III].
 
 ### Optimal plays
 In the current phase of this project, I can manually determine the most optimal play at the start of the game. My bet would be on the words "ZEERST" and "SEZERS", considering both of them contain a "Z" which is 5 points. In fact both words score an equal 13 points. Placing them on the start of the board I would go and try to hit one of the orange double-word tiles on the left or the right, to score 26 points. For example:
@@ -1117,3 +1195,5 @@ However, in this scenario - assuming the origin (x,y) is at the top-left corner 
 \[I\] [Initial setup](https://github.com/grdw/wordfeud-cheater/tree/fef463b1bec37c34f40b2589220702952f7bf12a)
 
 \[II\] [Made an anagram solver!](https://github.com/grdw/wordfeud-cheater/tree/27b236cbb600c6252cf033a2707413db9040df2d)
+
+\[III\] [Included the joker tile](https://github.com/grdw/wordfeud-cheater/tree/f4c3c402a830d7c16bec3c25bfa9c07eb0eddbb3)
