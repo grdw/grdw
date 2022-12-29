@@ -1007,10 +1007,10 @@ At the 27th cycle (i = 26):
 ... and so on
 ```
 
-The performance for 2 question marks doesn't quite suffer, but it does result in a very big IN-query to the SQLite database, where it seems it has absolutely no issue with it [III].
+The performance for 2 question marks doesn't quite suffer, but it does result in a very big IN-query to the SQLite database, where it seems it has absolutely no issue with it [III]. For fun I did a little test with `????` to see if Rust would start to show cracks, but it resulted in a nice 0.51s performance time, which is fast enough in my book. However, to really make it crack; after 5 joker tiles it took ~8 seconds, which is definitely too slow, but I won't be making this application for next level Wordfeud cheaters who are able to conjure up more joker tiles than are allowed in the game; sorry.
 
 ### Optimal plays
-In the current phase of this project, I can manually determine the most optimal play at the start of the game. My bet would be on the words "ZEERST" and "SEZERS", considering both of them contain a "Z" which is 5 points. In fact both words score an equal 13 points. Placing them on the start of the board I would go and try to hit one of the orange double-word tiles on the left or the right, to score 26 points. For example:
+In the current phase of this project, I can manually determine the most optimal play at the start of the game. If we have the letters `ESTSREQZ` like the example earlier, my bet would be that the words "ZEERST" and "SEZERS" give the most points, considering both of them contain a "Z" which is 5 points. In fact both words score an equal 13 points. If this is the start of the game, when placing them on the board I would go and try to hit one of the orange double-word tiles on the left or the right, to score 26 points. For example:
 
 <table class="wordfeud">
   <tbody>
@@ -1168,6 +1168,10 @@ However, in this scenario - assuming the origin (x,y) is at the top-left corner 
 {x: 6, y: 7}
 {x: 7, y: 7}
 ```
+
+I am not going to get into "which of these 4 points is the most optimal play", but rather return the user that there are 4 options which equally result in 26 points (please use your brain to do the rest).
+
+This is all nice, but most of the time there are already existing letters on the board which need to be taken into account.
 
 ### Sources
 
