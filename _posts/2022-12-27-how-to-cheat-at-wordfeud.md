@@ -1171,7 +1171,150 @@ However, in this scenario - assuming the origin (x,y) is at the top-left corner 
 
 I am not going to get into "which of these 4 points is the most optimal play", but rather return the user that there are 4 options which equally result in 26 points (please use your brain to do the rest).
 
-This is all nice, but most of the time there are already existing letters on the board which need to be taken into account.
+This is all nice, but most of the time there are already existing letters on the board which need to be taken into account. Let's take the game between me and my dad earlier on. Let's assume I have the letters `PEKDAAL` and not my existing set of letters with which I'm losing pretty badly.
+
+```
+PEKDAAL
+
+...............
+...............
+...............
+...............
+...............
+...............
+...............
+.....MUFS......
+.....N.I.......
+....D.EX.V.....
+G..LENTEDAG....
+EN..S.ER..E....
+BAROK.NEVELEN..
+AS.....N..I....
+K..ECHODE.D....
+```
+
+How many possible plays are in this board? Ignoring all the bonus tiles, how many plays - invalid and valid - are in this board? And how would I query for them in my anagram wordlist SQLite database? Let's first just list all the possible plays by hand to see if there's some pattern to discover.
+
+
+#### Bad idea #1:
+First, let's see how many horizontal and vertical plays we have, put the letters in square brackets (`[]`) indicate that they're stuck in place, the numbers in between indicate how much space there is above/below left/right:
+
+```
+Vertical plays:
+
+x
+0  | 10 [GEBAK] 0
+1  | 11 [NAS] 1
+2  | 12 [R] 2
+3  | 10 [L] 1 [O] 1 [E] 0
+4  | 9  [DESK] 1 [C] 0
+5  | 7  [MN] 1 [N] 3 [H] 0
+6  | 7  [U] 1 [ETEN] 1 [O] 0
+7  | 7  [FIXEREND] 0
+8  | 7  [S] 2 [D] 1 [V] 1 [E] 0
+9  | 9  [VA] 1 [E] 2
+10 | 10 [GELID] 0
+11 | 12 [E] 2
+12 | 12 [N] 2
+13 | 15 (Adjecant to NEVELEN)
+15 | (NO POSSIBLE PLAYS)
+
+Horizontal plays:
+
+y
+0  | (NO POSSIBLE PLAYS)
+1  | (NO POSSIBLE PLAYS)
+2  | (NO POSSIBLE PLAYS)
+3  | (NO POSSIBLE PLAYS)
+4  | (NO POSSIBLE PLAYS)
+5  | (NO POSSIBLE PLAYS)
+6  | 15 (Adjecant to MUFS)
+7  | 5  [MUFS] 6
+8  | 5  [N] 1 [I] 7
+10 | 4  [D] 1 [EX] 1 [V] 5
+11 | 0  [G] 2 [LENTEDAG] 4
+12 | 0  [EN] 2 [S] 1 [ER] 2 [E] 4
+13 | 0  [BAROK] 1 [NEVELEN] 2
+14 | 0  [AS] 5 [N] 2 [I] 4
+15 | 0  [K] 2 [ECHODE] 1 [D] 4
+```
+
+Let's start with the first play `10 [GEBAK] 0`. I have 7 letters which I can all space above `[GEBAK]`. There are words like that f.e. `VANILLEGEBAK` which I could play, but I have the letters `{PEKDAAL}`. In order to solve this I would query all the words which look like the following statement:
+
+```sql
+SELECT word FROM words WHERE word LIKE "__%GEBAK";
+```
+
+This would give me all the words that end on "GEBAK" but have at least 2 letters in front, so:
+
+```
+APPELGEBAK
+BAGAGEBAK
+BANKETGEBAK
+BISCUITGEBAK
+BLADERDEEGGEBAK
+DIEPVRIESGEBAK
+FEESTGEBAK
+KERSTGEBAK
+MOKKAGEBAK
+SCHUIMGEBAK
+SLAGROOMGEBAK
+ZANDGEBAK
+```
+
+Before continueing on and calculating the prime-factors of the prefixes to GEBAK, let's take a more complex example like `0 [AS] 5 [N] 2 [I] 4`. This would result in a query like this:
+
+```sql
+SELECT word FROM words WHERE word LIKE "AS_____N__I___";
+```
+
+However I only have 7 letters to put, so this query needs to be split up, and will probably become something like:
+
+```sql
+SELECT word
+FROM words
+WHERE word LIKE "AS_____N__I" OR
+      word LIKE "%N__I%" OR
+      word LIKE "_I____" OR
+      -- some other LIKE query
+```
+
+However this feels like a silly way of approaching this, because I'm ignoring all the letters above and below the empty spaces. I should probaby go for the `REGEXP` solution:
+
+```sql
+SELECT word
+FROM words
+WHERE word REGEXP "^AS[A-Z]{5}N[A-Z]{2}I$" OR
+           REGEXP "^[A-Z]{1,4}N[A-Z]{2}I$" OR
+           REGEXP "^[A-Z]{1,3}N[A-Z]{2}I[A-Z]{1,4}$" OR
+           -- some other REGEX'es...
+```
+
+Or first, massage the data into something useful before jumping straight to the query. I think this idea dies pretty fast, because of all the complicated regular expressions I need to to put to the database.
+
+### Idea #2
+I can also approach this from all the possible points I can put a single letter. If we take a look at the example again, and indicate with a dot (.) where I can put a letter, this is what I get:
+
+```
+
+
+
+
+
+     ....
+    .MUFS.
+    .N.I..
+.  .D.EX.V.
+G..LENTEDAG.
+EN..S.ER..E..
+BAROK.NEVELEN.
+AS.....N..I..
+K..ECHODE.D.
+```
+
+I already have 40 points where I can put one (or more) letters. Together with the fact that I have 7 letters, already makes for 280 possible plays with just a single letter. With two or more letters things get a bit more complicated but not by that much. The code would've have to look - per letter point - if there's any amount of N-spaces above, below or to the left or the right from my current point (including letter I could skip).
+
+
 
 ### Sources
 
