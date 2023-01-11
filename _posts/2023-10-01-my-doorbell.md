@@ -4,12 +4,12 @@ title: "My doorbell"
 ---
 
 ### Introduction
-In this day and age it surprises me how many devices can connect to the internet. My doorbell for example has the ability to connect to my router. This begs the question, can I unlock the two central doors from my apartment building from my laptop? Or can I snoop using the installed cameras?
+In this day and age it surprises me how many devices can connect to the internet. My doorbell for example has the ability to connect to the internet. This begs the question, can I unlock the two central doors from my apartment building from my laptop? Or can I snoop using the installed cameras? To give some context on how I'm living: I live in an apartment with two outside doors, the first door from the outside to inside the building is for the mailman to be able to enter the mailboxes, that door is always open from early morning to somewhere in the evening, and can be pushed open (which not everybody knows) and the other from the "mailbox area" to the rest of the building is always closed. Both doors can be opened using my doorbell (or intercom).
 
-My doorbell is of a brand called Comelit, an Italian surveillance company [1], and the type is "Mini Wi-Fi" [2]. I'm naturally curious how much I can get from that Wifi connection. Comelit has a range of apps in the Google Play Store I can install, and which I have installed in the past. It's pretty useless; it can only record who stood in front of the door at certain points in time. There isn't a "please open the door version", which is what I would ideally want. The reason why I want to have this is that the buttons on the device are terrible. There's this really unnatural delay when you touch them and opening both doors at the same time is simply not possible.
+My doorbell is of a brand called Comelit, an Italian surveillance company [1], and the type is "Mini Wi-Fi" [2]. I'm naturally curious how much I can get from that Wifi connection. For what it seems, Comelit has a range of apps in the Google Play Store I can install, and which I have installed in the past. The "Comelit" app is pretty broken, you can set it up, for which it needs location access, which is only required because of tracking; they are after all a surveillance company. The app can record who stood in front of the door at certain points in time, and you can open the door from the app. However, after a while, for unknown reasons the app will forget that it has ever seen your doorbell and it will crash. Why can't I open these doors with my laptop?
 
 ### Connecting to my router
-The first step to see if this is even remotely possible, is connecting my Comelit Mini Wi-Fi to the actual Wi-Fi. This is where the pain begins. There's no touchscreen on the doorbell so you have to navigate the keyboard using these horrible partially responsive buttons (it's as if somebody added a `rand > 0.2` somewhere in the hardware driver). After typing in my Wifi password, it connects! Checking my router I see it pop-up as `DEV-18:3A:98` with the following IP `192.168.1.9`. After a while it dissappears from the radar. The reason for that is that after it is idle for a while, the doorbell will turn itself off and disconnect from the router.
+The first step to see if I can open my door with my laptop, is connecting my Comelit Mini Wi-Fi to the actual Wi-Fi. This is where the pain begins. There's no touchscreen on the doorbell so you have to navigate an on-screen keyboard using these horrible partially responsive buttons (it's as if somebody added a `rand > 0.2` somewhere in the hardware driver of those buttons). After typing in my Wifi password, it connects! Checking my router I see it pop-up as `DEV-18:3A:98` with the following IP `192.168.1.9`. After a while it dissappears from the radar. The reason for that is that after it is idle for a while, the doorbell will turn itself off and disconnect from the router.
 
 Running `nmap -Pn 192.168.1.9`:
 
@@ -71,7 +71,7 @@ jquery.min.js
 jquery.inlineedit.js
 ```
 
-It has been a while since I've seen some jquery to be honest. The JavaScript is pretty terrible and a sight for sore eyes; I'll spare you the details. This still doesn't entirely tell me what happens if I touch the buttons on the device.
+It has been a while since I've seen some jquery to be honest. The JavaScript is pretty terrible and a sight for sore eyes; I'll spare you the details. This still doesn't entirely tell me what happens if I touch the buttons on the device or what the Comelit Android app actually uses. Time to get my hands on a Proxy application.
 
 ### Port 53 and 64100
 Port 53 seems like a DNS port.
