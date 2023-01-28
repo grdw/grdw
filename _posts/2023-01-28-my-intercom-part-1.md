@@ -485,7 +485,7 @@ If everything is okay, you should get a JSON response in return which looks like
 
 ---
 
-Naturally, after this succeeded, I could execute the rest of the JSON formatted TCP requests I captured [9]. Unfortunately, however, none of the JSON type requests are responsible for opening the actual doors. This happens through other requests, which are high-likely related to the following scary four-letter terms: CTPP and CBSP, which I'll talk about in Part 2.
+Naturally, after this succeeded, I could execute the rest of the JSON formatted TCP requests I captured [9]. Unfortunately, however, none of the JSON type requests are responsible for opening the actual doors. This happens through other requests, which are high-likely related to the following scary four-letter terms: CTPP and CSPB, which I'll talk about in Part 2.
 
 ### Sources
 
