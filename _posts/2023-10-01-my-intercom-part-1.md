@@ -10,7 +10,7 @@ You'd think that there'd would be software for this already, but considering mos
 
 <img src="/img/2/door-setup.png" style="width: 100%">
 
-To give some context on my apartment and the use of the intercom: the intercom can open two doors, and look at two cameras. The first door is a door from the outside world to the inside of the building ("Door 1"). It's used by f.e. the mailman to be able to enter an area for the mailboxes. That door is always open from early morning to somewhere in the evening, and can actually be pushed open (which not everybody knows). However, it can also be opened by the intercom. The second door from the "mailbox area" to the rest of the building ("Door 2") is always closed, and to open that door, somebody needs to ring the intercom after which I need to push some buttons on my doorbell (or naturally you can open it if you have a key).
+To give some context on my apartment and the use of the intercom: the intercom can open two doors, and look at two cameras. The first door is a door from the outside world to the inside of the building ("Door 1"). It's used by f.e. the mailman to be able to enter an area for the mailboxes. That door is always open from early morning to somewhere in the evening, and can actually be pushed open (which not everybody knows). However, it can also be opened by the intercom. The second door from the "mailbox area" to the rest of the building ("Door 2") is always closed, and to open that door, somebody needs to ring the intercom after which I need to push some buttons on my intercom (or naturally you can open it if you have a key).
 
 The problem here are the buttons. The buttons are these horrible partially responsive pieces of garbage. When you touch them, there's this unnatural long delay and then a magic coin flip to decide if you actually touched it or not. So, why can't I open the doorbell from any other device, so I won't have to use the buttons anymore ....
 
@@ -18,17 +18,17 @@ The problem here are the buttons. The buttons are these horrible partially respo
 
 My intercom is from a brand called Comelit, an Italian surveillance company [1], and the type is "Mini Wi-Fi" [2]. Out of the box, Comelit has a range of apps in the Google Play Store you can install. With these apps you can connect with your doorbell and open the door from your phone. Now, I could stop right here, and call it a day, because essentially the Android app allows me to open the door; button problem fixed! However, the app also sucks.
 
-The main "Comelit" app is the one I've installed in the past and for the sake of these articles. It's a pretty terrible app from the users' point of view. F.e. after you set it up, it needs location access, which is only required because of tracking (Comelit is after all a surveillance company). Another bad example is that the intercom doesn't always show up in the app, even after somebody ringed my doorbell. And above all, it's very sluggish in detecting that somebody is actually at the door (more on that later).
+The main "Comelit" app is the one I've installed in the past and for the sake of these articles. It's a pretty terrible app from the users' point of view. F.e. after you set it up, it needs location access, which is only required because of tracking (Comelit is after all a surveillance company). Another bad example is that the intercom doesn't always show up in the app, even after somebody ringed my intercom. And above all, it's very sluggish in detecting that somebody is actually at the door (more on that later).
 
 ### Connecting to my router
 The first step to see if I can open my door with my laptop, is connecting my Comelit Mini Wi-Fi to the actual Wi-Fi. This is where the pain begins. There's no touchscreen on the doorbell so you have to navigate an on-screen keyboard using these horrible partially responsive touch-only buttons (the torture). After typing in my Wi-Fi password, it connects! Checking my router I see it pop-up as `DEV-18:3A:98` with the following internal IP `192.168.1.9`. After ten to twenty seconds it dissappears from the router, which initially confused me. However, the reason for that is that after the intercom is idle for a while, the doorbell will turn itself off and disconnect from the router.
 
-And yes, this means that for whatever test I want to do, I need to physically move to the doorbell, tap one of the buttons, let it connect, and then run the test.
+And yes, this means that for whatever test I want to do, I need to physically move to the intercom, tap one of the buttons, let it connect, and then run the test.
 
 ![cat](/img/2/4.jpg)
 
-### What runs on my doorbell?
-Knowing that it is possible to control the doorbell through the Comelit Android app there must be a server of sorts running on my doorbell. To figure out what that is I use `nmap`, a pretty standard port scanner. So first I run:
+### What runs on my intercom?
+Knowing that it is possible to control the doorbell through the Comelit Android app there must be a server of sorts running on my intercom. To figure out what that is I use `nmap`, a pretty standard port scanner. First I run:
 
 ```
 nmap -Pn 192.168.1.9
@@ -75,9 +75,9 @@ Ports `8080` and `8443` are browsable from the internet. When browsing port 8080
 
 <img src="/img/2/1.png" style="width: 100%">
 
-It's nice to know my doorbell has memory, and it appearantly uses about half of its 54 MB. If I go to the `8443` page I'm being hit with a bad SSL certificate error, if I decide to trust it anyway I'm being pretty much redirected to the same page that lives on the `8080` port. Why does it have an https-alt without an SSL certificate? I'm assuming the SSL certificate is only valid for the internal domain that is resolved by the domain server on port 53.
+It's nice to know my intercom has memory, and it appearantly uses about half of its 54 MB. If I go to the `8443` page I'm being hit with a bad SSL certificate error, if I decide to trust it anyway I'm being pretty much redirected to the same page that lives on the `8080` port. Why does it have an https-alt without an SSL certificate? I'm assuming the SSL certificate is only valid for the internal domain that is resolved by the domain server on port 53.
 
-After some Google'ing I find out that the default password is simply `admin` and with that I gain access to the device. It doesn't give me much, just options to reboot my doorbell, change the password on my doorbell and some device info. The device info page is the most interesting. It has two tables:
+After some Google'ing I find out that the default password is simply `admin` and with that I gain access to the device. It doesn't give me much, just options to reboot my intercom, change the password on my intercom and some device info. The device info page is the most interesting. It has two tables:
 
 <img src="/img/2/2.png" style="width: 100%">
 
@@ -90,7 +90,7 @@ Checking the nmap scan there's one other port that's left, which is port 64100. 
 - It allows a mix of TCP/UDP requests
 - It uses some sort of a JSON API / mixed with RTSP
 
-Initally I thought whatever lives on that port would speak HTTP, so in order to naively repeat a request to my doorbell I did:
+Initally I thought whatever lives on that port would speak HTTP, so in order to naively repeat a request to my intercom I did:
 
 ```
 curl --data '{BLURB OF JSON I TOOK FROM PCAPDroid}'
@@ -169,7 +169,7 @@ If I look up some of the terms in this JSON blob on the internet, I find a lot o
 
 Obviously I try to see if the default `admin` password works for the four doorbells in question, and it fortunately doesn't. It's still pretty awful that these doorbells are accessible from the internet and indexed by Google, because an IP address can very easily be converted to a physical location. Later on, in this article I'll try and see if the ports 64100 are open as well for these doorbells.
 
-The next keyword is the `viper-p2p` entry, which contains quite a bit of information. It mentions a thing called a stun server [4], which is a term I'm familar with because I recently experimented with WebRTC in relation to file transfering. Looking for `viper-p2p` also didn't give me much, and was a dead-end. The next thing I see is `mqtt` which is something I have no clue about, but it's a messaging protocol for IoT devices so it seems, which my doorbell is of course. The server is located elsewhere on the planet, and is controlled by Google, which is something I found out by doing a simple ping to the server that is listed:
+The next keyword is the `viper-p2p` entry, which contains quite a bit of information. It mentions a thing called a stun server [4], which is a term I'm familar with because I recently experimented with WebRTC in relation to file transfering. Looking for `viper-p2p` also didn't give me much, and was a dead-end. The next thing I see is `mqtt` which is something I have no clue about, but it's a messaging protocol for IoT devices so it seems, which my intercom is of course. The server is located elsewhere on the planet, and is controlled by Google, which is something I found out by doing a simple ping to the server that is listed:
 
 ```
 ping hub-vc-vip.cloud.comelitgroup.com -p 443
@@ -187,13 +187,13 @@ PING turn-1-de.cloud.comelitgroup.com (45.77.52.30) 56(84) bytes of data.
 64 bytes from 45.77.52.30.vultrusercontent.com (45.77.52.30): icmp_seq=2 ttl=50 time=20.5 ms
 ```
 
-The IP address is a box hosted at Vultr [9], however it's IP address doesn't match with what I see in the PCAPDroid file. What I do see in the PCAPDroid file is that my phone's IP address **isn't** doing the talking to my doorbell, but instead it's an external device directly talking to my doorbell, which would explain the slowness I described earlier.
+The IP address is a box hosted at Vultr [9], however it's IP address doesn't match with what I see in the PCAPDroid file. What I do see in the PCAPDroid file is that my phone's IP address **isn't** doing the talking to my intercom, but instead it's an external device directly talking to my intercom, which would explain the slowness I described earlier.
 
 ### Can it speak MQTT?
-Initially my guess is that MQTT [5] must be the protocol it speaks on port 64100, but after inspecting some of the finer details in Wireshark (since PCAPDroid allows you to download the dump as a PCAP file and open it in Wireshark), it turns out that is simply not the case. The MQTT server is present in the *configuration of the doorbell*, but not once does my doorbell actually reach out to this server, so in the configuration response above, it's completely useless.
+Initially my guess is that MQTT [5] must be the protocol it speaks on port 64100, but after inspecting some of the finer details in Wireshark (since PCAPDroid allows you to download the dump as a PCAP file and open it in Wireshark), it turns out that is simply not the case. The MQTT server is present in the *configuration of the doorbell*, but not once does my intercom actually reach out to this server, so in the configuration response above, it's completely useless.
 
 ### The NPM comelit-client
-Continueing on my search of trying to understand how my doorbell works, I find out that Comelit has an NPM client [6]. I try to read the code and in there, I can find only one useful bit of code. Appearantly if you open a UDP socket, and call it with `INFO` it will return you some more hardware information. To write a bit of Rust around it, this is what you can do essentially:
+Continueing on my search of trying to understand how my intercom works, I find out that Comelit has an NPM client [6]. I try to read the code and in there, I can find only one useful bit of code. Appearantly if you open a UDP socket, and call it with `INFO` it will return you some more hardware information. To write a bit of Rust around it, this is what you can do essentially:
 
 ```rust
 use std::net::UdpSocket;
@@ -216,7 +216,7 @@ fn main() {
 }
 ```
 
-The `buf` will print out some bytes, and when converting specific ranges to a string, I'm able to find out more about my doorbell like it's mac address and some other hardware information.
+The `buf` will print out some bytes, and when converting specific ranges to a string, I'm able to find out more about my intercom like it's mac address and some other hardware information.
 
 ### To continue on with port 64100 though:
 As you can see above I called port 24199 and not 64100. I still don't know what protocol it speaks, and from all the information I've gathered thusfar it seems like this is a custom protocol and one where I can't find anything about online. The only logical next step right now is to figure out how the protocol works by hand. First, just to confirm that it accepts both TCP and UDP calls I do a simple test with netcat:
