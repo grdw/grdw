@@ -1,24 +1,24 @@
 ---
 layout: post
-title: "My doorbell"
+title: "My intercom - Part 1"
 ---
 
 ### Introduction
-In this day and age a surprising amount of devices can be hooked to the internet. My door intercom for example can be connected to the Wi-Fi. This feature peeked my interest, namely: can I unlock the two central doors from my apartment building from my laptop or any other device? Or can I snoop using the installed cameras?
+In this day and age, a surprising amount of devices can be hooked to the internet. My door intercom for example can be connected to the Wi-Fi. This feature naturally piqued my interest, namely: can I unlock the two central doors from my apartment building from my laptop or any other device? Or can I snoop using the installed cameras?
 
-You'd think that there'd would be software for this already, but considering most intercom systems use propietary software and unrecognizable protocols, this seems to be partially the case. What follows in this article is a project which lasted months, all because: "I don't like the interface of my doorbell".
+You'd think that there'd would be software for this already, but considering most intercom systems use a mix of proprietary software and unrecognizable protocols, this seems to be partially the case. What follows in a series of articles is a project which is probably going to cost me months, all because: "I don't like the interface of my intercom".
 
 <img src="/img/2/door-setup.png" style="width: 100%">
 
-To give some context on my apartment and the use of the intercom: the intercom can open two doors, and look at two camera's. The first door is a door from the outside world to the inside of the building ("Door 1"). It's used by f.e. the mailman to be able to enter an area for the mailboxes. That door is always open from early morning to somewhere in the evening, and can actually be pushed open (which not everybody knows). However, it can also be opened by the intercom. The second door from the "mailbox area" to the rest of the building ("Door 2") is always closed, and to open that door, somebody needs to ring the intercom after which I need to push some buttons on my doorbell (or naturally you can open it if you have a key).
+To give some context on my apartment and the use of the intercom: the intercom can open two doors, and look at two cameras. The first door is a door from the outside world to the inside of the building ("Door 1"). It's used by f.e. the mailman to be able to enter an area for the mailboxes. That door is always open from early morning to somewhere in the evening, and can actually be pushed open (which not everybody knows). However, it can also be opened by the intercom. The second door from the "mailbox area" to the rest of the building ("Door 2") is always closed, and to open that door, somebody needs to ring the intercom after which I need to push some buttons on my doorbell (or naturally you can open it if you have a key).
 
-The problem here are the buttons. The buttons are these horrible partially responsive pieces of garbage. When you touch them, there's this unnatural long delay and then a magic coin flip to decide if you actually touched it or not. So, why can't I open the doorbell from any other device, so I won't have to use the buttons any more ....
+The problem here are the buttons. The buttons are these horrible partially responsive pieces of garbage. When you touch them, there's this unnatural long delay and then a magic coin flip to decide if you actually touched it or not. So, why can't I open the doorbell from any other device, so I won't have to use the buttons anymore ....
 
 ![cat-doorbell](/img/2/3.png)
 
-My doorbell is from a brand called Comelit, an Italian surveillance company [1], and the type is "Mini Wi-Fi" [2]. Out of the box, Comelit has a range of apps in the Google Play Store you can install. With these apps you can connect with your doorbell and open the door from your phone. Now, I could stop right here, and call it a day, because essentially the Android app allows me to open the door; button problem fixed! However, I wanted the app also sucks.
+My intercom is from a brand called Comelit, an Italian surveillance company [1], and the type is "Mini Wi-Fi" [2]. Out of the box, Comelit has a range of apps in the Google Play Store you can install. With these apps you can connect with your doorbell and open the door from your phone. Now, I could stop right here, and call it a day, because essentially the Android app allows me to open the door; button problem fixed! However, the app also sucks.
 
-The main "Comelit" app is the one I've installed in the past and for the sake of this article. It's a pretty terrible app from the users' point of view. F.e. after you set it up, it needs location access, which is only required because of tracking (Comelit is after all a surveillance company). Another bad example is that the intercom doesn't always show up in the app, even after somebody ringed my doorbell. And above all, it's very sluggish in detecting that somebody is at the doorbell (more on that later).
+The main "Comelit" app is the one I've installed in the past and for the sake of these articles. It's a pretty terrible app from the users' point of view. F.e. after you set it up, it needs location access, which is only required because of tracking (Comelit is after all a surveillance company). Another bad example is that the intercom doesn't always show up in the app, even after somebody ringed my doorbell. And above all, it's very sluggish in detecting that somebody is actually at the door (more on that later).
 
 ### Connecting to my router
 The first step to see if I can open my door with my laptop, is connecting my Comelit Mini Wi-Fi to the actual Wi-Fi. This is where the pain begins. There's no touchscreen on the doorbell so you have to navigate an on-screen keyboard using these horrible partially responsive touch-only buttons (the torture). After typing in my Wi-Fi password, it connects! Checking my router I see it pop-up as `DEV-18:3A:98` with the following internal IP `192.168.1.9`. After ten to twenty seconds it dissappears from the router, which initially confused me. However, the reason for that is that after the intercom is idle for a while, the doorbell will turn itself off and disconnect from the router.
