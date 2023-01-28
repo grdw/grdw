@@ -25,7 +25,7 @@ The first step to see if I can open my door with my laptop, is connecting my Com
 
 And yes, this means that for whatever test I want to do, I need to physically move to the intercom, tap one of the buttons, let it connect, and then run the test.
 
-![cat](/img/2/4.jpg)
+<img src="/img/2/4.jpg" style="max-width: 100%">
 
 ### What runs on my intercom?
 Knowing that it is possible to control the doorbell through the Comelit Android app there must be a server of sorts running on my intercom. To figure out what that is I use `nmap`, a pretty standard port scanner. First I run:
