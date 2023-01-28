@@ -77,7 +77,7 @@ Ports `8080` and `8443` are browsable from the internet. When browsing port 8080
 
 It's nice to know my intercom has memory, and it apparently uses about half of its 54 MB. If I go to the `8443` page I'm being hit with a bad SSL certificate error, if I decide to trust it anyway I'm being pretty much redirected to the same page that lives on the `8080` port. Why does it have a https-alt without an SSL certificate? I'm assuming the SSL certificate is only valid for the internal domain that is resolved by the domain server on port 53.
 
-After some Googling I find out that the password to fill in the "Extender index" screen is simply `admin`, and with that I gain access to my intercom. It doesn't give me much, just options to reboot my intercom, change the password on my intercom and some device info. The device info page is the most interesting. It has two tables:
+After some Googling I find out that the password to fill in at the "Extender index" screen is simply `admin`, and with that I gain access to my intercom. It doesn't give me much, just options to reboot my intercom, change the password on my intercom and some device info. The device info page is the most interesting. It has two tables:
 
 <img src="/img/2/2.png" style="width: 100%">
 
@@ -250,7 +250,7 @@ Which returns a set of 18 non-parseable bytes:
 
 It clearly doesn't return a response, so I'm doing something wrong. It's probably safe to assume the protocol rejects my request. However, these bytes do tell me something because it looks not too unfamiliar to some of the requests I captured with PCAPdroid.
 
-Going back to Wireshark, I can actually see a similar response, except after the "2" come two more zero's and two control bytes. Naturally, I'm actually curious if it matters what these two bytes are set to in all honesty.
+Going back to Wireshark, I can actually see a similar response, except after the "2" I see two more zero's and two control bytes. Naturally, I'm actually curious if it matters what these two bytes are set to in all honesty.
 
 After a lot of fiddling and manually setting bits and what not, I figured out the basics of the protocol; the TCP part, at least. To successfully make a call to my intercom we should repeat what the Android app essentially does:
 
