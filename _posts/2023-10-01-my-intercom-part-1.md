@@ -75,20 +75,20 @@ Ports `8080` and `8443` are browsable from the internet. When browsing port 8080
 
 <img src="/img/2/1.png" style="width: 100%">
 
-It's nice to know my intercom has memory, and it appearantly uses about half of its 54 MB. If I go to the `8443` page I'm being hit with a bad SSL certificate error, if I decide to trust it anyway I'm being pretty much redirected to the same page that lives on the `8080` port. Why does it have an https-alt without an SSL certificate? I'm assuming the SSL certificate is only valid for the internal domain that is resolved by the domain server on port 53.
+It's nice to know my intercom has memory, and it apparently uses about half of its 54 MB. If I go to the `8443` page I'm being hit with a bad SSL certificate error, if I decide to trust it anyway I'm being pretty much redirected to the same page that lives on the `8080` port. Why does it have a https-alt without an SSL certificate? I'm assuming the SSL certificate is only valid for the internal domain that is resolved by the domain server on port 53.
 
-After some Google'ing I find out that the default password is simply `admin` and with that I gain access to the device. It doesn't give me much, just options to reboot my intercom, change the password on my intercom and some device info. The device info page is the most interesting. It has two tables:
+After some Googling I find out that the password to fill in the "Extender index" screen is simply `admin`, and with that I gain access to my intercom. It doesn't give me much, just options to reboot my intercom, change the password on my intercom and some device info. The device info page is the most interesting. It has two tables:
 
 <img src="/img/2/2.png" style="width: 100%">
 
-One table is called "Device info" and has two identifiers which I both blurred out. One is a UUID and the other a 32-byte string; I'll trust that it is actually 32 characters long. The Cloud info is the most interesting table here. It says that I have a device that is "UNLINKED", which I can then "Unlink"; confusing.
+One table is called "Device info" and has two identifiers, which I both blurred out. One is a UUID and the other a 32-byte string; I'll trust that it is actually 32 characters long. The Cloud info is the most interesting table here. It says that I have a device that is "UNLINKED", which I can then "Unlink"; confusing.
 
 ### Port 64100
-Checking the nmap scan there's one other port that's left, which is port 64100. Could that be the port the Comelit Android app actually uses? To confirm this I installed an Android app called "PCAPDroid" (it's essentially Wireshark for Android) [3] to see what requests Comelit actually makes from the app to open the door, and perhaps see images from the camera and what not. Alongside that I tried to reverse engineer the Comelit APK through various tooling, and all in all this is what I found out:
+Checking the nmap scan, there's one other port that's left, which is port 64100. Could that be the port the Comelit Android app actually uses? To confirm this, I installed an Android app called "PCAPDroid" (it's essentially Wireshark for Android) [3] to see what requests Comelit actually makes from the app to open the door, and perhaps see images from the camera and what not. Alongside that I tried to reverse engineer the Comelit APK through various tooling [4], and all in all this is what I found out:
 
 - The Android app uses port 64100.
-- It allows a mix of TCP/UDP requests
-- It uses some sort of a JSON API / mixed with RTSP
+- The intercom allows a mix of TCP/UDP requests
+- The intercom uses some sort of JSON API mixed with other magic
 
 Initally I thought whatever lives on that port would speak HTTP, so in order to naively repeat a request to my intercom I did:
 
@@ -167,9 +167,9 @@ This means that whatever lives on port 61400 doesn't speak http version 1.0 or l
 
 If I look up some of the terms in this JSON blob on the internet, I find a lot of interesting things. The first thing that I look for is "viper-server", which returns nothing of interest. If I extend the search to "viper-server Comelit", I kid you not, the first hit is an IP address of somebody's actual doorbell, followed by a technical manual from Comelit (funny), followed by three more doorbells that are accessible from the internet.
 
-Obviously I try to see if the default `admin` password works for the four doorbells in question, and it fortunately doesn't. It's still pretty awful that these doorbells are accessible from the internet and indexed by Google, because an IP address can very easily be converted to a physical location. Later on, in this article I'll try and see if the ports 64100 are open as well for these doorbells.
+Obviously, I try to see if the default `admin` password works for the four doorbells in question, and it fortunately doesn't. It's still pretty awful that these doorbells are accessible from the internet and indexed by Google, because an IP address can very easily be converted to a physical location. Perhaps, in a follow-up to this article I might try and see if the ports 64100 are open as well for these doorbells.
 
-The next keyword is the `viper-p2p` entry, which contains quite a bit of information. It mentions a thing called a stun server [4], which is a term I'm familar with because I recently experimented with WebRTC in relation to file transfering. Looking for `viper-p2p` also didn't give me much, and was a dead-end. The next thing I see is `mqtt` which is something I have no clue about, but it's a messaging protocol for IoT devices so it seems, which my intercom is of course. The server is located elsewhere on the planet, and is controlled by Google, which is something I found out by doing a simple ping to the server that is listed:
+The next keyword is the `viper-p2p` entry, which contains quite a bit of information. It mentions a thing called a stun server [5], which is a term I'm familiar with because I recently experimented with WebRTC in relation to file transferring. Looking for `viper-p2p` also didn't give me much, and was a dead-end. The next thing I see is `mqtt` which is something I have no clue about, but it's a messaging protocol for IoT devices, so it seems, which my intercom is of course. The server is located elsewhere on the planet, and is controlled by Google, which is something I found out by doing a simple ping to the server that is listed:
 
 ```
 ping hub-vc-vip.cloud.comelitgroup.com -p 443
@@ -187,13 +187,13 @@ PING turn-1-de.cloud.comelitgroup.com (45.77.52.30) 56(84) bytes of data.
 64 bytes from 45.77.52.30.vultrusercontent.com (45.77.52.30): icmp_seq=2 ttl=50 time=20.5 ms
 ```
 
-The IP address is a box hosted at Vultr [9], however it's IP address doesn't match with what I see in the PCAPDroid file. What I do see in the PCAPDroid file is that my phone's IP address **isn't** doing the talking to my intercom, but instead it's an external device directly talking to my intercom, which would explain the slowness I described earlier.
+The IP address is a box hosted at Vultr [6], however its IP address doesn't match with what I see in the PCAPDroid file. What I do see in the PCAPDroid file is that my phone's IP address **isn't** doing the talking to my intercom, but instead it's an external device directly talking to my intercom, which would explain the sluggish nature of the Comelit Android app.
 
 ### Can it speak MQTT?
-Initially my guess is that MQTT [5] must be the protocol it speaks on port 64100, but after inspecting some of the finer details in Wireshark (since PCAPDroid allows you to download the dump as a PCAP file and open it in Wireshark), it turns out that is simply not the case. The MQTT server is present in the *configuration of the doorbell*, but not once does my intercom actually reach out to this server, so in the configuration response above, it's completely useless.
+Initially my guess is that MQTT [7] must be the protocol it speaks on port 64100, but after inspecting some of the finer details in Wireshark (since PCAPDroid allows you to download the dump as a PCAP file and open it in Wireshark), it turns out that is simply not the case. The MQTT server is present in the *configuration of the doorbell*, but not once does my intercom actually reach out to this server, so in the configuration response above, it's completely useless.
 
 ### The NPM comelit-client
-Continueing on my search of trying to understand how my intercom works, I find out that Comelit has an NPM client [6]. I try to read the code and in there, I can find only one useful bit of code. Appearantly if you open a UDP socket, and call it with `INFO` it will return you some more hardware information. To write a bit of Rust around it, this is what you can do essentially:
+Continuing on my search of trying to understand how my intercom works, I find out that Comelit has an NPM client [8]. I try to read the code and in there, I can find only one useful bit of code. Apparently if you open a UDP socket, and call it with `INFO` it will return you some more hardware information. To write a bit of Rust around it, this is what you can do essentially:
 
 ```rust
 use std::net::UdpSocket;
@@ -219,7 +219,7 @@ fn main() {
 The `buf` will print out some bytes, and when converting specific ranges to a string, I'm able to find out more about my intercom like it's mac address and some other hardware information.
 
 ### To continue on with port 64100 though:
-As you can see above I called port 24199 and not 64100. I still don't know what protocol it speaks, and from all the information I've gathered thusfar it seems like this is a custom protocol and one where I can't find anything about online. The only logical next step right now is to figure out how the protocol works by hand. First, just to confirm that it accepts both TCP and UDP calls I do a simple test with netcat:
+As you can see above, I called port 24199 and not 64100. I still don't know what protocol it speaks, and from all the information I've gathered thus far it seems like this is a custom protocol and one where I can't find anything about online. The only logical next step right now is to figure out how the protocol works by hand. First, just to confirm that it accepts both TCP and UDP calls, I do a simple test with netcat:
 
 ```
 netcat -v 192.168.1.9 64100
@@ -229,13 +229,13 @@ netcat -v -u 192.168.1.9 64100
 Connection to 192.168.1.9 64100 port [udp/*] succeeded!
 ```
 
-Furthermore it seems like all the TCP requests (I'll handle the UDP one's later), especially the one's that contain JSON are all prefixed with 8 bytes. Now my question is: does it really matter what bytes are being set there? So, firstly I'm making a test request by writing these bytes to a file called `test_request`:
+Furthermore, it seems like all the TCP requests (I'll handle the UDP one's later in another article), especially the one's that contain JSON, are all prefixed with 8 bytes. Now, my question is: does it really matter what bytes are being set there? To test this out, I'm making a test request by writing these bytes to a file called `test_request`:
 
 ```
         {"message":"get-configuration","addressbooks":"none","message-type":"request","message-id":2}
 ```
 
-The 8-whitespaces are intentional. Then I do:
+The 8 white spaces are intentional. Then I do:
 
 ```
 netcat -v 192.168.1.9 64100 < test_request
@@ -248,14 +248,14 @@ Which returns a set of 18 non-parseable bytes:
 0 239 1 3 0 2 0 0 0 0 0
 ```
 
-It clearly doesn't return a response, so I'm doing something wrong. It's probably safe to assume the protocol rejects my request. However, these bytes do tell me something because it looks not to unfamilair to some of the requests I captured with PCAPdroid.
+It clearly doesn't return a response, so I'm doing something wrong. It's probably safe to assume the protocol rejects my request. However, these bytes do tell me something because it looks not too unfamiliar to some of the requests I captured with PCAPdroid.
 
-Going back to Wireshark I can actaully see a similar response, except after the "2" come two more zero's and two control bytes. Naturally, I'm actually curious if it matters what these two bytes are set to in all honesty, which we'll figure out later.
+Going back to Wireshark, I can actually see a similar response, except after the "2" come two more zero's and two control bytes. Naturally, I'm actually curious if it matters what these two bytes are set to in all honesty.
 
-After a lot of fiddling and manually setting bits and what not, I figured it out. To sucessfully make a call to my intercom this is what the Android app essentially does.
+After a lot of fiddling and manually setting bits and what not, I figured out the basics of the protocol; the TCP part, at least. To successfully make a call to my intercom we should repeat what the Android app essentially does:
 
 1. It opens up **one** TCP stream.
-2. It opens a channel starting from a random address
+2. It opens a channel starting from a random 2-byte address
 3. It executes a command over that channel.
 
 To elaborate on each step:
@@ -300,16 +300,15 @@ TOKEN=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx cargo run main
 
 Replace the x's by the ID32 token.
 
-*Step 2: Telling the doorbell you'd like to open a channe;:*
+*Step 2: Telling the doorbell you'd like to open a channel:*
 
 The bytes to send are the following:
 
 ```
-00 06 0f 00 00 00 00 00  cd ab 01 00 07 00 00 00
-55 41 55 54 2f 1a 00
+00 06 0f 00 00 00 00 00 <-- A header
+cd ab 01 00 07 00 00 00 <-- Magical constant 🪄
+55 41 55 54 2f 1a 00    <-- The command + 2 channel bytes
 ```
-
-The first 16 bytes are always the same, the next 7 are the command followed by 2 "channel bytes".
 
 To add to the code above:
 
@@ -371,8 +370,8 @@ fn tcp_call(stream: &mut TcpStream, bytes: &[u8]) -> Option<[u8; 256]> {
 }
 ```
 
+*Step 3: Executing the actual command*
 
-*Step 2: Executing the actual command*
 The command is formatted as JSON as described above and the 8 bytes that are put in front are:
 
 ```
@@ -390,7 +389,7 @@ So the first two bytes are always "00 06". The next two bytes reveal the length 
 (byte3 to decimal) + ((byte4 to decimal) * 255) + byte4 to decimal
 ```
 
-I'm ignoring this for now, to write some ugly hacky code, this should work:
+I'm ignoring this in the example, and to write some ugly hacky code, this essentially should work:
 
 
 ```rust
@@ -472,8 +471,7 @@ fn tcp_call(stream: &mut TcpStream, bytes: &[u8]) -> Option<[u8; 256]> {
 }
 ```
 
-*Step 3: Success!*
-You should get a JSON response in return which looks like this (I added line breaks and whitespaces for readability):
+If everything is okay, you should get a JSON response in return which looks like this (I added line breaks and white spaces for readability):
 
 ```json
 {
@@ -487,154 +485,7 @@ You should get a JSON response in return which looks like this (I added line bre
 
 ---
 
-Naturally after this succeeded I could execute the rest of the requests I captured. I cleaned up the code quite a bit and set most of the headers correctly. Mostly this went fine until I hit a certain road block.
-
-### CTPP / CBSP
-Because these two gave me such a headache, they get an entire chapter dedicated to themselves. The PCAPDroid capture, shows that there's a CTPP command being executed to the doorbell, however, it deviates from the original pattern because at the initial command handshake, it adds a string which looks like a serial bus of sorts. The next TCP request, isn't a single set of bytes followed by a JSON string, but instead it's a series of serial busses squashed in with a lot of random bytes.
-
-Are these the calls that open the door or? It does seem like it but why does it take ~50 requests to do so. That's an incredibly amount, and what is up with all these random bytes? I feel like the Comelit Android app is throwing me off for some reason.
-
-Also, what is CTPP and CBSP, what does that stand for? Also, after one or two of these calls another call is made to get the configuration.
-
-*What I think is happening:*
-
-<img src="/img/2/door-setup.png" style="width: 100%">
-
-Remember my drawing? I am using it again to explain what I think CTPP and CBSP are doing. My intercom is not actually called an intercom, but it's being referred to - in a lot of places - as an *extender*. I think the CTPP command makes a connection to the "Blackbox of magical relays"; pretty much saying "Hey, I'm extender such and such, could you please wire me through to the magic box". When you then proceed to ask for the configuration again, it should return a lot more data, and after a lot of code fiddling, it does, especially under the `vip`-key, which I'm singling out here:
-
-```json
-<8 random bytes>
-{
-  "vip": {
-    "enabled": true,
-    "apt-address": "SB000006",
-    "apt-subaddress": 2,
-    "logical-subaddress": 2,
-    "apt-config": {
-      "description": "",
-      "call-divert-busy-en": false,
-      "call-divert-address": "",
-      "virtual-key-enabled": false
-    },
-    "user-parameters": {
-      "forced": true,
-      "apt-address-book": [],
-      "switchboard-address-book": [
-        {
-          "id": 0,
-          "name": "Secondary switchboard",
-          "apt-address": "SBCPS007",
-          "emergency-calls": false
-        }
-      ],
-      "camera-address-book": [],
-      "rtsp-camera-address-book": [],
-      "entrance-address-book": [
-        {
-          "id": 0,
-          "name": "Ingang",
-          "apt-address": "SB100001"
-        }
-      ],
-      "actuator-address-book": [
-        {
-          "id": 0,
-          "name": "Algemeen relais",
-          "apt-address": "SBIO0255",
-          "module-index": 255,
-          "output-index": 1
-        }
-      ],
-      "opendoor-address-book": [
-        {
-          "id": 0,
-          "name": "Toegangsslot",
-          "apt-address": "SB100001",
-          "output-index": 1,
-          "secure-mode": false
-        }
-      ],
-      "opendoor-actions": [
-        {
-          "id": 0,
-          "action": "peer",
-          "apt-address": "",
-          "output-index": 1
-        }
-      ],
-      "additional-actuator": {
-        "id": 0,
-        "enabled": true,
-        "apt-address": "SBIO0255",
-        "module-index": 255,
-        "output-index": 1
-      },
-      "direct-link-address-book": [
-        {
-          "id": 0,
-          "name": "Link 1",
-          "url": "",
-          "method": 1
-        },
-        {
-          "id": 1,
-          "name": "Link 2",
-          "url": "",
-          "method": 1
-        },
-        {
-          "id": 2,
-          "name": "Link 3",
-          "url": "",
-          "method": 1
-        },
-        {
-          "id": 3,
-          "name": "Link 4",
-          "url": "",
-          "method": 1
-        }
-      ]
-    }
-  }
-}
-```
-
-Just like before I'm trying to lookup some of these terms on the internet to see if I can find anybody that has done something similar in the past.
-
-### switchboard-address-book
-This is the first keyword which catches my eye. It has an `apt-address` with the value `SBCPS007`. There are no CTPP calls made to this address, so I'm not sure what this is for. Looking on the internet I find some manuals to other intercom systems, but that's where this search ends.
-
-### camera-address-book and rtsp-camera-address-book
-It's funny to see these two being blank. I'd imagine that further down the line these will perhaps start containing values, or perhaps they are intentionally empty, who knows? Looking for "rtsp-camera-address-book¨, I find a GitHub issue [10] which unfortunately is all in Italian; I did leave a reply telling the people there I'm working on something similar [11]. It seems like most people over there are using the Comelit Hub to make requests, which is something that also happens on my end, but through an external hub.
-
-### entrance-address-book
-This key is also mentioned in the GitHub issue [10], and is of most interest to me because `SB100001` is seen a lot in the CTPP calls I captured with PCAPDroid. I imagine it's to make a connection from the magical relay box to "Ingang" (which is Dutch for "entry"). What's even weirder is that it's the same apt-address in "opendoor-address-book"; so I'm a bit confused which one it's actually using. So far my best guess is that it works probably something like this:
-
-```
-1. Comelit Mini-Wifi extender (My intercom)
-2. The magical relay box
-3. Entrance
-
-[1] ---/ --- [2] ---/ --- [3]
-
-Connect the extender with the relay box:
-[1] -------- [2] ---/ --- [3]
-
-Connect the relay box box with entrance:
-[1] -------- [2] -------- [3]
-```
-
-After all of these connections are made, you should in theory check the camera and the entrance. But both entrances? And both camera's?
-
-### opendoor-actions
-Why does action say "peer"? "peer" as in p2p?
-
-### additional-actuator
-This one has a similar apt-address as actuator-address-book and I don't think that's actually being access by Comelit's Android application.
-
-### direct-link-address-book
-I couldn't possibly tell you what these four links are, but my guess is that they are perhaps spots to reserve in some administration system. For now the url's seem all empty.
+Naturally, after this succeeded, I could execute the rest of the JSON formatted TCP requests I captured [9]. Unfortunately, however, none of the JSON type requests are responsible for opening the actual doors. This happens through other requests, which are high-likely related to the following scary four-letter terms: CTPP and CBSP, which I'll talk about in Part 2.
 
 ### Sources
 
@@ -644,18 +495,14 @@ I couldn't possibly tell you what these four links are, but my guess is that the
 
 \[3\] [Wireshark alternatives for Android](https://techwiser.com/wireshark-alternatives-for-android/)
 
-\[4\] [STUN server](https://www.3cx.com/pbx/what-is-a-stun-server/)
+\[4\] [How to reverse engineer an android application in 3 easy steps](https://medium.com/dwarsoft/how-to-reverse-engineer-an-android-application-in-3-easy-steps-dwarsoft-mobile-880d268bdc90)
 
-\[5\] [MQTT](https://mqtt.org/)
+\[5\] [Vultr](https://www.vultr.com/)
 
-\[6\] [NPM Comelit-client](https://www.npmjs.com/package/comelit-client?activeTab=explore)
+\[6\] [STUN server](https://www.3cx.com/pbx/what-is-a-stun-server/)
 
-\[7\] [ViP Manager](https://pro.comelitgroup.com/nl-nl/downloads/vip-system-3/software-6/vip-manager)
+\[7\] [MQTT](https://mqtt.org/)
 
-\[8\] [How to reverse engineer an android application in 3 easy steps](https://medium.com/dwarsoft/how-to-reverse-engineer-an-android-application-in-3-easy-steps-dwarsoft-mobile-880d268bdc90)
+\[8\] [NPM Comelit-client](https://www.npmjs.com/package/comelit-client?activeTab=explore)
 
-\[9\] [Vultr](https://www.vultr.com/)
-
-\[10\] [Integrazione videocitofono comelit](https://github.com/madchicken/homebridge-comelit-hub/issues/33)
-
-\[11\] [My comment](https://github.com/madchicken/homebridge-comelit-hub/issues/33#issuecomment-1407388952)
+\[9\] [Viper-client](https://github.com/grdw/viper-client)
