@@ -6,7 +6,7 @@ title: "My intercom - Part 1"
 ### Introduction
 In this day and age, a surprising amount of devices can be hooked to the internet. My door intercom for example can be connected to the Wi-Fi. This feature naturally piqued my interest, namely: can I unlock the two central doors from my apartment building from my laptop or any other device? Or can I snoop using the installed cameras?
 
-You'd think that there'd would be software for this already, but considering most intercom systems use a mix of proprietary software and unrecognizable protocols, this seems to be partially the case. What follows in a series of articles is a project which is probably going to cost me months, all because: "I don't like the interface of my intercom".
+You would think that there would be software for this already, but considering most intercom systems use a mix of proprietary software and unrecognizable protocols, this seems to be partially the case. What follows in a series of articles is a project which is probably going to cost me months, all because: "I don't like the interface of my intercom".
 
 <img src="/img/2/door-setup.png" style="width: 100%">
 
