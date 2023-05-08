@@ -363,50 +363,6 @@ I can generate them by hand quite easily, but at some point it gets quite hard. 
 <p></p>
 I don't think there's a way to balance 3 candles in a circular motion, because I have 20 candles which I can't cut in 3 parts effectively, or can I? This formation could be valid 1m-50n-1m-2n-1m-2n-{5}, but it doesn't fit in a circular motion properly, so the chandelier will be unbalanced, perhaps there is some shape as 2m-xn-1m-yn-{z}, which will not worke either because I don't have 30 candles. So, no matter how I look at this there are no groups to be made with 3 candles. From some small bit of code I wrote, I see I can make groups of: 1,2,4,5 and 10 candles. For some reason my code also returns 8 candles, but I'm pretty sure that one isn't possible as well, since with 8 candles we would get 2m-xn-6m-yn-{z} type solutions, which would end with a problem, because 20 cannot be divided by 8. 
 
-I think a process for this is:
-
-1. Find the even divisors of m; the amount of candles.
-2. Divide the amount of candleholders by the amount of candles, and floor it to get P
-3. Multiply all divisors by P
-4. For every divisor multiplied by P make groups of "divisor"-amount of candles and empty candleholders.
-5. Multiply the amount of unique groups you get in step 4 by the value of step 3.
-6. Sum the total?
-
-Let's actually try this out for `f(12, 4)`,. Step 1 and 2 in code look like this:
-
-```rust
-fn balanced_chandelier(holders: u16, candles: u16) -> u16 {
-    if candles > holders { panic!("Impossible") }
-    if holders == candles { return 1 }
-    if candles == 2 { return holders / candles }
-
-    let mut t = 0;
-    let p = holders / candles;
-    let divisors = (1..candles)
-        .into_iter()
-        .filter(|&x| candles % x == 0)
-        .collect::<Vec<u16>>();
-
-
-    for d in divisors {
-        let size = d * p;
-        println!("candles: {} spaces: {}", d, size);
-        t += size
-    }
-
-    return t
-}
-```
-
-At the `println!`-statement I need to resolve for step 4. For `f(12, 4)` it prints:
-
-```
-candles: 1 spaces: 3
-candles: 2 spaces: 6
-```
-
-The groups that exist for `f(12, 4)` are: `1m-2n-{3}`, `2m-4n-{2}` and `1m-3n-1m-1n-{2}`. With 1 candle you can't make any more unique groups, because you can only put the one candle before or after or in-between the 3 empty spaces wich all result in the same 'group' (without counting rotations). With more than 1 candle, you can put spaces in-between those candles.
-
 <script language="javascript">
 let circles = document.querySelectorAll('div.circles');
 const topOffset = 5;
