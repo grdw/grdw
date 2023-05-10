@@ -10,6 +10,10 @@ body {
   font-family: Georgia, Halvetica, serif;
 }
 
+img { 
+  width: 100%;
+}
+
 blockquote {
   padding-left: 13px;
   margin-left: 1px;
