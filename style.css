@@ -10,8 +10,8 @@ body {
   font-family: Georgia, Halvetica, serif;
 }
 
-img { 
-  width: 100%;
+figure {
+  margin: 0;
 }
 
 blockquote {
