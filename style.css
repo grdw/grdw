@@ -1,13 +1,17 @@
 html {
   height: 100%;
   width: 100%;
-  background-color: #FFEADB;
+  background: url("img/bg.gif") repeat center;
   font-size: 1.5em;
   line-height: 1.5;
 }
 
 body {
   font-family: Georgia, Halvetica, serif;
+}
+
+img { 
+  width: 100%;
 }
 
 blockquote {
