@@ -86,6 +86,7 @@ div.complexity a.complexity-3 { background-color: #ffeb01; }
 div.complexity a.complexity-4 { background-color: #ff9000; }
 div.complexity a.complexity-5 { background-color: #ff4330; }
 
+.language-plaintext.highlighter-rouge { color: #FF6666 }
 /* Generated for code highlighting*/
 .highlight table td { padding: 5px; }
 .highlight table pre { margin: 0; }
