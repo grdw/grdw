@@ -181,4 +181,6 @@ div.complexity a.complexity-5 { background-color: #ff4330; }
   html {
     font-size: 1.0em;
   }
+
+  img { width: 100%; }
 }
