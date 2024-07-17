@@ -85,7 +85,10 @@ Of course I was thinking to myself, the product of the conversion is also a file
 | 8 | <img width="80px" src="/img/3/23.png"/> | <img width="80px" src="/img/3/4.7.png"/> |
 
 <br/>
-What is interesting to notice is that the file size gradually keeps on increasing and increasing.
+What is interesting to notice is that the file size gradually keeps on increasing and increasing. I'm pretty sure this happens because of the PNG format and its headers taking up space.
+
+### Concluding
+Obviously this is a bad way of storing a file, but it was a fun exercise to obfuscate a file. The full code is available at GitHub [7]. It isn't at all performance optimized and for a big file it will likely take a long while for the code to render a PNG. There is an upper bound of PNG's of 2<sup>31</sup>-1 px, meaning this script can be used to store a file of up to 4 x 2<sup>31</sup>-1 bytes, so roughly ~1.9 GB. I'm curious to see what happens if I go over, and will definitely try to experiment more and come up with other "what if?"-projects in the future.
 
 ### Sources
 
@@ -95,3 +98,4 @@ What is interesting to notice is that the file size gradually keeps on increasin
 4. [image crate](https://docs.rs/image/latest/image/)
 5. [everything-is-a-png early version](https://github.com/grdw/everything-is-a-png/tree/f16b66c573f066ec6b3bc032eddd8fbe0d6278c7)
 6. [wikipedia cat](https://upload.wikimedia.org/wikipedia/commons/d/d4/Cat_March_2010-1a.jpg)
+7. [everything-is-a-png](https://github.com/grdw/everything-is-a-png)
