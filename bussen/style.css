@@ -62,7 +62,7 @@ div.player-area .cards .round {
   border-radius: 9px;
 }
 
-div.player-area .cards .card-wrapper:hover .round {
+div.player-area .cards .card-wrapper.active:hover .round {
   display: flex;
   flex-direction: column;
   height: 210px;
