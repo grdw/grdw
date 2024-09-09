@@ -40,10 +40,11 @@ body {
 
 #players-arena div.player-area .cards {
   text-align: center;
+  display: flex;
 }
 
-div.player-area .cards > div {
-  display: inline-block;
+div.player-area .cards div.card-wrapper {
+  flex-grow: 1;
   position: relative;
   width: 100px;
   height: 140px;
@@ -51,13 +52,21 @@ div.player-area .cards > div {
 
 div.player-area .cards > div > div {
   position: absolute;
+  width: 100px;
+  height: 140px;
+  background-color: #fff;
 }
 
-div.player-area .cards button {
-  display: inline-block;
+div.player-area .cards div.button {
+  display: block;
   padding: 0;
-  height: 140px;
   width: 100%;
+  color: black;
+  background-color: #fff;
+}
+
+div.player-area .cards div.button:hover {
+  background-color: #ccc;
 }
 
 div.player-area .cards div.card img {
