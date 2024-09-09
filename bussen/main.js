@@ -37,6 +37,7 @@
                 console.log(this.checkInOrOut(targetValues[1]));
                 break;
                 case "r4":
+                console.log(this.checkFinalRound(targetValues[1]));
                 break;
                 default:
                 console.error("Invalid value");
@@ -89,8 +90,8 @@
             const firstValue = this.cardCodeToValue(firstCode[0]);
             const secondValue = this.cardCodeToValue(secondCode[0]);
             const currentValue = this.cardCodeToValue(currentCode[0]);
-            const lowerBound = Math.min(prevValue, value);
-            const upperBound = Math.max(prevValue, value);
+            const lowerBound = Math.min(firstValue, secondValue);
+            const upperBound = Math.max(firstValue, secondValue);
 
             switch (guess) {
                 case "inside":
@@ -109,14 +110,29 @@
         }
 
         checkFinalRound(guess) {
+            let cards = [];
+            for (let i = 0; i < (cardCount - 1); i++) {
+                cards.push(this.cards[i].code[1]);
+            }
+            const finalValue = this.cards[3].code[1];
+            console.log(cards);
             switch (guess) {
                 case "yes":
+                    return this.cards.indexOf(finalValue);
                 break;
                 case "no":
+                    return !this.cards.indexOf(finalValue);
                 break;
                 case "disco":
+                    let list = cards;
+                    list.push(finalValue);
+                    const unique = list.filter(function (x, i, a) {
+                        return a.indexOf(x) == i;
+                    });
+                    return unique.length == list.length;
                 break;
                 case "pole":
+                   // TODO
                 break;
                 default:
                   console.error("Invalid guess")
@@ -140,7 +156,7 @@
             front.classList.remove("hidden");
             back.classList.add("hidden");
 
-            if (this.round < cardCount) {
+            if (this.round + 1 < cardCount) {
                 this.round += 1;
                 cardWrappers[this.round].classList.add("active");
             }
