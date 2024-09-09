@@ -27,19 +27,19 @@ body {
 }
 
 #players-arena div.player-area {
-  width: 450px;
-  height: 200px;
+  width: 650px;
+  height: 280px;
   display: inline-block;
   padding: 15px 20px;
+  text-align: center;
 }
 
 #players-arena div.player-area h2 {
   font-size: 25px;
-  margin: 0;
+  margin: 15px 0;
 }
 
 #players-arena div.player-area .cards {
-  text-align: center;
   display: flex;
 }
 
@@ -52,23 +52,37 @@ div.player-area .cards div.card-wrapper {
 
 div.player-area .cards > div > div {
   position: absolute;
-  width: 100px;
-  height: 140px;
-  background-color: #fff;
+  width: 150px;
+  height: 210px;
 }
 
-div.player-area .cards div.button {
-  display: block;
-  padding: 0;
-  width: 100%;
+div.player-area .cards .round {
+  background-color: rgba(255, 255, 255, 0.7);
+  display: none;
+  border-radius: 9px;
+}
+
+div.player-area .cards .card-wrapper:hover .round {
+  display: flex;
+  flex-direction: column;
+  height: 210px;
+}
+
+div.player-area .cards button {
   color: black;
-  background-color: #fff;
+  width: 150px;
+  flex: 1;
+  border-radius: 0;
+  cursor: pointer;
 }
 
-div.player-area .cards div.button:hover {
-  background-color: #ccc;
+div.player-area .cards button:first-child {
+  border-radius: 9px 9px 0 0;
 }
 
+div.player-area .cards button:last-child {
+  border-radius: 0 0 9px 9px;
+}
 div.player-area .cards div.card img {
-  width: 100px;
+  width: 150px;
 }

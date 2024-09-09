@@ -25,15 +25,15 @@
             let cards = el.querySelectorAll(".cards .card");
             header.innerHTML = this.username;
             el.classList.remove("hidden");
-            arena.appendChild(el);
 
-            for (let i = 0; i <= cards.length; i++) {
+            for (let i = 0; i < cards.length; i++) {
                 let img = cards[i].querySelector("img.front");
                 let backImg = cards[i].querySelector("img.back");
-                console.log(cards[i], img, backImg);
                 img.setAttribute("src", this.cards[i].images.png);
                 backImg.setAttribute("src", deckURL + "/static/img/back.png");
             }
+
+            arena.appendChild(el);
         }
     }
 
@@ -71,6 +71,7 @@
                     const player = new Player(username, data.cards);
                     if (player.valid()) {
                         this.players.add(player);
+                        console.log(this.addForm);
                         this.addForm.reset();
                     }
                 }.bind(this))
