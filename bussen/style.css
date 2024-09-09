@@ -1,0 +1,65 @@
+html {
+  height: 100%;
+  width: 100%;
+  font-size: 1.5em;
+  line-height: 1.5;
+}
+
+body {
+  font-family: Georgia, Halvetica, serif;
+  margin: 0;
+  background-image: linear-gradient(to bottom, #1A4A1C, #308834 600px);
+}
+
+.hidden {
+  display: none;
+}
+
+.pg {
+  color: #fff;
+  margin: 20px 10px;
+}
+
+#players-arena {
+  position: relative;
+  width: 100%;
+  height: 500px;
+}
+
+#players-arena div.player-area {
+  width: 450px;
+  height: 200px;
+  display: inline-block;
+  padding: 15px 20px;
+}
+
+#players-arena div.player-area h2 {
+  font-size: 25px;
+  margin: 0;
+}
+
+#players-arena div.player-area .cards {
+  text-align: center;
+}
+
+div.player-area .cards > div {
+  display: inline-block;
+  position: relative;
+  width: 100px;
+  height: 140px;
+}
+
+div.player-area .cards > div > div {
+  position: absolute;
+}
+
+div.player-area .cards button {
+  display: inline-block;
+  padding: 0;
+  height: 140px;
+  width: 100%;
+}
+
+div.player-area .cards div.card img {
+  width: 100px;
+}

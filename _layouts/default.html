@@ -9,7 +9,11 @@
         | {{ page.title }}
       {% endif %}
     </title>
+    {% if page.style %}
+    <link href="/{{page.style}}/style.css" rel="stylesheet" type="text/css"/>
+    {% else %}
     <link href="/style.css" rel="stylesheet" type="text/css"/>
+    {% endif %}
     <meta charset='utf-8'>
     <meta content='width=device-width, user-scalable=no' name='viewport'>
   </head>
