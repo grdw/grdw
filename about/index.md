@@ -2,7 +2,7 @@
 layout: default
 ---
 
-# About
+<h1 id="header">About</h1>
 ### Whoami
 The name grdw are all the unique consonants of my first name (Gerard), followed by the first character of my last name (Westerhof). I've been an engineer since 2013 and have contributed to a lot of projects in various shapes and sizes. List of employers and studies:
 
