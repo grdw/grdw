@@ -5,6 +5,11 @@ html {
   line-height: 1.5;
 }
 
+#graphic {
+  float: left;
+  margin-right: 30px;
+}
+
 h1#header {
   margin-bottom: 12px;
 }
@@ -191,4 +196,9 @@ div.complexity a.complexity-5 { background-color: #ff4330; }
   }
 
   img { width: 100%; }
+  #graphic {
+    text-align: center;
+    float: none;
+  }
+  #graphic img { width: auto; }
 }
