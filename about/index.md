@@ -19,7 +19,7 @@ The name grdw are all the unique consonants of my first name (Gerard), followed 
 A golang project that enabled asynchronous Transfers between various storage providers to-and-from WeTransfer. The first provider to be added was Dropbox.
 
 #### MeTransfer — Core WeTransfer
-Hackathon project I led in 2022 for which I won a prize. The idea here was to use locally available networks to transfer files between a single users' phone and laptop in order to save on storage costs. Roughly 28% of Transfers send at WeTransfer were transfers of a user to themselves. This was build in less than a week and roughly based on an article I wrote "How to copy a file between devices?" which was briefly featured on the front page of Hackernews in 2024. This project led to investigative work into WebRTC / ICE / STUN / TURN, and eventually to a proof of concept at the mobile team of WeTransfer.
+Hackathon project I led in 2022 for which I won a prize. The idea here was to use locally available networks to transfer files between a single users' phone and laptop in order to save on storage costs. Roughly 28% of Transfers send at WeTransfer were transfers of a user to themselves. This was build in less than a week and roughly based on an article I wrote ["How to copy a file between devices?"](/2022/10/03/how-to-copy-a-file-between-devices.html) which was briefly featured on the front page of Hackernews in 2024. This project led to investigative work into WebRTC / ICE / STUN / TURN, and eventually to a proof of concept at the mobile team of WeTransfer.
 
 #### Decommissioning the old download-server — Backend core WeTransfer
 Assisting in turning off and replacing the old download-server which at the time had about ~500 req/s. Switched from Ruby to Golang.
