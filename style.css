@@ -58,7 +58,14 @@ h3 {
   font-size: 100%;
 }
 
-h3 ~ p {
+h4 {
+  margin: 0;
+  font-weight: 0;
+  font-size: 100%;
+  font-style: italic;
+}
+
+h3 ~ p, h3 ~ ul {
   margin-top: 0;
 }
 
