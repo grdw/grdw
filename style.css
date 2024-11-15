@@ -5,9 +5,12 @@ html {
   line-height: 1.5;
 }
 
+#front {
+  text-align: center;
+}
+
 #graphic {
-  float: left;
-  margin-right: 30px;
+  margin-top: 20px;
 }
 
 h1#header {

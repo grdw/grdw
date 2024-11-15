@@ -2,21 +2,21 @@
 layout: default
 ---
 
-<div id="graphic">
-  <img src="/img/fietsband.nobg.png" alt="fietsband"/>
+<div id="front">
+  <div id="graphic">
+    <img src="/img/fietsband.nobg.png" alt="fietsband"/>
+  </div>
+
+  <h1 id="header">GRDW</h1>
+
+  <div class="pg post">
+    {% for post in site.posts limit:5 %}
+      <div>
+        <a href="{{ post.url }}">{{ post.title }}</a>
+      </div>
+    {% endfor %}
+  <div>
+
+  <a href="/posts">More</a> |
+  <a href="/about">About</a>
 </div>
-
-<h1 id="header">GRDW</h1>
-
-<div class="pg post">
-  {% for post in site.posts limit:5 %}
-    <div>
-      <a href="{{ post.url }}">{{ post.title }}</a>
-    </div>
-  {% endfor %}
-<div>
-
-<a href="/posts">More</a> |
-<a href="/about">About</a>
-
-<br/>
