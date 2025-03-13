@@ -7,6 +7,7 @@ layout: default
 The name grdw are all the unique consonants of my first name (Gerard), followed by the first character of my last name (Westerhof). I've been an engineer since 2013 and have contributed to a lot of projects in various shapes and sizes.
 
 ### Experience
+- **2025-:** Van de Bron
 - **2018-2024:** WeTransfer
 - **2014-2018:** Quintel Intelligence
 - **2013-2014:** Holder
