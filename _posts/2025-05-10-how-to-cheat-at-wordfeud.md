@@ -43,9 +43,13 @@ title: "How to cheat at Wordfeud?"
     font-size: 60%;
   }
 
-  @media only screen and (max-width: 575px) {
-    table.wordfeud.full { width: 100% }
-  }
+  @media only screen and (max-width: 649px) {
+    table.wordfeud { font-size: 42%; }
+    table.wordfeud td {
+      width: 15px;
+      height: 15px;
+      padding: 3px 3px;
+    }
 </style>
 
 ### A story about Wordfeud
@@ -1195,7 +1199,6 @@ K..ECHODE.D....
 
 How many possible plays are in this board? Ignoring all the bonus tiles, how many plays - invalid and valid - are in this board? And how would I query for them in my anagram wordlist SQLite database? Let's first just list all the possible plays by hand to see if there's some pattern to discover.
 
-
 #### Bad idea #1:
 First, let's see how many horizontal and vertical plays we have, put the letters in square brackets (`[]`) indicate that they're stuck in place, the numbers in between indicate how much space there is above/below left/right:
 
@@ -1312,35 +1315,24 @@ AS.....N..I..
 K..ECHODE.D.
 ```
 
-I already have 40 points where I can put one (or more) letters. Together with the fact that I have 7 letters, already makes for 280 possible plays with just a single letter. With two or more letters things get a bit more complicated but not by that much. The code would've have to look - per letter point - if there's any amount of N-spaces above, below or to the left or the right from my current point (including letter I could skip).
+I already have 40 points where I can put one (or more) letters. Together with the fact that I have 7 letters, already makes for 280 possible plays with just a single letter. With two or more letters things get a bit more complicated but not by that much. The code would've have to look - per letter point - if there's any amount of N-spaces above, below or to the left or the right from my current point.
 
-
+> Editorial note: this article got written in 2022, but I never wrapped up this project because it became to heady for my little noodle. All in all I still think it's worth posting if not for the beautiful little wordfeud tables I made in CSS. ✨ To be continued....
 
 ### Sources
 
-\[1\] [Automatic Wordfeud Playing Bot](https://www.csc.kth.se/utbildning/kandidatexjobb/datateknik/2012/rapport/berntsson_martin_OCH_ericsson_fredric_K12012.pdf)
-
-\[2\] [AOC 2022](https://github.com/grdw/aoc2022)
-
-\[3\] [Wordfeud scoring](https://wordfeud.com/wf/help/)
-
-\[4\] [Betekenis "Steps"](https://www.vandale.nl/gratis-woordenboek/nederlands/betekenis/steps)
-
-\[5\] [Wordfeud dictionaries](https://wordfeud.com/dictionaries/)
-
-\[6\] [Taaltik Wordfeud site](http://taaltik-wordfeud.keesing.com/)
-
-\[7\] [OpenTaal wordlist](https://github.com/OpenTaal/opentaal-wordlist)
-
-\[8\] [An Algorithm for Finding Anagrams](https://hackernoon.com/an-algorithm-for-finding-anagrams-2fe7655de85b)
-
-\[9\] [Find distinct combinations of a given length](https://www.techiedelight.com/find-distinct-combinations-of-given-length/
-)
+1. [Automatic Wordfeud Playing Bot](https://www.csc.kth.se/utbildning/kandidatexjobb/datateknik/2012/rapport/berntsson_martin_OCH_ericsson_fredric_K12012.pdf)
+1. [AOC 2022](https://github.com/grdw/aoc2022)
+1. [Wordfeud scoring](https://wordfeud.com/wf/help/)
+1. [Betekenis "Steps"](https://www.vandale.nl/gratis-woordenboek/nederlands/betekenis/steps)
+1. [Wordfeud dictionaries](https://wordfeud.com/dictionaries/)
+1. [Taaltik Wordfeud site](http://taaltik-wordfeud.keesing.com/)
+1. [OpenTaal wordlist](https://github.com/OpenTaal/opentaal-wordlist)
+1. [An Algorithm for Finding Anagrams](https://hackernoon.com/an-algorithm-for-finding-anagrams-2fe7655de85b)
+1. [Find distinct combinations of a given length](https://www.techiedelight.com/find-distinct-combinations-of-given-length/)
 
 ### Project stages
 
-\[I\] [Initial setup](https://github.com/grdw/wordfeud-cheater/tree/fef463b1bec37c34f40b2589220702952f7bf12a)
-
-\[II\] [Made an anagram solver!](https://github.com/grdw/wordfeud-cheater/tree/27b236cbb600c6252cf033a2707413db9040df2d)
-
-\[III\] [Included the joker tile](https://github.com/grdw/wordfeud-cheater/tree/f4c3c402a830d7c16bec3c25bfa9c07eb0eddbb3)
+I. [Initial setup](https://github.com/grdw/wordfeud-cheater/tree/fef463b1bec37c34f40b2589220702952f7bf12a)
+II. [Made an anagram solver!](https://github.com/grdw/wordfeud-cheater/tree/27b236cbb600c6252cf033a2707413db9040df2d)
+III. [Included the joker tile](https://github.com/grdw/wordfeud-cheater/tree/f4c3c402a830d7c16bec3c25bfa9c07eb0eddbb3)
