@@ -5,20 +5,40 @@ html {
   line-height: 1.5;
 }
 
-#front {
-  text-align: center;
-}
-
-#graphic {
-  margin-top: 20px;
+body {
+  font-family: Georgia, Halvetica, serif;
 }
 
 h1#header {
   margin-bottom: 12px;
 }
 
-body {
-  font-family: Georgia, Halvetica, serif;
+h3 {
+  margin: 0;
+  font-size: 100%;
+}
+
+h4 {
+  margin: 0;
+  font-weight: 0;
+  font-size: 100%;
+  font-style: italic;
+}
+
+h3 ~ p, h3 ~ ul {
+  margin-top: 0;
+}
+
+h3 ~ ul {
+  padding-left: 1em;
+}
+
+#front {
+  text-align: center;
+}
+
+#graphic {
+  margin-top: 20px;
 }
 
 figure {
@@ -56,26 +76,6 @@ span.accent {
   color: #E1AD01;
 }
 
-h3 {
-  margin: 0;
-  font-size: 100%;
-}
-
-h4 {
-  margin: 0;
-  font-weight: 0;
-  font-size: 100%;
-  font-style: italic;
-}
-
-h3 ~ p, h3 ~ ul {
-  margin-top: 0;
-}
-
-h3 ~ ul {
-  padding-left: 1em;
-}
-
 table {
   border-collapse: collapse;
 }
@@ -87,6 +87,15 @@ th, td {
 
 td {
   vertical-align: top;
+}
+
+ol {
+  padding: 0;
+  margin: 0 0 24px 0;
+  font-size: 0.7em;
+}
+ol li {
+  display: inline list-item;
 }
 
 div.footer, footer {
@@ -114,6 +123,10 @@ div.complexity a.complexity-4 { background-color: #ff9000; }
 div.complexity a.complexity-5 { background-color: #ff4330; }
 
 .language-plaintext.highlighter-rouge { color: #FF6666 }
+
+/*
+/*
+/*
 /* Generated for code highlighting*/
 .highlight table td { padding: 5px; }
 .highlight table pre { margin: 0; }
@@ -202,6 +215,10 @@ div.complexity a.complexity-5 { background-color: #ff4330; }
 .highlight .ss {
   color: #83a598;
 }
+/*
+/*
+/*
+/*
 /* $ Generated for code highlighting*/
 
 @media only screen and (max-width: 575px) {

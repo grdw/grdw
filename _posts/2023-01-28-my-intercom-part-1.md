@@ -489,20 +489,12 @@ Naturally, after this succeeded, I could execute the rest of the JSON formatted 
 
 ### Sources
 
-\[1\] [Comelit Group - About Page](https://www.comelitgroup.com/en/company/about-us/)
-
-\[2\] [Mini Wi-Fi](https://www.comelitgroup.com/nl-nl/systemen/video-deurintercom/binnenshuis/)
-
-\[3\] [Wireshark alternatives for Android](https://techwiser.com/wireshark-alternatives-for-android/)
-
-\[4\] [How to reverse engineer an android application in 3 easy steps](https://medium.com/dwarsoft/how-to-reverse-engineer-an-android-application-in-3-easy-steps-dwarsoft-mobile-880d268bdc90)
-
-\[5\] [Vultr](https://www.vultr.com/)
-
-\[6\] [STUN server](https://www.3cx.com/pbx/what-is-a-stun-server/)
-
-\[7\] [MQTT](https://mqtt.org/)
-
-\[8\] [NPM Comelit-client](https://www.npmjs.com/package/comelit-client?activeTab=explore)
-
-\[9\] [Viper-client](https://github.com/grdw/viper-client)
+1. [Comelit Group - About Page](https://www.comelitgroup.com/en/company/about-us/)
+1. [Mini Wi-Fi](https://www.comelitgroup.com/nl-nl/systemen/video-deurintercom/binnenshuis/)
+1. [Wireshark alternatives for Android](https://techwiser.com/wireshark-alternatives-for-android/)
+1. [How to reverse engineer an android application in 3 easy steps](https://medium.com/dwarsoft/how-to-reverse-engineer-an-android-application-in-3-easy-steps-dwarsoft-mobile-880d268bdc90)
+1. [Vultr](https://www.vultr.com/)
+1. [STUN server](https://www.3cx.com/pbx/what-is-a-stun-server/)
+1. [MQTT](https://mqtt.org/)
+1. [NPM Comelit-client](https://www.npmjs.com/package/comelit-client?activeTab=explore)
+1. [Viper-client](https://github.com/grdw/viper-client)
