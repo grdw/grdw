@@ -5,6 +5,10 @@ html {
   line-height: 1.5;
 }
 
+table {
+  margin-bottom: 24px;
+}
+
 body {
   font-family: Georgia, Halvetica, serif;
 }
