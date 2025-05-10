@@ -52,6 +52,8 @@ title: "How to cheat at Wordfeud?"
     }
 </style>
 
+> Editorial note: this article got written in 2022, but I never wrapped up this project (or this post) because it became to heady for my little noodle. All in all I still think it's worth posting if not for the beautiful little wordfeud tables I made in CSS. ✨ This post does end rather abruptly if you manage to make it all the way to the end.
+
 ### A story about Wordfeud
 I play Wordfeud with my dad, _just_ my dad. It's the only reason why that ad-riddled, scrabble-like game is on my phone. Recently I stumbled upon a paper [1] which described an algorithm on how to best play "Wordfeud", by making a bot. There are many similar papers and blog articles on the internet, and of course many Wordfeud-cheat applications (most of them also ad-riddled). I'll never cheat playing with my dad (I imagine proof is required now), but I am willing to admit that I've used one of those Wordfeud-word generators or anagram-solvers against other random contestants in the past.
 
@@ -1316,8 +1318,6 @@ K..ECHODE.D.
 ```
 
 I already have 40 points where I can put one (or more) letters. Together with the fact that I have 7 letters, already makes for 280 possible plays with just a single letter. With two or more letters things get a bit more complicated but not by that much. The code would've have to look - per letter point - if there's any amount of N-spaces above, below or to the left or the right from my current point.
-
-> Editorial note: this article got written in 2022, but I never wrapped up this project because it became to heady for my little noodle. All in all I still think it's worth posting if not for the beautiful little wordfeud tables I made in CSS. ✨ To be continued....
 
 ### Sources
 
