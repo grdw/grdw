@@ -7,7 +7,7 @@ title: "My journey with Zio"
 
 Zio is a framework for Scala, to be more precise - and I'm quoting from the front-page of the website - it's a "type-safe, composable asynchronous and concurrent" framework for Scala. So what can you do with it? Well, with Zio you can literally build anything you want. A web service, check! A little command line application, check! Kafka consumers, Kafka producers, SQS clients, gRPC servers; let all things be Zio! It's the Swiss-army knife of the Scala world.
 
-This blog post is describing some of my experiences with learning Zio and Scala, and all the hurdles I met (and am still meeting), of which there are plenty. This article is roughly split into four sections: setup, a hello-world example, solving the Day 1 puzzle of the Advent Of Code 2019, and a conclusion block in the end.
+This blog post is describing some of my experiences with learning Zio and Scala, and some of the hurdles I met (and am still meeting). This article is roughly split into four sections: setup, a hello-world example, solving the Day 1 puzzle of the Advent Of Code 2019, and a conclusion block in the end.
 
 ## Setup
 
