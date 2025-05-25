@@ -1,0 +1,167 @@
+---
+layout: post
+title: "My journey with Zio"
+---
+
+## Introduction
+
+Zio is a framework for Scala, to be more precise - and I'm quoting from the front-page of the website - it's a "type-safe, composable asynchronous and concurrent" framework for Scala. So what can you do with it? Well, with Zio you can literally build anything you want. A web service, check! A little command line application, check! Kafka consumers, Kafka producers, SQS clients, gRPC servers; let all things be Zio! It's the Swiss-army knife of the Scala world.
+
+This blog post is describing some of my experiences with learning Zio and Scala, and all the hurdles I met (and am still meeting), of which there are plenty. This article is roughly split into four sections: setup, a hello-world example, solving the Day 1 puzzle of the Advent Of Code 2019, and a conclusion block in the end.
+
+## Setup
+
+First up I needed Scala on my computer so I installed `sdkman` [1] to help with installing a specific Scala version. Considering most of the code I'm writing in this post uses Scala 2, I ran:
+
+```bash
+sdk install scala 2.13.16
+```
+
+.. and I'm off to the races.
+
+### Setting up a Zio project
+
+For setting up a Zio project I went to the place where you can learn about Zio: [zio.dev](https://zio.dev/). I'm met with one of those standard websites for any framework to any programming language, and I click on "Overview". It tells me in order to setup Zio I need to put the following in my `build.sbt`:
+
+```scala
+libraryDependencies += "dev.zio" %% "zio" % "2.1.18"
+```
+
+And if I want to use "streams", whatever those might be, it tells me to include another similar looking line\*, which I'm ignoring for now.
+
+My initial gut reaction to this is: what in the bleep is a `build.sbt`? The author of this text assumes I'm using `sbt` for my project and not anything else like `gradle`. So, there are no alternatives in this case according to the author of setting up Zio if I have to purely read the documentation. It also doesn't give me a full example of what such a `build.sbt` must look like, so I make a directory called `hello-world` and a blank `build.sbt` and copy/paste that single line into it, just as it's described in the documentation.
+
+Naturally I still have to install `sbt`, and I execute a bunch of steps [2]. Namely the following:
+
+```bash
+# To install the correct JDK:
+sdk install java 17.0.15-tem
+
+# To install sbt
+sdk install sbt
+```
+
+It would be nice if the Zio docs linked to this bit of setup to make it a bit more clear for the newbies. Regardless, after all of that is done I can type:
+
+```bash
+sbt
+# And you're greeted with:
+sbt:hello-world>
+```
+
+For fun I type: `run` and see a `RuntimeException`. Essentially all I have is a `build.sbt` in a folder called `hello-world` with not a single line of Scala in it.
+
+What it does generate after doing the above, are two folders `project` and `target` which contain a whole slew of files which I'm also ignoring right now for my own sanity.
+
+## "Hello, World"
+
+To make some Zio code and make a boring "Hello, World" in Zio I make a `Main.scala` in the base folder and fill it out with even less Zio code than the example on the "Overview" page. What I ended up with is this:
+
+```bash
+# output of tree -L 1 .
+.
+├── build.sbt
+├── Main.scala
+├── project
+└── target
+```
+
+```scala
+// Contents of Main.scala
+import zio._
+import zio.Console._
+
+object HelloWorld extends ZIOAppDefault {
+  def run = printLine("Hello, World")
+}
+
+// Contents of build.sbt
+libraryDependencies += "dev.zio" %% "zio" % "2.1.18"
+```
+
+Opening up `sbt`, I can finally type `run` without any errors, and it correctly returns `Hello, World`.  Beautiful.
+
+Immediately a couple of things already strike me. I'm extending from something called `ZIOAppDefault` and I've no idea what that is. This is where source inspection comes in handy and having your editor be a useful tool. I've setup my editor (`nvim`) with `metals` [3] so I can type `gD` to get the definition of what is under my cursor. I can also use a smaller pop-out window with `K`.
+
+It turns out `ZIOAppDefault` extends from another trait called `ZIOApp` , which extends from many other things; turtles all the way down. This is absolutely not interesting for the sake of this article, but good to be aware of.
+
+What _is_ interesting to mention is that `printLine()` is not the standard Scala `println()`, so to make the code break I swap them out:
+
+```scala
+// Contents of Main.scala
+import zio._
+import zio.Console._
+
+object HelloWorld extends ZIOAppDefault {
+  def run = println("Hello, World")
+}
+```
+
+All of a sudden the return type to `run()` is incorrect, because `println` returns a void - or `Unit` as it is called in Scala - while `run()` expects a `ZIO[Any, Any, Any]`. Type inference is the devil, especially when learning a new language or framework; I want my code to be as explicit as possible. Also having learned Rust and Golang you _always_ explicitly state your return types, so for the sake of being a good boy scout I will also do that with any future Scala code I write. The type I get suggested from my editor is: `ZIO[Any, Any, Any]` so I will use that:
+
+```scala
+// Contents of Main.scala
+import zio._
+import zio.Console._
+
+object HelloWorld extends ZIOAppDefault {
+  def run: ZIO[Any, Any, Any] =
+    printLine("Hello, World")
+}
+```
+
+Now my obvious issue is that `Any` is too vague, so looking up the definition of `printLine()` it should actually be: `ZIO[Any, IOException, Unit]`. When using that as my type I get the following error: `Not found IOException`. After looking up under which namespace `IOException` lives, I can make the full example:
+
+```scala
+// Contents of Main.scala
+import zio._
+import zio.Console._
+import java.io.IOException
+
+object HelloWorld extends ZIOAppDefault {
+  def run: ZIO[Any, IOException, Unit] =
+    printLine("Hello, World")
+}
+```
+
+... and that's how you do `Hello, World`?
+
+Well, we can optimize this further. Notice those underscores in the imports from zio? This means that I import _everything_ that lives under that namespace, which is of course way too much for something as plain as "Hello, World". All I'm using is `ZIO` and `ZIOAppDefault`, and of course `printLine`. `Unit` and `Any` are always present to Scala so you don't have to explicitly import them. To be as explicit as I can be, I end up with the following code:
+
+```scala
+// Contents of Main.scala
+import zio.{ ZIO, ZIOAppDefault }
+import zio.Console.printLine
+import java.io.IOException
+
+object HelloWorld extends ZIOAppDefault {
+  def run: ZIO[Any, IOException, Unit] =
+    printLine("Hello, World")
+}
+```
+
+... and finally I have what I would call an acceptable "Hello, World" in Zio.
+
+## Solving AOC 2019 part 1
+As a good benchmark, and learning exercise, to see what a framework or language has under its belt, I'll try to solve one of the many Advent Of Code puzzles. I haven't done all of them yet so I'll try and solve the day 1 puzzle of the Advent Of Code 2019 with Zio [4]. For this I want to achieve a couple of things:
+
+- Use TDD (Test driven development)
+- Using basic file IO
+- Being able to do `sbt 'run 1 1 input'` to indicate which day to run (1 till 25), which part to run (1 or 2) and which file to read for input. So, make use of command line arguments.
+
+### Project setup struggles
+I start my project again similarly as the "Hello, World" example above, by making a `build.sbt` and dunking in that single dependency line. Of course I want to have access to testing, so I also import all the libraries the documentation says I need to import under 'Reference -> Testing -> Installation' [5]. The full `build.sbt` looks like such:
+
+```scala
+libraryDependencies += "dev.zio" %% "zio" % "2.1.18"
+
+libraryDependencies ++= Seq(
+  "dev.zio" %% "zio-test"          % "2.1.18" % Test,
+  "dev.zio" %% "zio-test-sbt"      % "2.1.18" % Test,
+  "dev.zio" %% "zio-test-magnolia" % "2.1.18" % Test
+)
+```
+
+The first basic point that I can make is: "do I _really_ need all of these libraries?". And the answer to that is: no, if you keep it all very basic. However, that's not what the documentation states.
+
+The bigger hurdle I encounter is again in the documentation,

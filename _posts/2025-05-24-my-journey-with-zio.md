@@ -276,22 +276,20 @@ def suite[In](label: String)(specs: In*)(implicit
     zio.test.suite(label)(specs: _*)
 ```
 
-> ### Tangent: implicits
+> ### Tangent: parenthesis and implicits
 > ... and this brings me to the most annoying Scala-feature: implicits. I already mentioned that I'd like to be as explicit as possible, and it just so happens that the definition of this feature is the literal antonym of explicit. Just look at that method, it has not one set of parenthesis, it has three. This actually makes me wonder if Scala has a limit to how many parenthesis a function can actually have. Turns out it hasn't got a limit and this is perfectly street legal:
 >
-> ```scala
-> def sillyConcat(a: String)(b: String)(c: String)(d: String)(e: String)(f: String)(g: String)(h: String): String = a + b + c + d + e + f + g + h
->
-> sillyConcat("a")("b")("c")("d")("e")("f")("g")("h")
-> ```
+```scala
+def sillyConcat(a: String)(b: String)(c: String)(d: String)(e: String)(f: String)(g: String)(h: String): String = a + b + c + d + e + f + g + h
+sillyConcat("a")("b")("c")("d")("e")("f")("g")("h")
+```
 >
 > Whoever came up with this design, I love it. It's so ridiculous and over the top that it puts a smile on my face. Why you wouldn't just write it like such and just keep it vanilla is beyond me:
 >
-> ```scala
-> def sillyConcat(a: String, b: String, c: String, d: String, e: String, f: String, g: String, h: String): String = a + b + c + d + e + f + g + h
->
-> sillyConcat("a", "b", "c", "d", "e", "f", "g", "h")
-> ```
+```scala
+def sillyConcat(a: String, b: String, c: String, d: String, e: String, f: String, g: String, h: String): String = a + b + c + d + e + f + g + h
+sillyConcat("a", "b", "c", "d", "e", "f", "g", "h")
+```
 >
 > With that sillyness out of the way, it's time to talk implicits. An implicit allows you to define a 'contextual parameter' so that you can write multiple functions of the same name for various types of objects. Other programming languages will just say: just write multiple functions with different sounding names, or implement the same function _per type_ but Scala takes a detour and with implicits does exactly the same, but in such a way that it becomes incredibly obscure to the reader what the code is actually doing because looking at the `suite` example from earlier, I'm not actually calling the third bracket `()` when setting up my tests. Coming from professionaly writing Golang this is almost the complete reverse design philosophy.
 
@@ -494,31 +492,31 @@ This still has the `unless()`'s at the end of the `ZIO.fail("")` lines, but this
 > ### Tangent: Zio's scope
 > What I will say is that I have no clue if this counts as 'it being written in Zio' because I'm essentially just parsing the command line arguments with pure Scala and not with Zio. Obviously that's an inherently confusing statement because Zio _is written in_ Scala, so "what do you mean by this?" I hear you thinking. Well the biggest problem I have so far with Zio is the public interface. What is the public interface of Zio? Because it has decided to wrap very basic functionality like `printLine` instead of suggesting to do something like this:
 >
-> ```scala
-> ZIO.succeed(println("Hello, World"))
-> ```
+```scala
+ZIO.succeed(println("Hello, World"))
+```
 >
 > It almost causes me to think Zio can be seen in the same limelight as something like processing [8] where every bit of Scala code can be wrapped up inside a nice Zio box. So mentally it becomes this:
 >
-> ```
-> ┌────────────────────┐
-> │     ┌─────────────┐│
-> │     │       ┌────┐││
-> │zio  │scala  │java│││
-> │     │       └────┘││
-> │     └─────────────┘│
-> └────────────────────┘
-> ```
+```
+┌────────────────────┐
+│     ┌─────────────┐│
+│     │       ┌────┐││
+│zio  │scala  │java│││
+│     │       └────┘││
+│     └─────────────┘│
+└────────────────────┘
+```
 >
 > Rather than what it should be:
 >
-> ```
-> ┌────────────────────┐
-> │             ┌─────┐│
-> │zio + scala  │java ││
-> │             └─────┘│
-> └────────────────────┘
-> ```
+```
+┌────────────────────┐
+│             ┌─────┐│
+│zio + scala  │java ││
+│             └─────┘│
+└────────────────────┘
+```
 >
 > Of course it _is_ the latter, but the scope of Zio is so enormous that it almost starts to slip and slide into the above image at points.
 
