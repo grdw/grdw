@@ -5,7 +5,7 @@ title: "My journey with Zio"
 
 ## Introduction
 
-Zio is a framework for Scala, to be more precise - and I'm quoting from the front-page of the website - it's a "type-safe, composable asynchronous and concurrent" framework for Scala. So what can you do with it? Well, with Zio you can literally build anything you want. A web service, check! A little command line application, check! Kafka consumers, Kafka producers, SQS clients, gRPC servers; let all things be Zio! It's the swiss-army knife of the Scala world.
+Zio is a framework for Scala, to be more precise - and I'm quoting from the front-page of the website - it's a "type-safe, composable asynchronous and concurrent" framework for Scala. So what can you do with it? Well, with Zio you can literally build anything you want. A web service, check! A little command line application, check! Kafka consumers, Kafka producers, SQS clients, gRPC servers; let all things be Zio! It's the Swiss-army knife of the Scala world.
 
 This blog post is describing some of my experiences with learning Zio and Scala, and all the hurdles I met (and am still meeting), of which there are plenty. This article is roughly split into four sections: setup, a hello-world example, solving the Day 1 puzzle of the Advent Of Code 2019, and a conclusion block in the end.
 
@@ -97,7 +97,7 @@ object HelloWorld extends ZIOAppDefault {
 }
 ```
 
-All of a sudden the return type to `run()` is incorrect, because `println` returns a void - or `Unit` as it is called in Scala - while `run()` expects a `ZIO[Any, Any, Any]`. Type inference is the devil, especially when learning a new language or framework; I want my code to be as explicit as possible. Also having learned Rust and Golang you _always_ explicitly state your return types, so for the sake of being a good boyscout I will also do that with any future Scala code I write. The type I get suggested from my editor is: `ZIO[Any, Any, Any]` so I will use that:
+All of a sudden the return type to `run()` is incorrect, because `println` returns a void - or `Unit` as it is called in Scala - while `run()` expects a `ZIO[Any, Any, Any]`. Type inference is the devil, especially when learning a new language or framework; I want my code to be as explicit as possible. Also having learned Rust and Golang you _always_ explicitly state your return types, so for the sake of being a good boy scout I will also do that with any future Scala code I write. The type I get suggested from my editor is: `ZIO[Any, Any, Any]` so I will use that:
 
 ```scala
 // Contents of Main.scala
@@ -175,7 +175,7 @@ The bigger hurdle I encounter is again in the documentation, because I'm not sur
 └── target
 ```
 
-However, this doesn't work because of the `% Test`-bits that are stated in the test dependencies. After some Google'ing it turns out that `% Test` implies that these dependencies are only available to tests that live in `src/test/scala` [6]. The reason for this is pretty obvious, it's to make sure that once you compile the code, you don't accidentally bloat your final compiled code with any test code. Again, it would have been nice if Zio specifies this in their documentation, or link to this detail in the sbt documentation. After changing stuff around my folder structure it starts to look like this:
+However, this doesn't work because of the `% Test`-bits that are stated in the test dependencies. After some Googling it turns out that `% Test` implies that these dependencies are only available to tests that live in `src/test/scala` [6]. The reason for this is pretty obvious, it's to make sure that once you compile the code, you don't accidentally bloat your final compiled code with any test code. Again, it would have been nice if Zio specifies this in their documentation, or link to this detail in the sbt documentation. After changing stuff around my folder structure it starts to look like this:
 
 ```bash
 .
@@ -205,7 +205,7 @@ However, this still doesn't quite look that nice, so after some fiddling I settl
 
 ```
 
-This seems to be a somewhat okay setup for now. The layers of folders I have to set up is quite jarring, but remembering Java from the good 'ol college days, I'm not quite sure if there's a way around this. After declaring the package names everywhere as `aoc2019` I'm properly setup to attempt the first puzzle of the Advent of Code 2019. While doing all of this, the feature I miss from `sbt` is to do `sbt new name-of-thing` and it just spewing out a similar folder structure to the thing above, but it seems like that's all based around custom third-party templates it needs to fetch from some GitHub repo, instead of having a very strongly opionated one-size-fits all solution, kind of like I'm used to from doing `cargo new` in Rust.
+This seems to be a somewhat okay setup for now. The layers of folders I have to set up is quite jarring, but remembering Java from the good 'ol college days, I'm not quite sure if there's a way around this. After declaring the package names everywhere as `aoc2019` I'm properly setup to attempt the first puzzle of the Advent of Code 2019. While doing all of this, the feature I miss from `sbt` is to do `sbt new name-of-thing` and it just spewing out a similar folder structure to the thing above, but it seems like that's all based around custom third-party templates it needs to fetch from some GitHub repo, instead of having a very strongly opinionated one-size-fits all solution, kind of like I'm used to from doing `cargo new` in Rust.
 
 Regardless, the first thing I do is write some basic boilerplate in `Main.scala`, `DayOne.scala` and in `DayOneSpec.scala`:
 
@@ -291,13 +291,13 @@ def sillyConcat(a: String, b: String, c: String, d: String, e: String, f: String
 sillyConcat("a", "b", "c", "d", "e", "f", "g", "h")
 ```
 >
-> With that sillyness out of the way, it's time to talk implicits. An implicit allows you to define a 'contextual parameter' so that you can write multiple functions of the same name for various types of objects. Other programming languages will just say: just write multiple functions with different sounding names, or implement the same function _per type_ but Scala takes a detour and with implicits does exactly the same, but in such a way that it becomes incredibly obscure to the reader what the code is actually doing because looking at the `suite` example from earlier, I'm not actually calling the third bracket `()` when setting up my tests. Coming from professionaly writing Golang this is almost the complete reverse design philosophy.
+> With that silliness out of the way, it's time to talk implicits. An implicit allows you to define a 'contextual parameter' so that you can write multiple functions of the same name for various types of objects. Other programming languages will just say: just write multiple functions with different sounding names, or implement the same function _per type_ but Scala takes a detour and with implicits does exactly the same, but in such a way that it becomes incredibly obscure to the reader what the code is actually doing because looking at the `suite` example from earlier, I'm not actually calling the third bracket `()` when setting up my tests. Coming from professionally writing Golang this is almost the complete reverse design philosophy.
 
 With that tangent out of the way, I don't see a way of setting the type of `def spec: ...` without really banging my head against the wall multiple times in a row, so I'm leaving it as is, purely because it is test code after all and it's probably not worth the effort.
 
 ### Command line args
 
-One of ths first things I want to add to my Advent Of Code 2019 `Main.scala` is the ability to have command line arguments in order to run a solution for a certain day and a certain part. For this to work I must use `ZIOAppArgs`. An example goes roughly like this:
+One of the first things I want to add to my Advent Of Code 2019 `Main.scala` is the ability to have command line arguments in order to run a solution for a certain day and a certain part. For this to work I must use `ZIOAppArgs`. An example goes roughly like this:
 
 ```scala
 package aoc2019
@@ -398,7 +398,7 @@ object Solutions extends ZIOAppDefault {
 }
 ```
 
-It has some type validation for the arguments, and routes these arguments to a specific Advent Of Code solution for a specific day and a specific part. However, it looks like hot trash. Can that for-comprehension go any further horizontally? It also has one of my least favourite features of any programming language, logic _at the end of a long line of code_. In Ruby you can conjure up this lovely joke:
+It has some type validation for the arguments, and routes these arguments to a specific Advent Of Code solution for a specific day and a specific part. However, it looks like hot trash. Can that for-comprehension go any further horizontally? It also has one of my least favorite features of any programming language, logic _at the end of a long line of code_. In Ruby you can conjure up this lovely joke:
 
 ```ruby
 def a_very_long_method_name_with_a_single_arg(explicit_arg:)
@@ -594,7 +594,7 @@ object FileReaderApp extends ZIOAppDefault {
 }
 ```
 
-Without testing for correctness, what's immediately apparent is that it needs quite some boilerplate and some random Java interal, for something this straight-forward. If I ask our dearest friend ChatGPT to instead give me the exact same code but in pure Scala this time, so without Zio, I get:
+Without testing for correctness, what's immediately apparent is that it needs quite some boilerplate and some random Java internal, for something this straight-forward. If I ask our dearest friend ChatGPT to instead give me the exact same code but in pure Scala this time, so without Zio, I get:
 
 ```scala
 import scala.io.Source
@@ -640,7 +640,7 @@ object FileReaderWrappedInZio extends ZIOAppDefault {
 }
 ```
 
-... and this further proves my point I made earlier of the blurryness of Scala and Zio, and what Zio is actually trying to be.
+... and this further proves my point I made earlier of the blurriness of Scala and Zio, and what Zio is actually trying to be.
 
 ### Actually actually solving the Advent Of Code Day 1.
 
@@ -661,8 +661,8 @@ ZIO.readFile(input)
 ## Concluding
 I would like to conclude this article by raising some points that I've noticed so far a few months into the Scala and Zio journey. They're in order from serious to less serious:
 
-- Learning Scala and Zio hand-in-hand can be quite jarring. The flakey documentation of Zio and the amount that's implied throughout the documentation is quite frustrating for beginners. This does not only go for actual code, but also for things like assumptions in setup, folder structures, etc.
-- The error-handling can be outright confusing. A tremendous help would be having code-examples that are executable by the scala REPL, or simply by copy/pasting them around in your own code-base, so that you know what Zio would expect you to do.
+- Learning Scala and Zio hand-in-hand can be quite jarring. The flaky documentation of Zio and the amount that's implied throughout the documentation is quite frustrating for beginners. This does not only go for actual code, but also for things like assumptions in setup, folder structures, etc.
+- The error-handling can be outright confusing. A tremendous help would be having code-examples that are executable by the Scala REPL, or simply by copy/pasting them around in your own code-base, so that you know what Zio would expect you to do.
 - Because Zio is functional in nature, it seems that the public interface has 'everything' which makes it so that every bit of Scala code can become Zio wrapping paper. This scares me because if popularity starts to dwindle a massive project like Zio _can_ and will start to show cracks because it essentially has to support _everything_.
 - Never thought I would've so much fun writing "Hello, World".
 - Just to really make Scala struggle I want to how many parenthesis are too many parenthesis:
