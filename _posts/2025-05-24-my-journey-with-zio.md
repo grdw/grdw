@@ -29,9 +29,9 @@ libraryDependencies += "dev.zio" %% "zio" % "2.1.18"
 
 And if I want to use "streams", whatever those might be, it tells me to include another similar looking line\*, which I'm ignoring for now.
 
-My initial gut reaction to this is: what in the bleep is a `build.sbt`? The author of this text assumes I'm using `sbt` for my project and not anything else like `gradle`. So, there are no alternatives in this case according to the author of setting up Zio if I have to purely read the documentation. It also doesn't give me a full example of what such a `build.sbt` must look like, so I make a directory called `hello-world` and a blank `build.sbt` and copy/paste that single line into it, just as it's described in the documentation.
+My initial gut reaction to this is: what in the bleep is a `build.sbt`? The author of this text assumes I'm using `sbt` for my project and not anything else like `gradle`. So, there are no alternatives in this case according to the author of setting up Zio if I have to purely take the documentation's word. It also doesn't give me a full example of what such a `build.sbt` must look like, so I make a directory called `hello-world` and a blank `build.sbt` and copy/paste that single line into it, just as it's described in the documentation.
 
-Naturally I still have to install `sbt`, and I execute a bunch of steps [2]. Namely the following:
+Naturally I still have to install `sbt`, and I execute a bunch of steps [2] to do so:
 
 ```bash
 # To install the correct JDK:
@@ -55,7 +55,7 @@ What it does generate after doing the above, are two folders `project` and `targ
 
 ## "Hello, World"
 
-To make some Zio code and make a boring "Hello, World" in Zio I make a `Main.scala` in the base folder and fill it out with even less Zio code than the example on the "Overview" page. What I ended up with is this:
+To write some basic Zio code and make a boring "Hello, World" I first create a `Main.scala` file in the `hello-world` folder and fill it out with even less Zio code than the example on the "Overview" page. What I ended up with is this:
 
 ```bash
 # output of tree -L 1 .
@@ -74,7 +74,9 @@ import zio.Console._
 object HelloWorld extends ZIOAppDefault {
   def run = printLine("Hello, World")
 }
+```
 
+```scala
 // Contents of build.sbt
 libraryDependencies += "dev.zio" %% "zio" % "2.1.18"
 ```
@@ -219,7 +221,9 @@ object Solutions extends ZIOAppDefault {
   def run: ZIO[Any, Any, Any] =
     DayOne.solution
 }
+```
 
+```scala
 // ./src/main/scala/aoc2019/DayOne.scala
 package aoc2019
 
@@ -229,7 +233,9 @@ object DayOne {
   def solution: ZIO[Any, Any, Any] =
     ZIO.succeed("placeholder")
 }
+```
 
+```scala
 // ./src/test/scala/aoc2019/DayOneSpec.scala
 package aoc2019
 
