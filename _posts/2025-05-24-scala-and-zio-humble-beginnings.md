@@ -671,7 +671,7 @@ I would like to conclude this article by raising some points that I've noticed s
 - The error-handling can be outright confusing. A tremendous help would be having code-examples that are executable by the Scala REPL, or simply by copy/pasting them around in your own code-base, so that you know what Zio would expect you to do.
 - Because Zio is functional in nature, it seems that the public interface has 'everything' which makes it so that every bit of Scala code can become Zio wrapping paper. This scares me because if popularity starts to dwindle a massive project like Zio _can_ and will start to show cracks because it essentially has to support _everything_.
 - Never thought I would've so much fun writing "Hello, World".
-- Just to really make Scala struggle I want to how many parenthesis are too many parenthesis:
+- Just to really make Scala struggle I want to know how many parenthesis are too many parenthesis:
 
 ```ruby
 # Store in function_hell.rb
