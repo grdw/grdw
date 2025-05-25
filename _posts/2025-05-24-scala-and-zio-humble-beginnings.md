@@ -177,7 +177,7 @@ The bigger hurdle I encounter is again in the documentation, because I'm not sur
 └── target
 ```
 
-However, this doesn't work because of the `% Test`-bits that are stated in the test dependencies. After some Googling it turns out that `% Test` implies that these dependencies are only available to tests that live in `src/test/scala` [6]. The reason for this is pretty obvious, it's to make sure that once you compile the code, you don't accidentally bloat your final compiled code with any test code. Again, it would have been nice if Zio specifies this in their documentation, or link to this detail in the sbt documentation. After changing stuff around my folder structure it starts to look like this:
+However, this doesn't work because of the `% Test`-bits that are stated in the test dependencies. After some Googling it turns out that `% Test` implies that these dependencies are only available to tests that live in `src/test/scala` [6]. The reason for this is pretty obvious, it's to make sure that once you compile the code, you don't accidentally bloat your final compiled code with any test code. Again, it would have been nice if Zio specifies this in their documentation, or link to this detail in the sbt documentation. After changing stuff around my folder structure starts to look like this:
 
 ```bash
 .
