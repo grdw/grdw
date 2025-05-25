@@ -714,7 +714,7 @@ object functionHell {
 }
 ```
 
-This outputs 15931, and I'm really hoping that this feature came as a request from a developer within the Scala community. Hopefully Scala 3 allows more parenthesis.
+This outputs 15931, and I'm really hoping that this feature of having 179 parenthesis came as a request from a developer within the Scala community. Hopefully Scala 3 allows more parenthesis.
 
 ### Sources
 
