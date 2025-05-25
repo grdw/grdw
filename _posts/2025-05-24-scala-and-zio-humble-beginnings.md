@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "My journey with Zio"
+title: "Scala and Zio: Humble Beginnings"
 ---
 
 ## Introduction
