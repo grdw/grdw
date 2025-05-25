@@ -17,6 +17,8 @@ h1#header {
   margin-bottom: 12px;
 }
 
+h2 { margin: 0; }
+
 h3 {
   margin: 0;
   font-size: 100%;
@@ -27,6 +29,10 @@ h4 {
   font-weight: 0;
   font-size: 100%;
   font-style: italic;
+}
+
+h2 ~ p {
+  margin-top: 10px;
 }
 
 h3 ~ p, h3 ~ ul {
