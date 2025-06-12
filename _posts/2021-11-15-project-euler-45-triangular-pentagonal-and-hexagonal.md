@@ -78,4 +78,4 @@ Voilà! It finished in 0.10s. Alongside that, this saves the need for an `is_hex
 
 ### Sources
 
-\[1\] [Hexagonal number](https://en.wikipedia.org/wiki/Hexagonal_number)
+1. [Hexagonal number](https://en.wikipedia.org/wiki/Hexagonal_number)

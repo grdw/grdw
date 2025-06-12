@@ -166,4 +166,4 @@ fn test_problem_44() {
 
 ### Sources
 
-\[1\] [Pentagonal number](https://en.wikipedia.org/wiki/Pentagonal_number)
+1. [Pentagonal number](https://en.wikipedia.org/wiki/Pentagonal_number)

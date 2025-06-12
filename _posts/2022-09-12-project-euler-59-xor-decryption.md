@@ -250,4 +250,4 @@ We just tweak `vec` directly in the `next()` method and move it to the returned 
 
 ### Sources
 
-\[1\] [reddit.com/r/rust/u8_to_char_using_ascii_encoding](https://www.reddit.com/r/rust/comments/2veszg/u8_to_char_using_ascii_encoding/)
+1. [reddit.com/r/rust/u8_to_char_using_ascii_encoding](https://www.reddit.com/r/rust/comments/2veszg/u8_to_char_using_ascii_encoding/)

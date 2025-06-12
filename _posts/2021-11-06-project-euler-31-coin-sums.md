@@ -75,12 +75,12 @@ It's the correct answer, but I have no clue how this works from a math point of 
 
 ### Sources
 
-\[1\] [How many combinations possible to make $10 from a set](https://math.stackexchange.com/questions/3774377/how-many-combinations-possible-to-make-10-from-a-set-amount-of-coins)
+1. [How many combinations possible to make $10 from a set](https://math.stackexchange.com/questions/3774377/how-many-combinations-possible-to-make-10-from-a-set-amount-of-coins)
 
-\[2\] [How many combinations of coins add up to $20](https://math.stackexchange.com/questions/3606321/how-many-combination-of-coins-add-up-to-20)
+2. [How many combinations of coins add up to $20](https://math.stackexchange.com/questions/3606321/how-many-combination-of-coins-add-up-to-20)
 
-\[3\] [Partion (Number theory)](https://en.wikipedia.org/wiki/Partition_%28number_theory%29)
+3. [Partion (Number theory)](https://en.wikipedia.org/wiki/Partition_%28number_theory%29)
 
-\[4\] [Integer Partitioning with Dynamic Programming](https://www.youtube.com/watch?v=3hc-Urx4S8g)
+4. [Integer Partitioning with Dynamic Programming](https://www.youtube.com/watch?v=3hc-Urx4S8g)
 
-\[5\] [Change for a dollar](https://math.stackexchange.com/questions/176363/keep-getting-generating-function-wrong-making-change-for-a-dollar/176397#176397)
+5. [Change for a dollar](https://math.stackexchange.com/questions/176363/keep-getting-generating-function-wrong-making-change-for-a-dollar/176397#176397)

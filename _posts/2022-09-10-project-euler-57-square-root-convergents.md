@@ -108,4 +108,4 @@ It takes 0.21s to resolve it, which is fast enough in my book.
 
 ### Sources
 
-\[1\] [rosettacode.org/wiki/Continued_fraction](https://rosettacode.org/wiki/Continued_fraction)
+1. [rosettacode.org/wiki/Continued_fraction](https://rosettacode.org/wiki/Continued_fraction)

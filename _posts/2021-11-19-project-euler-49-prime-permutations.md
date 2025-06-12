@@ -191,4 +191,4 @@ Done!
 
 ### Sources
 
-\[1\] [Combinations#rust](https://rosettacode.org/wiki/Combinations#Rust)
+1. [Combinations#rust](https://rosettacode.org/wiki/Combinations#Rust)

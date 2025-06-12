@@ -208,8 +208,8 @@ fn test_problem_47() {
 
 ### Sources
 
-\[1\] [Quora: Can you determine how many prime factors a number has without determining what they are?](https://www.quora.com/Can-you-determine-how-many-prime-factors-a-number-has-without-determining-what-they-are-For-natural-number-n-how-many-prime-factors-does-n-have)
+1. [Quora: Can you determine how many prime factors a number has without determining what they are?](https://www.quora.com/Can-you-determine-how-many-prime-factors-a-number-has-without-determining-what-they-are-For-natural-number-n-how-many-prime-factors-does-n-have)
 
-\[2\] [Count distinct prime factors](https://stackoverflow.com/a/17638003)
+2. [Count distinct prime factors](https://stackoverflow.com/a/17638003)
 
-\[3\] [Sieve of Eratosthenes](https://en.wikipedia.org/wiki/Sieve_of_Eratosthenes)
+3. [Sieve of Eratosthenes](https://en.wikipedia.org/wiki/Sieve_of_Eratosthenes)

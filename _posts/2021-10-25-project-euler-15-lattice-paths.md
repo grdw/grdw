@@ -402,8 +402,8 @@ It still won't fit on a 64-bit integer, but it's a tiny bit faster.
 
 ### Sources
 
-\[1\] [Wikipedia/Lattice path](https://en.wikipedia.orgi/wiki/Lattice_path){:target="_blank"}
+1. [Wikipedia/Lattice path](https://en.wikipedia.orgi/wiki/Lattice_path){:target="_blank"}
 
-\[2\] [Chilimath/simplifying factorials](https://www.chilimath.com/lessons/intermediate-algebra/simplifying-factorials-with-variables/){:target="_blank"}
+2. [Chilimath/simplifying factorials](https://www.chilimath.com/lessons/intermediate-algebra/simplifying-factorials-with-variables/){:target="_blank"}
 
-\[3\] [Dummies/how to simplify factorial expressions](https://www.dummies.com/education/math/algebra/how-to-simplify-factorial-expressions/){:target="_blank"}
+3. [Dummies/how to simplify factorial expressions](https://www.dummies.com/education/math/algebra/how-to-simplify-factorial-expressions/){:target="_blank"}

@@ -310,12 +310,12 @@ fn test_next_perm() {
 
 ### Sources
 
-\[1\] [Wikipedia/heap's algorithm](https://en.wikipedia.org/wiki/Heap%27s_algorithm){:target="_blank"}
+1. [Wikipedia/heap's algorithm](https://en.wikipedia.org/wiki/Heap%27s_algorithm){:target="_blank"}
 
-\[2\] [Baeldung/array generate all permutations](https://www.baeldung.com/cs/array-generate-all-permutations){:target="_blank"}
+2. [Baeldung/array generate all permutations](https://www.baeldung.com/cs/array-generate-all-permutations){:target="_blank"}
 
-\[3\] [Stackoverflow/understanding-recursion-to-generate-permutations](https://stackoverflow.com/questions/7537791/understanding-recursion-to-generate-permutations){:target="_blank"}
+3. [Stackoverflow/understanding-recursion-to-generate-permutations](https://stackoverflow.com/questions/7537791/understanding-recursion-to-generate-permutations){:target="_blank"}
 
-\[4\] [Mathsanew/permutations with recursion](https://mathsanew.com/articles_html/27/permutations_with_recursionli5.html){:target="_blank"}
+4. [Mathsanew/permutations with recursion](https://mathsanew.com/articles_html/27/permutations_with_recursionli5.html){:target="_blank"}
 
-\[5\] [Quickperm/lexico](https://www.quickperm.org/lexico.php){:target="_blank"}
+5. [Quickperm/lexico](https://www.quickperm.org/lexico.php){:target="_blank"}

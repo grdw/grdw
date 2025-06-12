@@ -534,4 +534,4 @@ fn test_problem_26() {
 
 ### Sources
 
-\[1\] [An Algorithm for Arbitrary Precision Integer Division](http://justinparrtech.com/JustinParr-Tech/an-algorithm-for-arbitrary-precision-integer-division/){:target="_blank"}
+1. [An Algorithm for Arbitrary Precision Integer Division](http://justinparrtech.com/JustinParr-Tech/an-algorithm-for-arbitrary-precision-integer-division/){:target="_blank"}

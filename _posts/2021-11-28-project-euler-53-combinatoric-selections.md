@@ -282,4 +282,4 @@ Voila! Done in 0.00s.
 
 ### Sources
 
-\[1\] [en.wikipedia.org/wiki/Pascal%27s_rule](https://en.wikipedia.org/wiki/Pascal%27s_rule){:target="_blank"}
+1. [en.wikipedia.org/wiki/Pascal%27s_rule](https://en.wikipedia.org/wiki/Pascal%27s_rule){:target="_blank"}
