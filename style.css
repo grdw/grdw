@@ -104,6 +104,7 @@ h3 + ol {
   margin: 0 0 24px 0;
   font-size: 0.7em;
 }
+
 h3 + ol li {
   display: inline list-item;
 }
