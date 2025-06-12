@@ -486,12 +486,8 @@ Copying a file across your own personal devices is still painful. The flow is in
 
 ### Sources
 
-\[1\] [Transfer files between your computer & Android device](https://support.google.com/android/answer/9064445?hl=en)
-
-\[2\] [Terminus Google Play Store](https://play.google.com/store/apps/details?id=com.server.auditor.ssh.client&hl=en&gl=US)
-
-\[3\] [WebSocket](https://developer.mozilla.org/en-US/docs/Web/API/WebSocket)
-
-\[4\] [SocketsBay](https://socketsbay.com/test-websockets)
-
-\[5\] [Postman Websockets](https://blog.postman.com/introducing-postman-websocket-echo-service/)
+1. [Transfer files between your computer & Android device](https://support.google.com/android/answer/9064445?hl=en)
+2. [Terminus Google Play Store](https://play.google.com/store/apps/details?id=com.server.auditor.ssh.client&hl=en&gl=US)
+3. [WebSocket](https://developer.mozilla.org/en-US/docs/Web/API/WebSocket)
+4. [SocketsBay](https://socketsbay.com/test-websockets)
+5. [Postman Websockets](https://blog.postman.com/introducing-postman-websocket-echo-service/)
