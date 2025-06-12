@@ -99,12 +99,12 @@ td {
   vertical-align: top;
 }
 
-h3 ~ ol {
+h3 + ol {
   padding: 0;
   margin: 0 0 24px 0;
   font-size: 0.7em;
 }
-h3 ~ ol li {
+h3 + ol li {
   display: inline list-item;
 }
 
