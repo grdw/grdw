@@ -189,7 +189,7 @@ object CarShop extends ZIOAppDefault {
 
 This article is merely one example of how utterly sloppy the Zio community is with their documentation. Abstraction on abstraction on abstraction on magical trait on magical function on magical object on magical one lettered variable name. But curse you I shall if you don't abstract properly, and vague error messages I shall raise to thee! Witchcraft and wizardry are a thing of the past and always highly costly. In development time, and further more in resource consumption. Please stop doing it, and let this be a warning to the reader: stop building things in Zio, and pick instead something bland and boring with actual proper documentation. Unfortunately for me I'll continue with the pain and torture, and hopefully it well get me some more nice articles.
 
-## Sources
+### Sources
 
 1. [zio drawing of HandlerAspect](https://zio.dev/zio-http/reference/aop/handler_aspect/)
 1. [Stackoverflow](https://stackoverflow.com/questions/77504825/how-to-get-a-value-of-handleraspects-ctxout-type-in-request-processing)
