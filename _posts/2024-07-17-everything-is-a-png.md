@@ -55,7 +55,6 @@ These 4 pixels spell out "hello world", and here is where I got curious what wou
 |\`\`\`lCCCommm | gray   | <img width="20px" src="/img/3/11.png"/> |
 |l߈o            | invert | <img width="20px" src="/img/3/12.png"/> |
 
-<br/>
 Naturally, this got me thinking: with this Rust code, I can turn painting tools like Gimp or Paint into very poor text editors. It also brought up the question: out of all the PNG images that are out there on the internet, which ones will accidentally spell Shakespeare or any other famous piece of text? Just to show what you have to be looking for, here are some famous and not so famous pieces of text converted to PNG's:
 
 <div>
@@ -84,7 +83,6 @@ Of course, I was thinking to myself, the product of the conversion is also a fil
 | 7 | <img width="80px" src="/img/3/22.png"/> | <img width="80px" src="/img/3/4.6.png"/> |
 | 8 | <img width="80px" src="/img/3/23.png"/> | <img width="80px" src="/img/3/4.7.png"/> |
 
-<br/>
 What is interesting to notice is that the file size gradually keeps on increasing and increasing. I'm pretty sure this happens because of the PNG format and its headers taking up space.
 
 ### Concluding

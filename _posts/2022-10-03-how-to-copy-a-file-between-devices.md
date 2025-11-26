@@ -37,7 +37,6 @@ If I made an overview of some of the most popular file-sharing technologies out 
 | Bluetooth        | ✓ | ~ | ✓
 | Apple's Airdrop  | ✓ | ✓ | ❌
 
-<br/>
 \* WeTransfer has an anonymous upload function, so it does scratch that itch.
 
 \*\* Whatsapp up until recently had the ability to send messages to yourself. Practically allowing file uploads to yourself. However, for some reason this doesn't work anymore.
@@ -84,7 +83,6 @@ If we update the original list above with "4. No junk in the middle", we get:
 | A USB-cable      | ✓ | ✓ | ~  | ✓
 | Bluetooth        | ✓ | ~ | ✓  | ✓
 
-<br/>
 For some of these services like WhatsApp or Apple's Airdrop I'm not sure if there's a storage provider in the middle. In the case of WeTransfer's anonymous file transfer, a file persists for seven days. This is not ideal, but it's slightly better than the alternatives.
 
 ### A solution

@@ -5,86 +5,37 @@ html {
   line-height: 1.5;
 }
 
-table {
-  margin-bottom: 24px;
-}
-
 body {
   font-family: Georgia, Halvetica, serif;
 }
 
-h1#header {
-  margin-bottom: 12px;
+p,ul,ol {
+  text-align: justify;
+  margin: 5px 0 20px 0;
 }
 
-h2 { margin: 0; }
-
-h3 {
-  margin: 0;
-  font-size: 100%;
-}
-
-h4 {
-  margin: 0;
-  font-weight: 0;
-  font-size: 90%;
-}
-
-h2 ~ p {
-  margin-top: 10px;
-}
-
-h3 ~ p, h3 ~ ul {
-  margin-top: 0;
-}
-
-h3 ~ ul {
-  padding-left: 1em;
-}
-
-#front {
-  text-align: center;
-}
-
-#graphic {
-  margin-top: 20px;
-}
-
-figure {
-  margin: 0;
-}
-
-blockquote {
-  padding-left: 13px;
-  margin-left: 1px;
-  border-left: 3px solid #BBB;
-}
+h1,h2,h3,h4,h5 { margin: 5px 0 }
 
 .pg {
   max-width: 800px;
   margin: 0 auto;
 }
 
+/* front-page */
+#front {
+  text-align: center;
+}
+
+#graphic {
+  margin: 20px 0;
+}
+
 .pagination a {
   text-decoration: none;
 }
 
-p {
-  text-align: justify;
-}
-
-pre {
-  color: #777;
-}
-
-pre.highlight {
-  white-space: pre-wrap;
-}
-
-span.accent {
-  color: #E1AD01;
-}
-
+*/
+/*Table styling*/
 table {
   border-collapse: collapse;
 }
@@ -98,20 +49,18 @@ td {
   vertical-align: top;
 }
 
-h3 + ol {
-  padding: 0;
-  margin: 0 0 24px 0;
+/*Footer + blockquotes */
+.footer {
   font-size: 0.7em;
 }
 
-h3 + ol li {
-  display: inline list-item;
+blockquote {
+  padding-left: 13px;
+  margin-left: 1px;
+  border-left: 3px solid #BBB;
 }
 
-div.footer, footer {
-  font-size: 0.7em;
-}
-
+/* Complexity blocks for euler/AOC exercises */
 div.complexity {
   margin-bottom: 1em;
 }
@@ -131,6 +80,15 @@ div.complexity a.complexity-2 { background-color: #98bb19; }
 div.complexity a.complexity-3 { background-color: #ffeb01; }
 div.complexity a.complexity-4 { background-color: #ff9000; }
 div.complexity a.complexity-5 { background-color: #ff4330; }
+
+/* Some code-coloring */
+pre {
+  color: #777;
+}
+
+pre.highlight {
+  white-space: pre-wrap;
+}
 
 .language-plaintext.highlighter-rouge { color: #FF6666 }
 
@@ -230,7 +188,6 @@ div.complexity a.complexity-5 { background-color: #ff4330; }
 /*
 /*
 /* $ Generated for code highlighting*/
-
 @media only screen and (max-width: 575px) {
   html {
     font-size: 1.0em;
