@@ -2,6 +2,7 @@
 layout: post
 title: "How small can you make a website?"
 tags: [raspberry pi, linux, busybox, tiny core linux]
+img: /img/5/1.jpg
 ---
 
 ## Introduction

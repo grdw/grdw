@@ -20,6 +20,9 @@
     <meta name="description" content="{{ page.excerpt | strip_html }}"/>
     <meta name="og:description" content="{{ page.excerpt | strip_html }}"/>
     {% endif %}
+    {% if page.img %}
+    <meta name="og:image" content="https://grdw.nl{{ page.img }}/>
+    {% endif %}
     {% if page.tags %}
     <meta name="keywords" content="{{ page.tags | join: ',' }}"/>
     {% endif %}
