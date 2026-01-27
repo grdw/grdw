@@ -15,6 +15,10 @@
   from: "June 2018"
   to: "February 2025"
   projects:
+    - name: Zippy - Core WeTransfer
+      description: >
+        A custom golang library for streamable zips. Based on the Ruby <a href="https://github.com/julik/zip_kit">zip-tricks/zip_kit</a> library. Also led to me to ask <a href="https://github.com/golang/go/issues/65569">a question the golang community</a> for opening up one of their functions to the public which was kindly met with a 'no'.
+
     - name: MeTransfer — Core WeTransfer
       description: Hackathon project I led in 2022 for which I won a prize. The idea here was to use locally available networks to transfer files between a single users' phone and laptop in order to save on storage costs. Roughly 28% of Transfers send at WeTransfer were transfers of a user to themselves. This was build in less than a week and roughly based on an article I wrote <a href="/2022/10/03/how-to-copy-a-file-between-devices.html">"How to copy a file between devices?"</a> which was briefly featured on the front page of Hackernews in 2024. This project led to investigative work into WebRTC / ICE / STUN / TURN, and eventually to a proof of concept at the mobile team of WeTransfer.
 
