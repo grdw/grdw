@@ -92,6 +92,35 @@ pre.highlight {
 
 .language-plaintext.highlighter-rouge { color: #FF6666 }
 
+.job h3 span {
+  font-weight: lighter;
+  font-size: 60%;
+}
+.job {
+  margin-bottom: 25px;
+  border-bottom: 1px #c8c dashed
+}
+.job .projects {
+  font-size: 85%;
+}
+.job .projects p:last-child {
+  margin-bottom: 0;
+}
+ul.job-tags {
+  margin: 0;
+  padding: 0;
+}
+ul.job-tags li {
+  list-style-type: none;
+  display: inline-block;
+  color: #cc88cc;
+  font-size: 65%;
+}
+ul.job-tags li:not(:last-child) {
+  padding-right: 5px;
+  border-right: 1px solid;
+}
+
 /*
 /*
 /*

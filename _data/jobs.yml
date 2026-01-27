@@ -1,0 +1,82 @@
+---
+- company: Vandebron
+  from: "March 2025"
+  to: Current
+  projects:
+    - name: Splitting up the monolith
+      description: >
+        Helping with turning their custom shared component setup in a fully-fledged library setup and splitting up their single repo into separate GitHub repos, CI/CD included + packages.
+  tags:
+    - backend developer
+    - scala
+    - kotlin
+
+- company: WeTransfer
+  from: "June 2018"
+  to: "February 2025"
+  projects:
+    - name: MeTransfer — Core WeTransfer
+      description: Hackathon project I led in 2022 for which I won a prize. The idea here was to use locally available networks to transfer files between a single users' phone and laptop in order to save on storage costs. Roughly 28% of Transfers send at WeTransfer were transfers of a user to themselves. This was build in less than a week and roughly based on an article I wrote <a href="/2022/10/03/how-to-copy-a-file-between-devices.html">"How to copy a file between devices?"</a> which was briefly featured on the front page of Hackernews in 2024. This project led to investigative work into WebRTC / ICE / STUN / TURN, and eventually to a proof of concept at the mobile team of WeTransfer.
+
+    - name: Decommissioning the old download-server — Backend core WeTransfer
+      description: >
+        Assisting in turning off and replacing the old download-server which at the time had about ~500 req/s. Switched from Ruby to Golang.
+
+    - name: RichUrls — Backend for the Collect product
+      description: >
+        A small service used to enrich links that are shared in a Collect board.
+
+    - name: Spaceship — Backend for the Collect product
+      description: >
+        A backend for the Collect product at WeTransfer. I worked on this project for more than 2 years at WeTransfer. I helped to integrate the newly launched Android application. Furthermore, I introduced Operational Transform (OT) to help assist with syncing data across multiple users and multiple devices, saving tons of redundant syncing requests. I helped with onboarding Auth0, a new identity provider which was used across the organization.
+  tags:
+    - backend developer
+    - ruby
+    - golang
+
+- company: Quintel Intelligence
+  from: "May 2014"
+  to: "June 2018"
+  projects:
+    - name: ETLocal — Local energy transition platform
+      description: >
+        At Quintel Intelligence I helped lay the foundation for a service that can assist municipalities and provinces with their more localized energy transition questions. This took the national energy model and scaled it down to the appropriate level.
+  tags:
+    - fullstack developer
+    - ruby
+    - open source
+
+- company: Holder
+  from: "September 2013"
+  to: "May 2014"
+  projects:
+    - name: Symbid / Gambitious — Online crowdfunding platform
+      description: >
+        Building new features, maintaining the full stack at Holder.
+  tags:
+    - fullstack developer
+    - ruby on rails
+
+- company: Gridline
+  from: "September 2011"
+  to: "February 2012"
+  tags:
+    - intern frontend
+    - javascript
+    - css
+    - html
+
+- company: Hogeschool van Amsterdam
+  from: "September 2009"
+  to: "September 2013"
+  tags:
+    - student
+    - javascript
+    - css
+    - html
+    - 'actionscript 3.0'
+    - 'C#'
+    - 'C++'
+    - 'C'
+    - Java
+    - PHP
