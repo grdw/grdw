@@ -5,8 +5,6 @@ tags: [raspberry pi, linux, busybox, tiny core linux]
 img: /img/5/1.jpg
 ---
 
-## Introduction
-
 ![rpi](/img/5/1.jpg)
 
 This is going to be my 2nd article that falls into the 'what if?' category. Now, the question here is: how small can you make a website? First up, with website I mean rendering a page, from a piece of dusty hardware (see header image), available on some IP address.
