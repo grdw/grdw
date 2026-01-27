@@ -37,4 +37,5 @@ of it. If you feel like checking the source code, you are free <a href="https://
 <a target="_blank" href="https://github.com/grdw">github</a> |
 <a href='mailto:gerard@grdw.nl'>mail</a> |
 <a href='https://letterboxd.com/Fietsband' target='_blank'>letterboxd</a> |
-<a href='https://www.discogs.com/seller/LorikeetRecords/profile' target='_blank'>lorikeet records</a>
+<a href='https://www.discogs.com/seller/LorikeetRecords/profile' target='_blank'>lorikeet records</a> |
+<a href='https://bsky.app/profile/fietsband.bsky.social' target='_blank'>bluesky</a>
