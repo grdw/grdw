@@ -18,7 +18,7 @@ The name grdw are all the unique consonants of my first name (Gerard), followed 
         {% endfor %}
     </div>
 
-    <ul class="job-tags">
+    <ul class="tags">
     {% for tag in job.tags %}
     <li>{{ tag }}</li>
     {% endfor %}

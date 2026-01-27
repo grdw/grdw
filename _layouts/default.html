@@ -12,6 +12,17 @@
     <link href="/style.css" rel="stylesheet" type="text/css"/>
     <meta charset='utf-8'>
     <meta content='width=device-width, user-scalable=no' name='viewport'>
+    <meta name="author" content="Gerard"/>
+    {% if page.title %}
+    <meta name="og:title" content="{{ page.title }}"/>
+    {% endif %}
+    {% if page.excerpt %}
+    <meta name="description" content="{{ page.excerpt | strip_html }}"/>
+    <meta name="og:description" content="{{ page.excerpt | strip_html }}"/>
+    {% endif %}
+    {% if page.tags %}
+    <meta name="keywords" content="{{ page.tags | join: ',' }}"/>
+    {% endif %}
   </head>
   <body>
     <div class='pg'>

@@ -1,6 +1,7 @@
 ---
 layout: post
 title: The shape of memory issues
+tags: ["ruby", "memory"]
 ---
 
 Memory issues are hard to deal with. Forgetting where your keys are or a memory leak in software, both can be annoying in various degrees. This article will focus mostly on the latter and specifically for Ruby environments. The generic knowledge can be applied to any garbage collected programming language, so if you're reading this with a Java background I hope this is as useful.

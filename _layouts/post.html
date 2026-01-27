@@ -19,6 +19,12 @@ layout: default
   {% include complexity.html %}
 {% endif %}
 
+<ul class="tags">
+{% for tag in page.tags %}
+<li>{{ tag }}</li>
+{% endfor %}
+</ul>
+
 <div class="footer">
   {% include license.html %}
 

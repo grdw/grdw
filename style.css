@@ -106,17 +106,17 @@ pre.highlight {
 .job .projects p:last-child {
   margin-bottom: 0;
 }
-ul.job-tags {
+ul.tags {
   margin: 0;
   padding: 0;
 }
-ul.job-tags li {
+ul.tags li {
   list-style-type: none;
   display: inline-block;
   color: #cc88cc;
   font-size: 65%;
 }
-ul.job-tags li:not(:last-child) {
+ul.tags li:not(:last-child) {
   padding-right: 5px;
   border-right: 1px solid;
 }
