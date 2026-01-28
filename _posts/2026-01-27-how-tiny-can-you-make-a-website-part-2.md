@@ -1,11 +1,11 @@
 ---
 layout: post
-title: "How small can you make a website?"
+title: "How much smaller can you make a website?"
 tags: [raspberry pi, linux, busybox, tiny core linux, rust]
 img: /img/5/1.jpg
 ---
 
-Code:
+Here is part two to ["How small can you make a website?"](/2025/10/08/how-tiny-can-you-make-a-website.html). That particular article ended on me simply using Busybox, and calling it a day. However, what I was naturally curious about is compiling the whole server as a single Rust binary, which is what I did next:
 
 ```rust
 use std::convert::Infallible;
@@ -102,6 +102,8 @@ linker = "arm-linux-gnueabihf-gcc"
 cargo build --release --target armv7-unknown-linux-gnueabihf
 ```
 
+This results in a ±1.5MB binary. When copying it over to my old dusty Raspberry Pi B+, and sieging the server for a minute with 1000 concurrent connections, this is what ended up being the result:
+
 ```
 Lifting the server siege...
 Transactions:                  90968 hits
@@ -118,4 +120,15 @@ Longest transaction:            5.91
 Shortest transaction:           0.01
 ```
 
-The longest transaction is 5.91s which is quite long but this is where we could get closer.
+When comparing that with the previous Busybox result:
+
+|                     | Armv7 Rust binary | Busybox   |
+| ------------------- | ----------------- | --------- |
+| Transactions        | 90968             | 46972     |
+| Availability        | 100.00%           | 99.99%    |
+| Data transferred    | 540.22MB          | 282.39 MB |
+| Response time       | 0.66 secs         | 0.94 secs |
+| Failed transactions | 0                 | 7         |
+| Longest transaction | 5.91              | 57.70     |
+
+The dedicated binary naturally blows Busybox out of the water.
