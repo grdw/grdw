@@ -135,4 +135,4 @@ The dedicated binary naturally blows Busybox out of the water, but what I wasn't
 
 - How to enable SSL on Tiny Core Linux
 - How to firewall
-- How to encoporate this into my Jekyll blog
+- How to incorporate this into my Jekyll blog
