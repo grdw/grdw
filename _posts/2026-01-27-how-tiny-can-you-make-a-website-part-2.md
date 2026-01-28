@@ -133,4 +133,5 @@ When comparing that with the previous Busybox result:
 
 The dedicated binary naturally blows Busybox out of the water, but what I wasn't expecting was for it to almost double the amount of transactions while barely breaking a sweat.
 
-- How to SSL
+- How to enable SSL on Tiny Core Linux
+- How to firewall
