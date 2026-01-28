@@ -131,4 +131,6 @@ When comparing that with the previous Busybox result:
 | Failed transactions | 0                 | 7         |
 | Longest transaction | 5.91              | 57.70     |
 
-The dedicated binary naturally blows Busybox out of the water.
+The dedicated binary naturally blows Busybox out of the water, but what I wasn't expecting was for it to almost double the amount of transactions while barely breaking a sweat.
+
+- How to SSL
