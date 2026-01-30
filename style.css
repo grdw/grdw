@@ -98,7 +98,6 @@ pre.highlight {
 }
 .job {
   margin-bottom: 25px;
-  border-bottom: 1px #c8c dashed
 }
 .job .projects {
   font-size: 85%;
@@ -109,6 +108,7 @@ pre.highlight {
 ul.tags {
   margin: 0;
   padding: 0;
+  border-bottom: 1px #c8c dashed
 }
 ul.tags li {
   list-style-type: none;

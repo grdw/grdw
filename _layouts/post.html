@@ -6,6 +6,13 @@ layout: default
   {{ page.title }}
 </h1>
 
+
+<ul class="tags">
+{% for tag in page.tags %}
+<li>{{ tag }}</li>
+{% endfor %}
+</ul>
+
 {% case page.problem_type %}
 {% when "euler" %}
   {% include euler.html %}
