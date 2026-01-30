@@ -27,7 +27,14 @@ h1,h2,h3,h4,h5 { margin: 5px 0 }
 }
 
 #graphic {
-  margin: 20px 0;
+  border-bottom: 1px #c8c dashed;
+  margin: 0 auto 15px;
+  width: 80%;
+}
+
+#graphic svg {
+  width: 300px;
+  height: 300px;
 }
 
 .pagination a {
@@ -229,5 +236,5 @@ ul.tags li:not(:last-child) {
     text-align: center;
     float: none;
   }
-  #graphic img { width: auto; }
+  #graphic svg { width: 200px; height: 220px; }
 }
