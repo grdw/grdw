@@ -26,6 +26,6 @@ connect:
 publish:
   rsync -av _site/ $SSH_USER@$SSH_HOST:/usr/share/nginx/html/
 
-# Just puts the new config to the user folder
+# Just puts the new config to the user folder (manual labour required on the other end)
 publish-nginx:
   scp nginx.conf $SSH_USER@$SSH_HOST:~
