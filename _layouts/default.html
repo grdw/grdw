@@ -18,6 +18,9 @@
     {% if page.excerpt %}
     <meta name="description" content="{{ page.excerpt | strip_html }}"/>
     <meta name="og:description" content="{{ page.excerpt | strip_html }}"/>
+    {% else %}
+    <meta name="description" content="Gerard'); DROP TABLE users;--"/>
+    <meta name="og:description" content="Gerard'); DROP TABLE users;--"/>
     {% endif %}
     {% if page.img %}
     <meta name="og:image" content="https://grdw.nl{{ page.img }}"/>
