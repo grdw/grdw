@@ -1,3 +1,7 @@
 paginate: 18
 paginate_path: '/posts/page:num/'
 future: true
+exclude:
+  - Dockerfile
+  - nginx.conf
+  - error.html
