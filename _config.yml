@@ -7,4 +7,3 @@ exclude:
   - Justfile
   - Dockerfile
   - nginx.conf
-  - error.html
