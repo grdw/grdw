@@ -5,7 +5,6 @@ exclude:
   - Gemfile
   - Gemfile.lock
   - README.md
-  - CNAME
   - .env.local
   - .env
   - Justfile
