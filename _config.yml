@@ -2,6 +2,9 @@ paginate: 18
 paginate_path: '/posts/page:num/'
 future: true
 exclude:
+  - Gemfile
+  - Gemfile.lock
+  - README.md
   - .env.local
   - .env
   - Justfile

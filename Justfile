@@ -22,10 +22,11 @@ run-docker:
 connect:
   ssh $SSH_USER@$SSH_HOST
 
-# Publishes the static website to the box
+# Builds the website one last time and publishes the static website to the box
 publish:
+  bundle exec jekyll build
   rsync -av _site/ $SSH_USER@$SSH_HOST:/usr/share/nginx/html/
 
-# Just puts the new config to the user folder
+# Just puts the new config to the user folder (manual labour required on the other end)
 publish-nginx:
   scp nginx.conf $SSH_USER@$SSH_HOST:~
